@@ -1,0 +1,13 @@
+.project
+.classpath
+target
+.settings
+*~
+.metadata
+Servers
+.buildpath
+test-output
+META-INF
+bin
+libs
+build
