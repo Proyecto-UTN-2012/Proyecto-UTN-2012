@@ -53,8 +53,8 @@
 	</profiles>
 	<properties>
 	</properties>
-	<modules>
+		<modules>
 		<module>server</module>
 		<module>integrar-t-android</module>
-  </modules>
+	</modules>
 </project>
