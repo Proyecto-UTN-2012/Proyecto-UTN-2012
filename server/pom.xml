@@ -14,45 +14,19 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<!-- versions -->
+		<resteasy.version>2.3.4.Final</resteasy.version>
+		<guice.version>3.0-rc3</guice.version>
 		<jstl.version>1.1.2</jstl.version>
-		<junit.version>4.8</junit.version>
+		<junit.version>4.9</junit.version>
 		<servlet.version>2.5</servlet.version>
 		<mockito.version>1.9.0-rc1</mockito.version>
 		<slf4j.version>1.6.1</slf4j.version>
-		<gson.version>1.7.1</gson.version>
+		<gson.version>2.2.1</gson.version>
+		<mongo.driver.version>2.8.0-RC1</mongo.driver.version>
 	</properties>
 
 	<dependencies>
 		<!-- Modules -->
-		<!-- Resteasy 
-		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-guice</artifactId>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-guice</artifactId>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-jackson-provider</artifactId>
-		</dependency>
-		-->
-		<!-- Servlet -->
-		<dependency>
-			<groupId>taglibs</groupId>
-			<artifactId>standard</artifactId>
-			<scope>runtime</scope>
-			<version>${jstl.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<scope>provided</scope>
-			<version>${servlet.version}</version>
-		</dependency>
 		<!-- Testing -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -66,25 +40,6 @@
 			<scope>test</scope>
 			<version>${mockito.version}</version>
 		</dependency>
-		<!-- Logging -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${slf4j.version}</version>
-		</dependency>
-		<!-- IoC 
-		<dependency>
-			<groupId>com.google.inject.extensions</groupId>
-			<artifactId>guice-servlet</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.google.inject</groupId>
-			<artifactId>guice</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>aopalliance</groupId>
-			<artifactId>aopalliance</artifactId>
-		</dependency> -->
 		<!-- Utils 
 		<dependency>
 			<groupId>com.google.guava</groupId>
@@ -113,12 +68,6 @@
 			<version>1.1.4</version>
 		</dependency>
 		-->
-		<!-- JS Engine 
-		<dependency>
-			<groupId>rhino</groupId>
-			<artifactId>js</artifactId>
-			<version>1.7R2</version>
-		</dependency>-->
 		<!-- Json -->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
@@ -131,11 +80,15 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
 	</dependencies>
 	
 	<modules>
 		<module>integrar-t-core</module>
-		<module>integrar-t-metric</module>
-		<module>integrar-t-settings</module>
+		<module>integrar-t-web</module>
 	</modules>
 </project>

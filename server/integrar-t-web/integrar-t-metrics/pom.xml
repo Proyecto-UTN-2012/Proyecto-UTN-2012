@@ -1,16 +1,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>integrar-t-core</artifactId>
-	<packaging>jar</packaging>
+	<artifactId>integrar-t-metrics</artifactId>
+	<packaging>war</packaging>
 	<parent>
 		<groupId>org.utn.proyecto.helpful.integrart</groupId>
-		<artifactId>integrar-t-server</artifactId>
+		<artifactId>integrar-t-web</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
 	<build>
-		<finalName>integrar-t-core</finalName>
+		<finalName>integrar-t-metrics</finalName>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -22,8 +22,16 @@
 				<directory>src/test/resources</directory>
 				<filtering>true</filtering>
 			</testResource>
-		</testResources>		
+		</testResources>
 		<plugins>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1.1</version>
+				<configuration>
+					<attachClasses>true</attachClasses>
+					<classesClassifier>classes</classesClassifier>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
@@ -43,6 +51,24 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>maven-jetty-plugin</artifactId>
+				<version>6.1.26</version>
+				<configuration>
+					<scanIntervalSeconds>10</scanIntervalSeconds>
+					<connectors>
+						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+							<port>${metrics.port}</port>
+							<maxIdleTime>60000</maxIdleTime>
+						</connector>
+					</connectors>
+					<webAppConfig>
+						<contextPath>${metrics.context}</contextPath>
+					</webAppConfig>
+				</configuration>
+			</plugin>
+
 		</plugins>
 		<pluginManagement>
 			<plugins>
@@ -77,12 +103,4 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-	<dependencies>
-	<!-- Database -->
-		<dependency>
-			<groupId>org.mongodb</groupId>
-			<artifactId>mongo-java-driver</artifactId>
-			<version>${mongo.driver.version}</version>
-		</dependency>
-	</dependencies>
 </project>

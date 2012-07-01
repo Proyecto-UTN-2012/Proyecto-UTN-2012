@@ -16,6 +16,14 @@
 				<artifactId>maven-changes-plugin</artifactId>
 				<version>2.1</version>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<encoding>utf-8</encoding>
+				</configuration>
+			</plugin>
 			<!-- Configuracion de javadoc. -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -38,16 +46,40 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
+				<settings.context>/integrar-t-settings</settings.context>
+				<metrics.context>/integrar-t-metrics</metrics.context>
+				
+				<settings.port>8080</settings.port>
+				<metrics.port>8081</metrics.port>
+				
+				<static.url>http://localhost:8080/integrar-t-settings/statics</static.url>
+				<static.path>${project.basedir}/src/main/webapp/statics</static.path>
 			</properties>
 		</profile>
 		<profile>
 			<id>qa</id>
 			<properties>
+				<settings.context>/integrar-t-settings</settings.context>
+				<metrics.context>/integrar-t-metrics</metrics.context>
+				
+				<settings.port>8080</settings.port>
+				<metrics.port>8080</metrics.port>
+				
+				<static.url>http://localhost:8080/integrar-t-static</static.url>
+				<static.path>/integrar-t</static.path>
 			</properties>
 		</profile>
 		<profile>
 			<id>prod</id>
 			<properties>
+				<settings.context>/integrar-t-settings</settings.context>
+				<metrics.context>/integrar-t-metrics</metrics.context>
+				
+				<settings.port>8080</settings.port>
+				<metrics.port>8080</metrics.port>			
+				
+				<static.url>http://localhost:8080/integrar-t-static</static.url>
+				<static.path>/integrar-t</static.path>
 			</properties>
 		</profile>
 	</profiles>
