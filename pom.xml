@@ -54,6 +54,9 @@
 				
 				<static.url>http://localhost:8080/integrar-t-settings/statics</static.url>
 				<static.path>${project.basedir}/src/main/webapp/statics</static.path>
+				
+				<db.host>localhost</db.host>
+				<db.port>27017</db.port>
 			</properties>
 		</profile>
 		<profile>
@@ -67,6 +70,9 @@
 				
 				<static.url>http://localhost:8080/integrar-t-static</static.url>
 				<static.path>/integrar-t</static.path>
+				
+				<db.host>localhost</db.host>
+				<db.port>27017</db.port>
 			</properties>
 		</profile>
 		<profile>
@@ -80,10 +86,14 @@
 				
 				<static.url>http://localhost:8080/integrar-t-static</static.url>
 				<static.path>/integrar-t</static.path>
+				
+				<db.host>localhost</db.host>
+				<db.port>27017</db.port>
 			</properties>
 		</profile>
 	</profiles>
 	<properties>
+		<db.name>integrar-t</db.name>
 	</properties>
 		<modules>
 		<module>server</module>

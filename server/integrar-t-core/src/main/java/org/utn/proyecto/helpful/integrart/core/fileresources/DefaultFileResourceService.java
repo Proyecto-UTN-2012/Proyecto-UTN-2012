@@ -9,5 +9,7 @@ public class DefaultFileResourceService implements FileResourceService {
 	public void uploadFile(FileUploadData fileUpload, String path, String name) {
 		persister.save(fileUpload.getData(), path, name);
 	}
-
+	public void uploadFile(FileUploadData fileUpload, String path) {
+		persister.save(fileUpload.getData(), path);
+	}
 }

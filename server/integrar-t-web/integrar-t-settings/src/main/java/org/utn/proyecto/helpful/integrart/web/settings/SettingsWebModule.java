@@ -6,9 +6,12 @@ import java.util.Properties;
 
 import org.utn.proyecto.helpful.integrart.core.fileresources.FileResourcePersister;
 import org.utn.proyecto.helpful.integrart.core.fileresources.FileResourceService;
-import org.utn.proyecto.helpful.integrart.web.settings.services.FileResourcePersisterProvider;
-import org.utn.proyecto.helpful.integrart.web.settings.services.FileResourceServiceProvider;
-import org.utn.proyecto.helpful.integrart.web.settings.services.TestFileUploadService;
+import org.utn.proyecto.helpful.integrart.core.percistence.PersisterService;
+import org.utn.proyecto.helpful.integrart.web.settings.providers.FileResourcePersisterProvider;
+import org.utn.proyecto.helpful.integrart.web.settings.providers.FileResourceServiceProvider;
+import org.utn.proyecto.helpful.integrart.web.settings.providers.MongoDBProvider;
+import org.utn.proyecto.helpful.integrart.web.settings.rest.FileUploadResource;
+import org.utn.proyecto.helpful.integrart.web.settings.rest.TestFileUploadResource;
 
 import com.google.inject.name.Names;
 import com.google.inject.servlet.ServletModule;
@@ -23,7 +26,9 @@ public class SettingsWebModule extends ServletModule {
 		install(new ServletModule());
 		this.bind(FileResourcePersister.class).toProvider(FileResourcePersisterProvider.class);
 		this.bind(FileResourceService.class).toProvider(FileResourceServiceProvider.class);
-		this.bind(TestFileUploadService.class);
+		this.bind(PersisterService.class).toProvider(MongoDBProvider.class);
+		this.bind(TestFileUploadResource.class);
+		this.bind(FileUploadResource.class);
 		//filter(SERVICE_ROOT).through(PerformanceFilter.class);
 	}
 	

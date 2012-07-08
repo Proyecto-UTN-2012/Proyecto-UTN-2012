@@ -1,7 +1,6 @@
 package org.utn.proyecto.helpful.integrart.core.fileresources;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -14,8 +13,7 @@ public class LocalDriveFileResourcePersister implements FileResourcePersister {
 		this.basePath = basePath;
 	}
 	
-	public void save(byte[] bytes, String path, String name) {
-		File file = new File(basePath + FILE_SEPARATOR + path + FILE_SEPARATOR + name);
+	private void save(byte[] bytes, File file){
 		if (!file.exists()) {
 			try {
 				file.createNewFile();
@@ -32,7 +30,16 @@ public class LocalDriveFileResourcePersister implements FileResourcePersister {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-		
+	}
+	
+	public void save(byte[] bytes, String path, String name) {
+		File file = new File(basePath + FILE_SEPARATOR + path + FILE_SEPARATOR + name);
+		save(bytes, file);
+	}
+
+	public void save(byte[] bytes, String path) {
+		File file = new File(basePath + FILE_SEPARATOR + path);
+		save(bytes, file);
 	}
 
 }

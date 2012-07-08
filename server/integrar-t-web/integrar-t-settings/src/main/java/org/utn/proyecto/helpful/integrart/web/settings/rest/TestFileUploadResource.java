@@ -1,4 +1,4 @@
-package org.utn.proyecto.helpful.integrart.web.settings.services;
+package org.utn.proyecto.helpful.integrart.web.settings.rest;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -8,15 +8,16 @@ import javax.ws.rs.core.Response;
 
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 import org.utn.proyecto.helpful.integrart.core.fileresources.FileResourceService;
+import org.utn.proyecto.helpful.integrart.web.settings.services.FileUploadForm;
 
 import com.google.inject.Inject;
 
 @Path("/fileUpload")
-public class TestFileUploadService {
+public class TestFileUploadResource {
 	private final FileResourceService service;
 	
 	@Inject
-	public TestFileUploadService(FileResourceService service){
+	public TestFileUploadResource(FileResourceService service){
 		this.service = service;
 	}
 	

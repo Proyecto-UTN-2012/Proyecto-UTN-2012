@@ -1,4 +1,4 @@
-package org.utn.proyecto.helpful.integrart.web.settings.services;
+package org.utn.proyecto.helpful.integrart.web.settings.providers;
 
 import org.utn.proyecto.helpful.integrart.core.fileresources.DefaultFileResourceService;
 import org.utn.proyecto.helpful.integrart.core.fileresources.FileResourcePersister;
