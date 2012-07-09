@@ -7,17 +7,13 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
-import org.utn.proyecto.helpful.integrart.core.fileresources.FileResourceService;
 import org.utn.proyecto.helpful.integrart.web.settings.services.FileUploadForm;
+import org.utn.proyecto.helpful.integrart.web.settings.services.UpdateResourcesService;
 
-import com.google.inject.Inject;
-
-@Path("/imageUpload")
-public class FileUploadResource {
-	private final FileResourceService service;
+public abstract class FileUploadResource {
+	private final UpdateResourcesService service;
 	
-	@Inject
-	public FileUploadResource(FileResourceService service){
+	public FileUploadResource(UpdateResourcesService service){
 		this.service = service;
 	}
 	
@@ -27,7 +23,7 @@ public class FileUploadResource {
 	public Response uploadTestFile(@MultipartForm FileUploadForm form, 
 			@PathParam("userId") String userId, @PathParam("activity") String activity,
 			@PathParam("section") String section){
-		//service.uploadFile(form, path, name);
+		service.addResource(form, userId, activity, section);
 		return Response.ok().build();
 	}
 }

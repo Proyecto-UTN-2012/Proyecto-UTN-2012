@@ -48,12 +48,6 @@
 			<artifactId>resteasy-guice</artifactId>
 			<version>${resteasy.version}</version>
 			<scope>compile</scope>
-			<exclusions>
-					<exclusion>
-						<artifactId>guice</artifactId>
-						<groupId>com.google.code.guice</groupId>
-					</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>

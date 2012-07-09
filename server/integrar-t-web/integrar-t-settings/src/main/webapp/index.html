@@ -6,15 +6,42 @@
 <title>Integrar-T Settings</title>
 
 </head>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript">
+function setUserId(){
+	var userId = $('#userId').val();
+	var form = $("#form");
+	form.prop('action','rest/imageUpload/' + userId + '/testActivity/test');
+}
+function getResources(){
+	var userId = $('#userId').val();
+	var device = $('#device').val();
+	$.ajax({
+		type : 'GET',
+		url : 'rest/updateRequest/'+userId+'/'+device+'/testActivity',
+		success : function(activities){
+			var div = $('#activities');
+			for(var i=0;i<activities.length;i++){
+				div.append('<p>http://localhost:8080/integrar-t-settings/statics/' + activities[i].path + '</p>');
+			}
+		}
+	});
+}
+</script>
 <body>
 	<h1>Hola Integrar-T Settings</h1>
-	<form action="rest/imageUpload/pasutmarcelo/testActivity/test" method="post" enctype="multipart/form-data">
+	<input id="userId" placeholder="Poner acá el UserId" type="text"/>
+	<input id="device" placeholder="Poner acá el device" type="text"/>
+	<form id="form" action="rest/imageUpload/pasutmarcelo/testActivity/test" method="post" enctype="multipart/form-data">
  
 	   <p>
 		Seleccione una imagen para subir: <input type="file" name="uploadedFile" size="50" />
 	   </p>
  
-	   <input type="submit" value="Upload It" />
+	   <input type="submit" value="Upload It" onclick="setUserId()" />
 	</form>
+	<input type="button" onclick="getResources()" value="Consumir Recursos"/>
+	<div id="activities">
+	</div>
 </body>
 </html>

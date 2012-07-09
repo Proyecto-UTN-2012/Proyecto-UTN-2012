@@ -66,5 +66,13 @@ public class MongoPersisterService implements PersisterService {
 		if(annotation==null) throw new PersistenceException(clazz);
 		return annotation.value();
 	}
+	public <T> long count(Class<T> clazz) {
+		DBCollection collection = db.getCollection(getCollectionName(clazz));
+		return collection.count();
+	}
+	public <T> long count(T example, String[] properties) {
+		DBCollection collection = db.getCollection(getCollectionName(example.getClass()));
+		return collection.count(factory.createExample(example,properties));
+	}
 
 }

@@ -10,12 +10,12 @@ import org.utn.proyecto.helpful.integrart.core.percistence.Entity;
 public class ActivityResource {
 	@JsonProperty("_id")
 	private String id;
-	private String userId;
-	private Collection<String> devices;
-	private String activityName;
-	private String activitySection;
-	private String resourceName;
-	private ResourceType resourceType;
+	private final String userId;
+	private final Collection<String> devices;
+	private final String activityName;
+	private final String activitySection;
+	private final String resourceName;
+	private final ResourceType resourceType;
 	
 	public ActivityResource(String userId, String activityName, String activitySection, String resourceName, ResourceType resourceType){
 		this.userId = userId;
@@ -36,11 +36,15 @@ public class ActivityResource {
 	
 	public String getPath(){
 		String section = activitySection == null ? "/" : "/" + activitySection + "/"; 
-		return activityName + section + resourceName;
+		return userId + "/" + activityName + section + resourceName;
 	}
 
 	public boolean consumedByDeviceName(String deviceName){
 		return devices.contains(deviceName);
+	}
+	
+	public void addDevice(String deviceName){
+		this.devices.add(deviceName);
 	}
 	
 	@Override
@@ -64,5 +68,29 @@ public class ActivityResource {
 	public int hashCode(){
 		return userId.hashCode() + activityName.hashCode() + 
 				+ resourceName.hashCode() + resourceType.hashCode() + devices.hashCode();
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public Collection<String> getDevices() {
+		return devices;
+	}
+
+	public String getActivityName() {
+		return activityName;
+	}
+
+	public String getActivitySection() {
+		return activitySection;
+	}
+
+	public String getResourceName() {
+		return resourceName;
+	}
+
+	public ResourceType getResourceType() {
+		return resourceType;
 	}
 }
