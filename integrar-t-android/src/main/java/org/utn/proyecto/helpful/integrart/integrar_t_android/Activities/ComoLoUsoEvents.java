@@ -1,4 +1,4 @@
-package org.utn.proyecto.helpful.integrar_t_android.Activities;
+package org.utn.proyecto.helpful.integrart.integrar_t_android.activities;
 
 public class ComoLoUsoEvents {
 
