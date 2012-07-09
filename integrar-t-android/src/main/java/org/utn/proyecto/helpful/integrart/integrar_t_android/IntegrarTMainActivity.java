@@ -16,6 +16,5 @@ public class IntegrarTMainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainmenu);
     }
-
 }
 
