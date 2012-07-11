@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.ActivityResource;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.ComunicationService.ExternalResourceType;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.services.ComunicationService.OnArriveResource;
 
 import roboguice.inject.ContextSingleton;
 import android.content.Context;
@@ -16,7 +17,7 @@ import com.google.gson.reflect.TypeToken;
 import com.google.inject.Inject;
 
 @ContextSingleton
-public class UpdateService {
+public class UpdateService{
 	private final static String RESOURCE_NAME = "updateRequest";
 	private final ComunicationService comunicationService;
 	
@@ -32,18 +33,21 @@ public class UpdateService {
 		this.context = context;
 	}
 	
-	//TODO hay que poner un callback
-	public void findUpdates(String activityName, OnArriveNewResources handler){
-		try {
-			String json = comunicationService.findResource(ExternalResourceType.SETTINGS, RESOURCE_NAME,
-					new String[]{"pasutmarcelo", getDeviceId(), activityName}).get();
-			Log.i("UpdateService", json);
-			List<ActivityResource> list = getActivitiesFromJson(json);
-			Log.i("UpdateService", list.toString());
-			handler.onArriveNewResources(list);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+	public void findUpdates(String activityName, final OnArriveNewResources handler){
+		comunicationService.findResource(ExternalResourceType.SETTINGS, RESOURCE_NAME,
+				new String[]{"pasutmarcelo", getDeviceId(), activityName}, new OnArriveResource() {
+					@Override
+					public void onArrive(String json) {
+						try {
+							Log.i("UpdateService", json);
+							List<ActivityResource> list = getActivitiesFromJson(json);
+							Log.i("UpdateService", list.toString());
+							handler.onArriveNewResources(list);
+						} catch (Exception e) {
+							throw new RuntimeException(e);
+						}	
+					}
+				});
 	}
 	
 	private List<ActivityResource> getActivitiesFromJson(String json){

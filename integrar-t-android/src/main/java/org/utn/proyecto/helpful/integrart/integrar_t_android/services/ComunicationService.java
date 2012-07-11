@@ -5,9 +5,12 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Callable;
-import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
@@ -57,13 +60,13 @@ public class ComunicationService {
 		}
 	}
 	
-	public Future<String> findResource(ExternalResourceType type, String resource){
-		return findResource(type, resource, new String[0]);
+	public void findResource(ExternalResourceType type, String resource, OnArriveResource handler){
+		findResource(type, resource, new String[0], handler);
 	}
 	
-	public Future<String> findResource(ExternalResourceType type, String resource, String[] attributes){
+	public void findResource(ExternalResourceType type, String resource, String[] attributes, OnArriveResource handler){
 		String url = buildUrl(type, resource, attributes);
-		return findResourceByUrl(url);
+		findResourceByUrl(url, handler);
 	}
 	
 	public InputStream findStream(ExternalResourceType type, String resource){
@@ -85,9 +88,10 @@ public class ComunicationService {
 		}
 	}
 	
-	public Future<String> findResourceByUrl(final String url){
+	public Future<String> findResourceByUrl(final String url, OnArriveResource handler){
 		try{		
-			return Executors.newSingleThreadExecutor().submit(new Callable<String>() {
+			ExecutorService executor = new ComunicationThreadPoolExecutor(handler);
+			return executor.submit(new Callable<String>() {
 				@Override
 				public String call() throws Exception {
 					AndroidHttpClient client = AndroidHttpClient.newInstance("Integrar-T");
@@ -181,6 +185,30 @@ public class ComunicationService {
 	
 	public interface OnArriveResource{
 		public void onArrive(String resource);
+	}
+	
+	private class ComunicationThreadPoolExecutor extends ThreadPoolExecutor{
+		private final OnArriveResource handler;
+		private Future<String> future;
+		public ComunicationThreadPoolExecutor(OnArriveResource handler){
+			super(2,2,10, TimeUnit.SECONDS,new ArrayBlockingQueue<Runnable>(5));
+			this.handler = handler;
+		}
+		@Override
+		protected void afterExecute(Runnable r, Throwable t){
+			try {
+				handler.onArrive(future.get());
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
+		
+		@SuppressWarnings({ "hiding", "unchecked" })
+		@Override
+		public <String> Future<String> submit(Callable<String> task){
+			future = (Future<java.lang.String>) super.submit(task);
+			return (Future<String>) future;
+		}
 	}
 }
 
