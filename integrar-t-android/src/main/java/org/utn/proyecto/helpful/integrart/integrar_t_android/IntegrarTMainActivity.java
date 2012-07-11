@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.ActivityResource;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.ComunicationService;
-import org.utn.proyecto.helpful.integrart.integrar_t_android.services.UpdateService;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.ComunicationService.ExternalResourceType;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.services.UpdateService;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.UpdateService.OnArriveNewResources;
 
 import roboguice.activity.RoboActivity;
@@ -15,7 +15,6 @@ import roboguice.inject.InjectResource;
 import roboguice.inject.InjectView;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-<<<<<<< HEAD
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,7 +22,7 @@ import android.widget.TextView;
 import com.google.inject.Inject;
 
 @ContentView(R.layout.main)
-public class HelloAndroidActivity extends RoboActivity implements OnArriveNewResources{
+public class IntegrarTMainActivity extends RoboActivity implements OnArriveNewResources{
 	@InjectView(R.id.title)			private TextView title;
 	@InjectResource(R.string.hello)	private String titleText;
 	@InjectView(R.id.imageView1)	private ImageView image;
@@ -35,10 +34,6 @@ public class HelloAndroidActivity extends RoboActivity implements OnArriveNewRes
 	private ComunicationService comunicationService;
 
 	private static String TAG = "integrar-t-android";
-=======
-
-public class IntegrarTMainActivity extends Activity {
->>>>>>> 73093b68ab61c7cde09f1dc9fb35a37833e2e49c
 
     /**
      * Called when the activity is first created.
@@ -48,7 +43,6 @@ public class IntegrarTMainActivity extends Activity {
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-<<<<<<< HEAD
     	super.onCreate(savedInstanceState);
 		Log.i(TAG, "onCreate");
         title.setText(titleText);
@@ -62,11 +56,5 @@ public class IntegrarTMainActivity extends Activity {
 		Drawable d = Drawable.createFromStream(is, "src");
 		image.setImageDrawable(d);
 	}
-
-=======
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.mainmenu);
-    }
->>>>>>> 73093b68ab61c7cde09f1dc9fb35a37833e2e49c
 }
 
