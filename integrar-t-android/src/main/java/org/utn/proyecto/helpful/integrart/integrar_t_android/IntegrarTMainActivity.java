@@ -6,6 +6,7 @@ import java.util.List;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.ActivityResource;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.ComunicationService;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.ComunicationService.ExternalResourceType;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.services.ComunicationService.OnLineMode;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.UpdateService;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.UpdateService.OnArriveNewResources;
 
@@ -18,6 +19,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.inject.Inject;
 
@@ -46,7 +48,10 @@ public class IntegrarTMainActivity extends RoboActivity implements OnArriveNewRe
     	super.onCreate(savedInstanceState);
 		Log.i(TAG, "onCreate");
         title.setText(titleText);
-        updateService.findUpdates("testActivity", this);
+        OnLineMode mode = comunicationService.evaluateComunication();
+        Toast.makeText(this, "OnLine mode: " + mode.name(), Toast.LENGTH_LONG).show();
+        if(mode==OnLineMode.ON)
+        	updateService.findUpdates("testActivity", this);
     }
 
 	@Override

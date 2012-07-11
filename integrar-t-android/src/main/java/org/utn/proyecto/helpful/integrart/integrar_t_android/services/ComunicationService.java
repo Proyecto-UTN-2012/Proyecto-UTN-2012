@@ -2,6 +2,7 @@ package org.utn.proyecto.helpful.integrart.integrar_t_android.services;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -42,6 +43,18 @@ public class ComunicationService {
 
 	public String getMetricsUrl() {
 		return metricsUrl;
+	}
+	
+	public OnLineMode evaluateComunication(){
+		try {
+			URLConnection conn = new URL(settingsUrl).openConnection();
+			conn.setConnectTimeout(500);
+			conn.connect();
+			return OnLineMode.ON;
+		} catch (Exception e) {
+			setOnLineMode(OnLineMode.OFF);
+			return mode;
+		}
 	}
 	
 	public Future<String> findResource(ExternalResourceType type, String resource){
