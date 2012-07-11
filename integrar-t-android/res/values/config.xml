@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="settingsUrl">${integrar-t.settings.url}</string>
+    <string name="metricsUrl">${integrar-t.metrics.url}</string>
+    <string name="staticsUrl">${integrar-t.static.url}</string>
+</resources>

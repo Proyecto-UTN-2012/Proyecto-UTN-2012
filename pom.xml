@@ -52,7 +52,6 @@
 				<settings.port>8080</settings.port>
 				<metrics.port>8081</metrics.port>
 				
-				<static.url>http://localhost:8080/integrar-t-settings/statics</static.url>
 				<static.path>${project.basedir}/src/main/webapp/statics</static.path>
 				
 				<db.host>localhost</db.host>
@@ -68,11 +67,14 @@
 				<settings.port>8080</settings.port>
 				<metrics.port>8080</metrics.port>
 				
-				<static.url>http://localhost:8080/integrar-t-static</static.url>
 				<static.path>/integrar-t</static.path>
 				
 				<db.host>localhost</db.host>
 				<db.port>27017</db.port>
+				
+				<integrar-t.settings.url>http://192.168.1.101:8080/integrar-t-settings</integrar-t.settings.url>
+				<integrar-t.metrics.url>http://192.168.1.101:8080/integrar-t-metrics</integrar-t.metrics.url>
+				<integrar-t.static.url>http://192.168.1.101:8080/integrar-t-static</integrar-t.static.url>
 			</properties>
 		</profile>
 		<profile>
@@ -84,11 +86,14 @@
 				<settings.port>8080</settings.port>
 				<metrics.port>8080</metrics.port>			
 				
-				<static.url>http://localhost:8080/integrar-t-static</static.url>
 				<static.path>/integrar-t</static.path>
 				
 				<db.host>localhost</db.host>
 				<db.port>27017</db.port>
+				
+				<integrar-t.settings.url>http://192.168.1.101:8080/integrar-t-settings</integrar-t.settings.url>
+				<integrar-t.metrics.url>http://192.168.1.101:8080/integrar-t-metrics</integrar-t.metrics.url>
+				<integrar-t.static.url>http://192.168.1.101:8080/integrar-t-static</integrar-t.static.url>
 			</properties>
 		</profile>
 	</profiles>

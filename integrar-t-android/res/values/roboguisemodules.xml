@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string-array name="roboguice_modules">
+        <item>org.utn.proyecto.helpful.integrart.integrar_t_android.IntegrarTModule</item>
+	</string-array>
+</resources>
