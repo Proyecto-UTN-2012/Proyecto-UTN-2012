@@ -15,6 +15,7 @@ import roboguice.inject.InjectResource;
 import roboguice.inject.InjectView;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+<<<<<<< HEAD
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,6 +35,10 @@ public class HelloAndroidActivity extends RoboActivity implements OnArriveNewRes
 	private ComunicationService comunicationService;
 
 	private static String TAG = "integrar-t-android";
+=======
+
+public class IntegrarTMainActivity extends Activity {
+>>>>>>> 73093b68ab61c7cde09f1dc9fb35a37833e2e49c
 
     /**
      * Called when the activity is first created.
@@ -43,6 +48,7 @@ public class HelloAndroidActivity extends RoboActivity implements OnArriveNewRes
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+<<<<<<< HEAD
     	super.onCreate(savedInstanceState);
 		Log.i(TAG, "onCreate");
         title.setText(titleText);
@@ -57,5 +63,10 @@ public class HelloAndroidActivity extends RoboActivity implements OnArriveNewRes
 		image.setImageDrawable(d);
 	}
 
+=======
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.mainmenu);
+    }
+>>>>>>> 73093b68ab61c7cde09f1dc9fb35a37833e2e49c
 }
 
