@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="init">Comenzar</string>
+    <string name="menu">Menu</string>
+    <string name="normal">NORMAL</string>
+    <string name="large">LARGE</string>
+    <string name="googleLogin">Google</string>
+    <string name="otherLogin">Otra Cuenta</string>
+    <string name="customLogin">Nuevo</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+</resources>

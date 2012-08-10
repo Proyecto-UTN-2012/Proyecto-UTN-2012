@@ -16,13 +16,13 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 
-import roboguice.inject.ContextSingleton;
 import roboguice.inject.InjectResource;
 import android.net.http.AndroidHttpClient;
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
-@ContextSingleton
+@Singleton
 public class ComunicationService {
 	@InjectResource(R.string.staticsUrl)	private String staticUrl;
 	@InjectResource(R.string.settingsUrl)	private String settingsUrl;
@@ -58,6 +58,18 @@ public class ComunicationService {
 			setOnLineMode(OnLineMode.OFF);
 			return mode;
 		}
+	}
+	
+	public void sendMessage(ExternalResourceType type, String resource){
+		sendMessage(type, resource, new String[0]);
+	}
+	
+	public void sendMessage(ExternalResourceType type, String resource, String[] attributes){
+		findResource(type, resource, new OnArriveResource(){
+			@Override
+			public void onArrive(java.lang.String resource) {}
+			
+		});
 	}
 	
 	public void findResource(ExternalResourceType type, String resource, OnArriveResource handler){

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello integrar-t-android!</string>
-    <string name="app_name">integrar-t-android</string>
+    <string name="app_name">Integrar-T</string>
+    <string name="mustRegisterUser">Debes registrate como usuario, si no lo haces no puedes acceder a Integrar-T.\n Quieres Registrarte?</string>
 </resources>
