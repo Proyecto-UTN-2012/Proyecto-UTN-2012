@@ -1,10 +1,16 @@
-package org.utn.proyecto.helpful.integrart.integrar_t_android.domain;
+package org.utn.proyecto.helpful.integrart.web.settings.domain;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.utn.proyecto.helpful.integrart.core.percistence.Entity;
+
+@Entity("users")
 public class User {
+	@JsonProperty("_id")
+	private String id;
 	private String userName;
 	private String email;
 	private String accountType;
-	private String token;
+	transient private String token;
 	private String device;
 	
 	public User(){}
@@ -38,12 +44,14 @@ public class User {
 	public boolean equals(Object o){
 		if(!(o instanceof User)) return false;
 		User u = (User)o;
-		return this.userName.equals((u).getUserName()) && this.accountType.equals(u.getAccountType());
+		return this.userName.equals((u).getUserName()) 
+				&& this.accountType.equals(u.getAccountType())
+				&& this.device.equals(u.device);
 	}
 	
 	@Override
 	public int hashCode(){
-		return this.userName.hashCode() * this.accountType.hashCode() - 1;
+		return this.userName.hashCode() * this.accountType.hashCode() * this.device.hashCode() - 1;
 	}
 	
 	@Override
@@ -53,6 +61,22 @@ public class User {
 
 	public String getEmail() {
 		return email;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setAccountType(String accountType) {
+		this.accountType = accountType;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 	public String getDevice() {

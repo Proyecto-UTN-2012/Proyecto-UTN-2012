@@ -5,10 +5,6 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.ComunicationService;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
 
-import com.google.inject.Inject;
-
-import roboguice.inject.ContextSingleton;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
@@ -21,12 +17,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-@ContextSingleton
 public class GoogleLoginStrategy extends LoginStrategy {
 	private static final String GOOGLE_ACCOUNT_TYPE = "com.google";
 	private static final String AUTH_TOKEN_TYPE = "oauth2:https://www.googleapis.com/auth/tasks.readonly";
 
-	@Inject
 	public GoogleLoginStrategy(Context context, ComunicationService comService,
 			DataStorageService dbService, EventBus bus) {
 		super(context, comService, dbService, bus);
@@ -34,23 +28,27 @@ public class GoogleLoginStrategy extends LoginStrategy {
 
 	@Override
 	public void login() {
+		//throw new NotAccountException("This device not has account yet");
 		AccountManager accountManager = AccountManager.get(context);
 		Account[] accounts = accountManager.getAccountsByType(GOOGLE_ACCOUNT_TYPE);
+		if(accounts.length < 1) throw new NotAccountException("This device not has account yet");
 		final String userName = accounts[0].name;
 		final String accountType = accounts[0].type;
 		Bundle options = new Bundle();
 		if(comService.isOffLine()){
-			setUser(new User(userName, userName, accountType));
+			setCurrentUser(new User(userName, userName, accountType));
 			return;
 		}
 		accountManager.getAuthToken(accounts[0], AUTH_TOKEN_TYPE, options, (Activity)context, 
 				new AccountManagerCallback<Bundle>() {
 					@Override
-					public void run(AccountManagerFuture<Bundle> result) {
+					public void run(AccountManagerFuture<Bundle> future) {
 						String token = "";
 						try {
-							token = result.getResult().getString(AccountManager.KEY_AUTHTOKEN);
-							setUser(new User(userName, userName, accountType, token));
+							Bundle result = future.getResult();
+							token = result.getString(AccountManager.KEY_AUTHTOKEN);
+							
+							setCurrentUser(new User(userName, userName, accountType, token));
 						} catch (OperationCanceledException e) {
 							android.os.Process.killProcess(android.os.Process.myPid());
 						} catch (Exception e) {
@@ -68,9 +66,4 @@ public class GoogleLoginStrategy extends LoginStrategy {
 					}
 				}));
 	}
-	
-	private void setUser(User user){
-		bus.dispatch(new SetUserEvent(context, user));
-	}
-
 }

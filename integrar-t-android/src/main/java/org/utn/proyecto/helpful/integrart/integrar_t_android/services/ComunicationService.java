@@ -8,11 +8,14 @@ import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 
@@ -49,27 +52,56 @@ public class ComunicationService {
 	}
 	
 	public OnLineMode evaluateComunication(){
-		try {
-			URLConnection conn = new URL(settingsUrl).openConnection();
-			conn.setConnectTimeout(500);
-			conn.connect();
-			return OnLineMode.ON;
-		} catch (Exception e) {
-			setOnLineMode(OnLineMode.OFF);
-			return mode;
-		}
+			try {
+				return Executors.newSingleThreadExecutor().submit(new Callable<OnLineMode>() {
+					@Override
+					public OnLineMode call() throws Exception {
+						try {
+							URLConnection conn = new URL(settingsUrl).openConnection();
+							conn.setConnectTimeout(500);
+							conn.connect();
+							return OnLineMode.ON;
+						} catch (Exception e) {
+							setOnLineMode(OnLineMode.OFF);
+							return mode;
+						}
+					}
+				}).get();
+			} catch (Exception e) {
+				return OnLineMode.OFF;
+			}
 	}
 	
 	public void sendMessage(ExternalResourceType type, String resource){
 		sendMessage(type, resource, new String[0]);
 	}
 	
+	public void sendMessage(ExternalResourceType type, String resource, final String json){
+		if(mode == OnLineMode.OFF) return;
+		final String url = buildUrl(type, resource, new String[0]);
+		try{		
+			ExecutorService executor = new ComunicationThreadPoolExecutor();
+			executor.submit(new Callable<String>() {
+				@Override
+				public String call() throws Exception {
+					AndroidHttpClient client = AndroidHttpClient.newInstance("Integrar-T");
+					HttpPost post = new HttpPost(url);
+					StringEntity entity = new StringEntity(json);
+					post.setEntity(entity);
+					post.setHeader("Accept", "application/json");
+					post.setHeader("Content-type", "application/json");
+					return client.execute(post, new BasicResponseHandler());
+				}
+			});
+		}catch(Exception e){
+			setOnLineMode(OnLineMode.OFF);
+			throw new ComunicationException(e);
+		}
+	}
+	
 	public void sendMessage(ExternalResourceType type, String resource, String[] attributes){
-		findResource(type, resource, new OnArriveResource(){
-			@Override
-			public void onArrive(java.lang.String resource) {}
-			
-		});
+		if(mode == OnLineMode.OFF) return;
+		findResource(type, resource, null);
 	}
 	
 	public void findResource(ExternalResourceType type, String resource, OnArriveResource handler){
@@ -202,12 +234,17 @@ public class ComunicationService {
 	private class ComunicationThreadPoolExecutor extends ThreadPoolExecutor{
 		private final OnArriveResource handler;
 		private Future<String> future;
+		
+		public ComunicationThreadPoolExecutor(){
+			this(null);
+		}
 		public ComunicationThreadPoolExecutor(OnArriveResource handler){
 			super(2,2,10, TimeUnit.SECONDS,new ArrayBlockingQueue<Runnable>(5));
 			this.handler = handler;
 		}
 		@Override
 		protected void afterExecute(Runnable r, Throwable t){
+			if(handler == null) return;
 			try {
 				handler.onArrive(future.get());
 			} catch (Exception e) {

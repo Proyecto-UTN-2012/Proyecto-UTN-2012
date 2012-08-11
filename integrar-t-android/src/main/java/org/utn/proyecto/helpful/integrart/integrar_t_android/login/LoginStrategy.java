@@ -1,5 +1,6 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.login;
 
+import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.ComunicationService;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
@@ -19,4 +20,8 @@ public abstract class LoginStrategy {
 		this.bus = bus;
 	}
 	public abstract void login();
+	
+	protected void setCurrentUser(User user){
+		bus.dispatch(new SetUserEvent(context, user));
+	}
 }

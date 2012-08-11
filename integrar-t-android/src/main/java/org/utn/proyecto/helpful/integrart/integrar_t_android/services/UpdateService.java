@@ -7,7 +7,11 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.ActivityReso
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.ComunicationService.ExternalResourceType;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.ComunicationService.OnArriveResource;
 
+import roboguice.inject.ContextSingleton;
+
 import android.content.Context;
+import android.provider.Settings;
+import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
@@ -16,7 +20,7 @@ import com.google.gson.reflect.TypeToken;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
-@Singleton
+@ContextSingleton
 public class UpdateService{
 	private final static String RESOURCE_NAME = "updateRequest";
 	private final ComunicationService comunicationService;
@@ -57,7 +61,8 @@ public class UpdateService{
 	}
 	
 	private String getDeviceId(){
-		if(deviceId==null) deviceId = ((TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
+		if(deviceId==null) deviceId = Secure.getString(context.getContentResolver(), Secure.ANDROID_ID);
+		//if(deviceId==null) deviceId = ((TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
 		return deviceId;
 	}
 	

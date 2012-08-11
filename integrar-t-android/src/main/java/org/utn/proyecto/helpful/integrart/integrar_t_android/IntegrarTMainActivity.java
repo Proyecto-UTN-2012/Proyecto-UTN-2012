@@ -46,8 +46,11 @@ public class IntegrarTMainActivity extends RoboActivity implements OnArriveNewRe
 	@InjectView(R.id.mainInitButton)
 	private Button mainButton;
 	
-	@InjectResource(R.string.mustRegisterUser)
-	private String mustRegisterMessage;
+	@InjectResource(R.string.registerUserMessage)
+	private String registerMessage;
+
+	@InjectResource(R.string.registerUserTitle)
+	private String registerTitle;
 
 	private static String TAG = "integrar-t-android";
 
@@ -121,7 +124,8 @@ public class IntegrarTMainActivity extends RoboActivity implements OnArriveNewRe
 			DialogInterface.OnClickListener okHandler, 
 			DialogInterface.OnClickListener cancelHandler){
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setMessage(mustRegisterMessage)
+		builder.setMessage(registerMessage)
+			.setTitle(registerTitle)
 			.setCancelable(false)
 			.setPositiveButton(R.string.yes, okHandler)
 			.setNegativeButton(R.string.no, cancelHandler);

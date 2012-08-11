@@ -11,8 +11,8 @@ import org.utn.proyecto.helpful.integrart.web.settings.providers.FileResourcePer
 import org.utn.proyecto.helpful.integrart.web.settings.providers.FileResourceServiceProvider;
 import org.utn.proyecto.helpful.integrart.web.settings.providers.MongoDBProvider;
 import org.utn.proyecto.helpful.integrart.web.settings.providers.UpdateImageResourceServiceProvider;
-import org.utn.proyecto.helpful.integrart.web.settings.rest.FileUploadResource;
 import org.utn.proyecto.helpful.integrart.web.settings.rest.ImageFileUploadResource;
+import org.utn.proyecto.helpful.integrart.web.settings.rest.SignInResource;
 import org.utn.proyecto.helpful.integrart.web.settings.rest.TestFileUploadResource;
 import org.utn.proyecto.helpful.integrart.web.settings.rest.UpdateRequestResource;
 import org.utn.proyecto.helpful.integrart.web.settings.services.UpdateResourcesService;
@@ -44,6 +44,7 @@ public class SettingsWebModule extends ServletModule {
 		this.bind(ImageFileUploadResource.class);
 		this.bind(UpdateRequestResource.class);
 		this.bind(TestFileUploadResource.class);
+		this.bind(SignInResource.class);
 		//this.bind(FileUploadResource.class);
 		//filter(SERVICE_ROOT).through(PerformanceFilter.class);
 	}

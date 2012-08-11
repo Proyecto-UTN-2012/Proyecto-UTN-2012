@@ -27,6 +27,22 @@ function getResources(){
 		}
 	});
 }
+function sendSignIn(){
+	var user = new Object();
+	user.userName = "pasutmarcelo@gmail.com";
+	user.email = "pasutmarcelo@gmail.com";
+	user.accountType = "google";
+	user.token = "";
+	alert(JSON.stringify(user));
+	$.ajax({
+		type : 'POST',
+		url : 'rest/signIn',
+		data : JSON.stringify(user) ,
+		contentType : 'application/json',
+		success : function() {
+		}
+	});
+}
 </script>
 <body>
 	<h1>Hola Integrar-T Settings</h1>
@@ -43,5 +59,6 @@ function getResources(){
 	<input type="button" onclick="getResources()" value="Consumir Recursos"/>
 	<div id="activities">
 	</div>
+	<input type="button" onclick="sendSignIn()" value="Mandar login"/>
 </body>
 </html>
