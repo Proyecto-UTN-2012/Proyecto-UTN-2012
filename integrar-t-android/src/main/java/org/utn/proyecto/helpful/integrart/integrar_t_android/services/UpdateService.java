@@ -38,6 +38,7 @@ public class UpdateService{
 	}
 	
 	public void findUpdates(String activityName, final OnArriveNewResources handler){
+		//TODO Sacar el usuario estaticamente parametrizado
 		comunicationService.findResource(ExternalResourceType.SETTINGS, RESOURCE_NAME,
 				new String[]{"pasutmarcelo", getDeviceId(), activityName}, new OnArriveResource() {
 					@Override

@@ -46,6 +46,7 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
+				<android.sdk.platform>11</android.sdk.platform>
 				<settings.context>/integrar-t-settings</settings.context>
 				<metrics.context>/integrar-t-metrics</metrics.context>
 				
