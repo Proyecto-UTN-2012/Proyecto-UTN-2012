@@ -3,15 +3,17 @@
 <head>
 <meta charset="ISO-8859-1">
 
+<link href="styles/main.css" type="text/css" rel="stylesheet">
+
 <title>Integrar-T Settings</title>
 
 </head>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript">
-function setUserId(){
+function setParams(resourceType, form){
 	var userId = $('#userId').val();
-	var form = $("#form");
-	form.prop('action','rest/imageUpload/' + userId + '/testActivity/test');
+	var form = $("#" + form);
+	form.prop('action','rest/' + resourceType + '/' + userId + '/testActivity/test');
 }
 function getResources(){
 	var userId = $('#userId').val();
@@ -46,16 +48,30 @@ function sendSignIn(){
 </script>
 <body>
 	<h1>Hola Integrar-T Settings</h1>
-	<input id="userId" placeholder="Poner acá el UserId" type="text"/>
-	<input id="device" placeholder="Poner acá el device" type="text"/>
-	<form id="form" action="rest/imageUpload/pasutmarcelo/testActivity/test" method="post" enctype="multipart/form-data">
- 
-	   <p>
-		Seleccione una imagen para subir: <input type="file" name="uploadedFile" size="50" />
-	   </p>
- 
-	   <input type="submit" value="Upload It" onclick="setUserId()" />
-	</form>
+	<div>
+		<input id="userId" placeholder="Poner acá el UserId" type="text"/>
+		<input id="device" placeholder="Poner acá el device" type="text"/>
+	</div>
+	<div>
+		<form id="formImage" action="" method="post" enctype="multipart/form-data">
+	 
+		   <p>
+			Seleccione una imagen para subir: <input type="file" name="uploadedFile" size="50" />
+		   </p>
+	 
+		   <input type="submit" value="Upload It" onclick="setParams('imageUpload', 'formImage')" />
+		</form>
+	</div>
+	<div>
+		<form id="formSound" action="" method="post" enctype="multipart/form-data">
+	 
+		   <p>
+			Seleccione un sonido para subir: <input type="file" name="uploadedFile" size="50" />
+		   </p>
+	 
+		   <input type="submit" value="Upload It" onclick="setParams('soundUpload', 'formSound')" />
+		</form>
+	</div>
 	<input type="button" onclick="getResources()" value="Consumir Recursos"/>
 	<div id="activities">
 	</div>

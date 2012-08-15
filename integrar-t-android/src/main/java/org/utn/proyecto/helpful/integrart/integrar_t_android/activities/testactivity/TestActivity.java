@@ -1,5 +1,6 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.testactivity;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
@@ -16,6 +17,8 @@ import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +37,9 @@ public class TestActivity extends RoboActivity {
 
 	@InjectView(R.id.loadTestResourceButton)
 	private Button loadResourcesButton;
+
+	@InjectView(R.id.loadTestSoundButton)
+	private Button loadSoundButton;
 	
 	@Inject
 	private UpdateService updateService;
@@ -49,6 +55,7 @@ public class TestActivity extends RoboActivity {
 		 super.onCreate(savedInstanceState);
 		 updateButton.setOnClickListener(new UpdateButtonListener());
 		 loadResourcesButton.setOnClickListener(new LoadImageListener());
+		 loadSoundButton.setOnClickListener(new LoadSoundListener());
 	 }
 	
 	private class UpdateButtonListener implements View.OnClickListener{
@@ -79,6 +86,28 @@ public class TestActivity extends RoboActivity {
 			String[] names = fileService.getResourcesNames(NAME, ResourceType.IMAGE);
 			if(names.length > 0)
 				image.setImageDrawable((Drawable)fileService.getResource(NAME, names[0]).getResource());
+		}	
+	}
+	
+	private class LoadSoundListener implements View.OnClickListener, OnPreparedListener{
+		@Override
+		public void onClick(View v) {
+			String[] names = fileService.getResourcesNames(NAME, ResourceType.SOUND);
+			for(String name : names){
+				MediaPlayer player = (MediaPlayer)fileService.getResource(NAME, name).getResource();
+				player.setOnPreparedListener(this);
+				try {
+					player.prepare();
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				} 
+			}
+		}
+
+		@Override
+		public void onPrepared(MediaPlayer mp) {
+			mp.start();
+			
 		}	
 	}
 }

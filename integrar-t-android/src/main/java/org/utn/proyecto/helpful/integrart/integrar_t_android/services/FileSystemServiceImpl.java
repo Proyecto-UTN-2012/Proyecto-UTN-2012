@@ -1,6 +1,7 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.services;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -14,6 +15,7 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
 import roboguice.inject.ContextSingleton;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.util.Log;
 
 import com.google.inject.Inject;
@@ -63,16 +65,17 @@ public class FileSystemServiceImpl implements FileSystemService {
 		switch (resource.getType()) {
 		case IMAGE:
 			return (Resource<T>)buildImageResource(activityName, packageName, (Resource<Drawable>)resource);
-
+		case SOUND:
+			return (Resource<T>)buildSoundResource(activityName, packageName, (Resource<MediaPlayer>)resource);
 		default:
 			return null;
 		}
 	}
 	
-	private InputStream buildResourceInputStream(String activityName,
+	private FileInputStream buildResourceInputStream(String activityName,
 		String packageName, Resource<?> resource){
 		String path = getFullPath(activityName, packageName) + "." + resource.getName();
-		InputStream io = null;
+		FileInputStream io = null;
 		try {
 			io = context.openFileInput(path);
 		} catch (FileNotFoundException e) {
@@ -86,6 +89,19 @@ public class FileSystemServiceImpl implements FileSystemService {
 		InputStream io = buildResourceInputStream(activityName, packageName, resource);
 		Drawable d = Drawable.createFromStream(io, "src");
 		resource.setResource(d);
+		return resource;
+	}
+
+	protected Resource<MediaPlayer> buildSoundResource(String activityName,
+			String packageName, Resource<MediaPlayer> resource){
+		FileInputStream io = buildResourceInputStream(activityName, packageName, resource);
+		MediaPlayer sound = new MediaPlayer();
+		try {
+			sound.setDataSource(io.getFD());
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} 
+		resource.setResource(sound);
 		return resource;
 	}
 	

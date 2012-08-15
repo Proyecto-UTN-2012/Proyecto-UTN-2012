@@ -1,9 +1,10 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.domain;
 
 public enum ResourceType {
-	IMAGE(0);
+	IMAGE(0),
+	SOUND(1);
 	private final int resourceType;
-	private final static String[] extensions = new String[]{".png"};
+	private final static String[] extensions = new String[]{".png", ".mp3"};
 	
 	private ResourceType(int resourceType){
 		this.resourceType = resourceType;
