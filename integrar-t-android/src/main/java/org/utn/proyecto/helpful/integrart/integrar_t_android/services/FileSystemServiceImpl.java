@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.Resource;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.ResourceType;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
 
 import roboguice.inject.ContextSingleton;
 import android.content.Context;
@@ -24,20 +25,28 @@ public class FileSystemServiceImpl implements FileSystemService {
 	private Context context;
 	private final FileSystemDataStorage db;
 	private final DataStorageService dbService;
+	private final String userName;
 		
 	@Inject
-	public FileSystemServiceImpl(Context context, DataStorageService db){
+	public FileSystemServiceImpl(Context context, DataStorageService db, User user){
 		this.context = context;
 		this.dbService = db;
 		this.db = new FileSystemDataStorage(db);
+		this.userName = user.getUserName();
 	}
 	
 	@Override
-	public <T> Resource<T> getResource(String userName, String activityName,
+	public <T> Resource<T> getResource(String activityName,
+			String resourceName) {
+		return getResource(activityName, MAIN_PACKAGE,resourceName);
+	}
+	
+	@Override
+	public <T> Resource<T> getResource(String activityName,
 			String packageName, String resourceName) {
 		Resource<?>[] resources = db.getResources(userName, activityName, packageName);
 		Resource<?> resource = findByName(resourceName, resources);
-		return buildResourceByType(userName, activityName, packageName, resource);
+		return buildResourceByType(activityName, packageName, resource);
 	}
 	
 	private Resource<?> findByName(String name, Resource<?>[] resources){
@@ -49,20 +58,20 @@ public class FileSystemServiceImpl implements FileSystemService {
 	}
 	
 	@SuppressWarnings("unchecked")
-	protected <T> Resource<T> buildResourceByType(String userName, String activityName,
+	protected <T> Resource<T> buildResourceByType(String activityName,
 		String packageName, Resource<?> resource){
 		switch (resource.getType()) {
 		case IMAGE:
-			return (Resource<T>)buildImageResource(userName, activityName, packageName, (Resource<Drawable>)resource);
+			return (Resource<T>)buildImageResource(activityName, packageName, (Resource<Drawable>)resource);
 
 		default:
 			return null;
 		}
 	}
 	
-	private InputStream buildResourceInputStream(String userName, String activityName,
+	private InputStream buildResourceInputStream(String activityName,
 		String packageName, Resource<?> resource){
-		String path = getFullPath(userName, activityName, packageName) + "." + resource.getName() + resource.getType().getResourceExtension();
+		String path = getFullPath(activityName, packageName) + "." + resource.getName();
 		InputStream io = null;
 		try {
 			io = context.openFileInput(path);
@@ -72,28 +81,28 @@ public class FileSystemServiceImpl implements FileSystemService {
 		return io;
 	}
 	
-	protected Resource<Drawable> buildImageResource(String userName, String activityName,
+	protected Resource<Drawable> buildImageResource(String activityName,
 			String packageName, Resource<Drawable> resource){
-		InputStream io = buildResourceInputStream(userName, activityName, packageName, resource);
+		InputStream io = buildResourceInputStream(activityName, packageName, resource);
 		Drawable d = Drawable.createFromStream(io, "src");
 		resource.setResource(d);
 		return resource;
 	}
 	
-	protected Resource<?>[] buildResources(String userName, String activityName,
+	protected Resource<?>[] buildResources(String activityName,
 			String packageName, Resource<?>[] resources){
 		for(Resource<?> resource : resources){
-			buildResourceByType(userName, activityName, packageName, resource);
+			buildResourceByType(activityName, packageName, resource);
 		}
 		return resources;
 	}
 	
-	protected Resource<?>[] buildResourcesByType(String userName, String activityName,
+	protected Resource<?>[] buildResourcesByType(String activityName,
 			String packageName, ResourceType type, Resource<?>[] resources){
 		List<Resource<?>> list = new ArrayList<Resource<?>>();
 		for(Resource<?> resource : resources){
 			if(resource.getType().equals(type)){
-				buildResourceByType(userName, activityName, packageName, resource);
+				buildResourceByType(activityName, packageName, resource);
 				list.add(resource);
 			}
 		}
@@ -101,34 +110,34 @@ public class FileSystemServiceImpl implements FileSystemService {
 	}
 
 	@Override
-	public Resource<?>[] getResources(String userName, String activityName,
+	public Resource<?>[] getResources(String activityName,
 			String packageName) {
 		Resource<?>[] resources = db.getResources(userName, activityName, packageName);
-		return buildResources(userName, activityName, packageName, resources);
+		return buildResources(activityName, packageName, resources);
 	}
 
 	@Override
-	public Resource<?>[] getResources(String userName, String activityName,
+	public Resource<?>[] getResources(String activityName,
 			String packageName, ResourceType type) {
 		Resource<?>[] resources = db.getResources(userName, activityName, packageName);
-		return buildResourcesByType(userName, activityName, packageName, type, resources);
+		return buildResourcesByType(activityName, packageName, type, resources);
 	}
 
 	@Override
-	public Resource<?>[] getResources(String userName, String activityName) {
+	public Resource<?>[] getResources(String activityName) {
 		Resource<?>[] resources = db.getResources(userName, activityName);
-		return buildResources(userName, activityName, MAIN_PACKAGE, resources);
+		return buildResources(activityName, MAIN_PACKAGE, resources);
 	}
 
 	@Override
-	public Resource<?>[] getResources(String userName, String activityName,
+	public Resource<?>[] getResources(String activityName,
 			ResourceType type) {
 		Resource<?>[] resources = db.getResources(userName, activityName);
-		return buildResourcesByType(userName, activityName, MAIN_PACKAGE, type, resources);
+		return buildResourcesByType(activityName, MAIN_PACKAGE, type, resources);
 	}
 
 	@Override
-	public String[] getResourcesNames(String userName, String activityName,
+	public String[] getResourcesNames(String activityName,
 			String packageName) {
 		Resource<?>[] resources = db.getResources(userName, activityName);
 		String[] names = new String[resources.length];
@@ -139,7 +148,7 @@ public class FileSystemServiceImpl implements FileSystemService {
 	}
 
 	@Override
-	public String[] getResourcesNames(String userName, String activityName,
+	public String[] getResourcesNames(String activityName,
 			String packageName, ResourceType type) {
 		Resource<?>[] resources = db.getResources(userName, activityName);
 		List<String> names = new ArrayList<String>();
@@ -151,23 +160,23 @@ public class FileSystemServiceImpl implements FileSystemService {
 	}
 
 	@Override
-	public String[] getResourcesNames(String userName, String activityName) {
-		return getResourcesNames(userName, activityName, MAIN_PACKAGE);
+	public String[] getResourcesNames(String activityName) {
+		return getResourcesNames(activityName, MAIN_PACKAGE);
 	}
 
 	@Override
-	public String[] getResourcesNames(String userName, String activityName,
+	public String[] getResourcesNames(String activityName,
 			ResourceType type) {
-		return getResourcesNames(userName, activityName, MAIN_PACKAGE, type);
+		return getResourcesNames(activityName, MAIN_PACKAGE, type);
 	}
 
 	@Override
-	public void addPackage(String userName, String activityName,
+	public void addPackage(String activityName,
 			String packageName) {
 		db.addPackage(userName, activityName, packageName);
 		
-		String activityPackageName = getFullPath(userName, activityName);
-		String fullPackageName = getFullPath(userName, activityName, packageName);
+		String activityPackageName = getFullPath(activityName);
+		String fullPackageName = getFullPath(activityName, packageName);
 		File activityDir = context.getDir(activityPackageName, Context.MODE_PRIVATE);
 		File fullDir = context.getDir(fullPackageName, Context.MODE_WORLD_READABLE);
 		if(activityDir == null || fullDir == null){
@@ -177,10 +186,10 @@ public class FileSystemServiceImpl implements FileSystemService {
 	}
 
 	@Override
-	public void addResource(String userName, String activityName,
+	public void addResource(String activityName,
 			String packageName, Resource<InputStream> resource) {
 		db.addResource(userName, activityName, packageName, resource);		
-		String fullPath = getFullPath(userName, activityName, packageName);
+		String fullPath = getFullPath(activityName, packageName);
 		try {
 			FileOutputStream output = context.openFileOutput(fullPath + "." + resource.getName(),Context.MODE_PRIVATE);
 			byte[] bytes = new byte[1000];
@@ -197,18 +206,18 @@ public class FileSystemServiceImpl implements FileSystemService {
 	}
 
 	@Override
-	public void addResource(String userName, String activityName,
+	public void addResource(String activityName,
 			String packageName, String name, ResourceType type, InputStream io) {
 		Resource<InputStream> resource = new Resource<InputStream>(name, type, io);
-		addResource(userName, activityName, packageName, resource);
+		addResource(activityName, packageName, resource);
 	}
 
 	@Override
-	public void addResource(String userName, String activityName,
+	public void addResource(String activityName,
 			String packageName, String name, ResourceType type, byte[] bytes) {
 		Resource<Void> resource = new Resource<Void>(name, type);
 		db.addResource(userName, activityName, packageName, resource);		
-		String fullPath = getFullPath(userName, activityName, packageName);
+		String fullPath = getFullPath(activityName, packageName);
 		try {
 			FileOutputStream output = context.openFileOutput(fullPath + "." + resource.getName(),Context.MODE_PRIVATE);
 			output.write(bytes);
@@ -220,46 +229,46 @@ public class FileSystemServiceImpl implements FileSystemService {
 	}
 
 	@Override
-	public void addResource(String userName, String activityName,
+	public void addResource(String activityName,
 			String packageName, String name, ResourceType type, String data) {
 		Resource<Void> resource = new Resource<Void>(name, type);
 		db.addResource(userName, activityName, packageName, resource);		
-		String fullPath = getFullPath(userName, activityName, packageName);
+		String fullPath = getFullPath(activityName, packageName);
 		dbService.put(fullPath + "." + resource.getName(), data);
 	}
 
 	@Override
-	public void addResource(String userName, String activityName,
+	public void addResource(String activityName,
 			Resource<InputStream> resource) {
-		addResource(userName, activityName, MAIN_PACKAGE ,resource);
+		addResource(activityName, MAIN_PACKAGE ,resource);
 	}
 
 	@Override
-	public void addResource(String userName, String activityName, String name,
+	public void addResource(String activityName, String name,
 			ResourceType type, InputStream io) {
-		addResource(userName, activityName, MAIN_PACKAGE, name, type, io);
+		addResource(activityName, MAIN_PACKAGE, name, type, io);
 
 	}
 
 	@Override
-	public void addResource(String userName, String activityName, String name,
+	public void addResource(String activityName, String name,
 			ResourceType type, byte[] bytes) {
-		addResource(userName, activityName, MAIN_PACKAGE, name, type, bytes);
+		addResource(activityName, MAIN_PACKAGE, name, type, bytes);
 
 	}
 
 	@Override
-	public void addResource(String userName, String activityName, String name,
+	public void addResource(String activityName, String name,
 			ResourceType type, String data) {
-		addResource(userName, activityName, MAIN_PACKAGE, name, type, data);
+		addResource(activityName, MAIN_PACKAGE, name, type, data);
 
 	}
 	
-	private String getFullPath(String userName, String activityName){
-		return getFullPath(userName, activityName, null);
+	private String getFullPath(String activityName){
+		return getFullPath(activityName, null);
 	}
 	
-	private String getFullPath(String userName, String activityName, String packageName){
+	private String getFullPath(String activityName, String packageName){
 		StringBuffer s = new StringBuffer(userName + "." + activityName);
 		if(packageName != null)
 			s.append("."  + packageName);

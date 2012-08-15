@@ -1,5 +1,7 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android;
 
+import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.testactivity.LaunchTestActivityEvent;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.testactivity.TestActivity;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.Event;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventListener;
@@ -19,6 +21,7 @@ public class ActividadManager{
 	public ActividadManager(EventBus bus){
 		bus.addEventListener(LaunchMenuEvent.class, new LaunchMenuListener());
 		bus.addEventListener(ShowLoginEvent.class, new LaunchLoginListener());
+		bus.addEventListener(LaunchTestActivityEvent.class, new LaunchTestListener());
 	}
 	
 	private class LaunchMenuListener implements EventListener<Void>{
@@ -35,6 +38,15 @@ public class ActividadManager{
 		public void onEvent(Event<Void> event) {
 			Context context = event.getContext();
 			Intent intent = new Intent(context, LoginActivity.class);
+			context.startActivity(intent);
+		}
+	}
+	
+	private class LaunchTestListener implements EventListener<Void>{
+		@Override
+		public void onEvent(Event<Void> event) {
+			Context context = event.getContext();
+			Intent intent = new Intent(context, TestActivity.class);
 			context.startActivity(intent);
 		}
 	}

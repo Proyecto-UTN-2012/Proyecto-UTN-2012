@@ -24,7 +24,10 @@
         </activity>
         
         <activity android:name=".login.LoginActivity"></activity>
+
         
+        <!-- Test Activity Usada para hacer pruebas //TODO Eliminar cuando no se necesite -->
+        <activity android:name=".activities.testactivity.TestActivity"></activity>
     </application>
 
 </manifest>
