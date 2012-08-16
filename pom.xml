@@ -100,6 +100,7 @@
 	</profiles>
 	<properties>
 		<db.name>integrar-t</db.name>
+	<android.sdk.platform>11</android.sdk.platform>
 	</properties>
 		<modules>
 		<module>server</module>

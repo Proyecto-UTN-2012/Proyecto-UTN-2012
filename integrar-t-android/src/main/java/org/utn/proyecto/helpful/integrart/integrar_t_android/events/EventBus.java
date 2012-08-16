@@ -27,6 +27,7 @@ public class EventBus {
 		collection.remove(listener);
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public <T> void dispatch(Event<?> event){
 		Collection<EventListener> listeners = map.get(event.getClass());
 		if(listeners == null) return;
