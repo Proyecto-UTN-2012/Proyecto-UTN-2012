@@ -14,12 +14,8 @@
         android:targetSdkVersion="11" />
 
     <application
-<<<<<<< HEAD
         android:icon="@drawable/ic_launcher_integrart"
         android:label="@string/app_name">
-=======
-        android:icon="@drawable/ic_launcher_integrart">
->>>>>>> MainMenu
         <activity android:name=".IntegrarTMainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

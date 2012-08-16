@@ -110,11 +110,7 @@
           			<resourceDirectory>${project.build.directory}/filtered-res</resourceDirectory>
           			<nativeLibrariesDirectory>${project.basedir}/src/main/native</nativeLibrariesDirectory>
           			<sdk>
-<<<<<<< HEAD
-            			<platform>3.0</platform>
-=======
             			<platform>11</platform>
->>>>>>> MainMenu
           			</sdk>
           			<deleteConflictingFiles>true</deleteConflictingFiles>
           			<undeployBeforeDeploy>true</undeployBeforeDeploy>
