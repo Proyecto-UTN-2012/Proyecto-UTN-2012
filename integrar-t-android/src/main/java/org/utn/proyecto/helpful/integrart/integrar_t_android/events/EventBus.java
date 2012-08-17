@@ -5,9 +5,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import roboguice.inject.ContextSingleton;
+import com.google.inject.Singleton;
 
-@ContextSingleton
+@Singleton
 public class EventBus {
 	@SuppressWarnings("rawtypes")
 	private Map<Class<? extends Event>, Collection<EventListener>> map = new HashMap<Class<? extends Event>, Collection<EventListener>>();
@@ -27,7 +27,8 @@ public class EventBus {
 		collection.remove(listener);
 	}
 	
-	public <T> void dispatch(Event<?> event){
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void dispatch(Event<?> event){
 		Collection<EventListener> listeners = map.get(event.getClass());
 		if(listeners == null) return;
 		for(EventListener listener : listeners){

@@ -1,6 +1,5 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.testactivity;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
@@ -18,8 +17,10 @@ import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -57,7 +58,18 @@ public class TestActivity extends RoboActivity {
 		 loadResourcesButton.setOnClickListener(new LoadImageListener());
 		 loadSoundButton.setOnClickListener(new LoadSoundListener());
 	 }
-	
+	 
+	 @Override
+	 public void onStop(){
+		 super.onStop();
+		 Log.d("Test Activity", "Stop");
+	 }
+	 
+	 @Override
+	 public void onDestroy(){
+		 super.onDestroy();
+		 Log.d("Test Activity", "Destroy");
+	 }
 	private class UpdateButtonListener implements View.OnClickListener{
 		@Override
 		public void onClick(View v) {
@@ -89,13 +101,14 @@ public class TestActivity extends RoboActivity {
 		}	
 	}
 	
-	private class LoadSoundListener implements View.OnClickListener, OnPreparedListener{
+	private class LoadSoundListener implements View.OnClickListener, OnPreparedListener, OnCompletionListener{
 		@Override
 		public void onClick(View v) {
 			String[] names = fileService.getResourcesNames(NAME, ResourceType.SOUND);
 			for(String name : names){
 				MediaPlayer player = (MediaPlayer)fileService.getResource(NAME, name).getResource();
 				player.setOnPreparedListener(this);
+				player.setOnCompletionListener(this);
 				try {
 					player.prepare();
 				} catch (Exception e) {
@@ -108,6 +121,11 @@ public class TestActivity extends RoboActivity {
 		public void onPrepared(MediaPlayer mp) {
 			mp.start();
 			
+		}
+
+		@Override
+		public void onCompletion(MediaPlayer mp) {
+			mp.release();
 		}	
 	}
 }
