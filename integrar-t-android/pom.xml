@@ -46,13 +46,13 @@
     	<dependency>
       		<groupId>com.google.android</groupId>
       		<artifactId>android</artifactId>
-      		<version>2.2.1</version>
+      		<version>4.0.1.2</version>
       		<scope>provided</scope>
     	</dependency>
     	<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>support-v4</artifactId>
-			<version>r6</version>
+			<version>r7</version>
 		</dependency>
     	<dependency>
     		<groupId>org.roboguice</groupId>
@@ -110,7 +110,7 @@
           			<resourceDirectory>${project.build.directory}/filtered-res</resourceDirectory>
           			<nativeLibrariesDirectory>${project.basedir}/src/main/native</nativeLibrariesDirectory>
           			<sdk>
-            			<platform>3.0</platform>
+            			<platform>11</platform>
           			</sdk>
           			<deleteConflictingFiles>true</deleteConflictingFiles>
           			<undeployBeforeDeploy>true</undeployBeforeDeploy>
@@ -129,7 +129,7 @@
 								<pluginExecutionFilter>
 									<groupId>com.jayway.maven.plugins.android.generation2</groupId>
 									<artifactId>maven-android-plugin</artifactId>
-									<versionRange>[2.8.3,)</versionRange>
+									<versionRange>[2.8.4]</versionRange>
 									<goals>
 										<goal>generate-sources</goal>
 										<goal>unpack</goal>

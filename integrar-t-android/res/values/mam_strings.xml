@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mam_item_cac">Conociendo a Cali</string>
+    <string name="mam_item_detail_cac">Conociendo a Cali es una actividad que permite la configuración del personaje principal.</string>
+    
+    <string name="mam_item_hcc">Habla con Cali</string>
+    <string name="mam_item_detail_hcc">Usando esta actividad podrás aprender frases básicas.</string>
+    
+    <string name="mam_item_dcc">Dibuja con Cali</string>
+    <string name="mam_item_detail_dcc">Usa tu dedo para dibujar con Cali.</string>
+    
+    <string name="mam_item_ccc">Canta con Cali</string>
+    <string name="mam_item_detail_ccc">Divíertete escuchando la música que escucha Cali.</string>
+    
+    <string name="mam_item_ort">Organizar-T</string>
+    <string name="mam_item_detail_ort">Organiza tu día con el calendario.</string>
+    
+    <string name="mam_item_csh">¿Cómo se hace?</string>
+    <string name="mam_item_detail_csh">¿Te gusta filmar? mira a través de la tableta y aprende como se interactua con las cosas.</string>
+    
+    <string name="mam_item_pap">Paso a Paso</string>
+    <string name="mam_item_detail_pap">¿Quieres aprender a cocinar?</string>
+    
+    <string name="mam_item_jcc">Jugando con las cosas</string>
+    <string name="mam_item_detail_jcc">Aprende los nombres de los ítems jugando.</string>
+    
+    <string name="mam_item_cue">Cuentos</string>
+    <string name="mam_item_detail_cue">¿Te gusta escuchar cuentos? aquí Cali te va a contar uno.</string>
+    
+    <string name="mam_item_hcd">Hablando con Dibujos</string>
+    <string name="mam_item_detail_hcd">Interactua con las personas utilizando pictogramas.</string>
+    
+    <string name="mam_item_jcm">Jugando con las manos</string>
+    <string name="mam_item_detail_jcm">Usa tus dedos para jugar.</string>
+    
+</resources>
