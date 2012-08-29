@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <string name="settingsUrl">http://192.168.1.100:8080/integrar-t-settings</string>
-    <string name="metricsUrl">http://192.168.1.100:8080/integrar-t-metrics</string>
-    <string name="staticsUrl">http://192.168.1.100:8080/integrar-t-settings/statics</string>
+    <string name="settingsUrl">${integrar-t.settings.url}</string>
+    <string name="metricsUrl">${integrar-t.metrics.url}</string>
+    <string name="staticsUrl">${integrar-t.static.url}</string>
 </resources>
