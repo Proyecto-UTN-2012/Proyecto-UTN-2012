@@ -1,4 +1,4 @@
-package org.utn.proyecto.helpful.integrart.integrar_t_android.MainMenu.Item;
+package org.utn.proyecto.helpful.integrart.integrar_t_android.menu.item;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,38 +46,38 @@ public class MainMenuItem {
     public static List<MenuItem> ITEMS = new ArrayList<MenuItem>();
     public static Map<String, MenuItem> ITEM_MAP = new HashMap<String, MenuItem>();
     
-    @InjectResource(R.string.mam_item_cac) String itemNameCac;
-    @InjectResource(R.string.mam_item_detail_cac) String itemDetailCac;
+    @InjectResource(R.string.mam_item_cac) String itemNameCac = "Item1";
+    @InjectResource(R.string.mam_item_detail_cac) String itemDetailCac = "Item1";
     
-    @InjectResource(R.string.mam_item_hcc) String itemNameHcc;
-    @InjectResource(R.string.mam_item_detail_hcc) String itemDetailHcc;
+    @InjectResource(R.string.mam_item_hcc) String itemNameHcc = "Item2";
+    @InjectResource(R.string.mam_item_detail_hcc) String itemDetailHcc = "Item2";
     
-    @InjectResource(R.string.mam_item_dcc) String itemNameDcc;
-    @InjectResource(R.string.mam_item_detail_dcc) String itemDetailDcc;
+    @InjectResource(R.string.mam_item_dcc) String itemNameDcc = "Item3";
+    @InjectResource(R.string.mam_item_detail_dcc) String itemDetailDcc = "Item3";
     
-    @InjectResource(R.string.mam_item_ccc) String itemNameCcc;
-    @InjectResource(R.string.mam_item_detail_ccc) String itemDetailCcc;
+    @InjectResource(R.string.mam_item_ccc) String itemNameCcc = "Item4";
+    @InjectResource(R.string.mam_item_detail_ccc) String itemDetailCcc = "Item4";
     
-    @InjectResource(R.string.mam_item_ort) String itemNameOrt;
-    @InjectResource(R.string.mam_item_detail_ort) String itemDetailOrt;
+    @InjectResource(R.string.mam_item_ort) String itemNameOrt = "Item5";
+    @InjectResource(R.string.mam_item_detail_ort) String itemDetailOrt = "Item5";
     
-    @InjectResource(R.string.mam_item_csh) String itemNameCsh;
-    @InjectResource(R.string.mam_item_detail_csh) String itemDetailCsh;
+    @InjectResource(R.string.mam_item_csh) String itemNameCsh = "Item6";
+    @InjectResource(R.string.mam_item_detail_csh) String itemDetailCsh = "Item6";
     
-    @InjectResource(R.string.mam_item_pap) String itemNamePap;
-    @InjectResource(R.string.mam_item_detail_pap) String itemDetailPap;
+    @InjectResource(R.string.mam_item_pap) String itemNamePap = "Item7";
+    @InjectResource(R.string.mam_item_detail_pap) String itemDetailPap = "Item7";
     
-    @InjectResource(R.string.mam_item_jcc) String itemNameJcc;
-    @InjectResource(R.string.mam_item_detail_jcc) String itemDetailJcc;
+    @InjectResource(R.string.mam_item_jcc) String itemNameJcc = "Item8";
+    @InjectResource(R.string.mam_item_detail_jcc) String itemDetailJcc = "Item8";
     
-    @InjectResource(R.string.mam_item_cue) String itemNameCue;
-    @InjectResource(R.string.mam_item_detail_cue) String itemDetailCue;
+    @InjectResource(R.string.mam_item_cue) String itemNameCue = "Item9";
+    @InjectResource(R.string.mam_item_detail_cue) String itemDetailCue = "Item9";
     
-    @InjectResource(R.string.mam_item_hcd) String itemNameHcd;
-    @InjectResource(R.string.mam_item_detail_hcd) String itemDetailHcd;
+    @InjectResource(R.string.mam_item_hcd) String itemNameHcd = "Item10";
+    @InjectResource(R.string.mam_item_detail_hcd) String itemDetailHcd = "Item10";
     
-    @InjectResource(R.string.mam_item_jcm) String itemNameJcm;
-    @InjectResource(R.string.mam_item_detail_jcm) String itemDetailJcm;
+    @InjectResource(R.string.mam_item_jcm) String itemNameJcm = "Item11";
+    @InjectResource(R.string.mam_item_detail_jcm) String itemDetailJcm = "Item11";
     
     public MainMenuItem()
     {

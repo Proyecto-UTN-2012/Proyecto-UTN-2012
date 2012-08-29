@@ -80,11 +80,11 @@ public class ComunicationService {
 		if(mode == OnLineMode.OFF) return;
 		final String url = buildUrl(type, resource, new String[0]);
 		try{		
-			ExecutorService executor = new ComunicationThreadPoolExecutor();
+			final AndroidHttpClient client = AndroidHttpClient.newInstance("Integrar-T");
+			ExecutorService executor = new ComunicationThreadPoolExecutor(client);
 			executor.submit(new Callable<String>() {
 				@Override
 				public String call() throws Exception {
-					AndroidHttpClient client = AndroidHttpClient.newInstance("Integrar-T");
 					HttpPost post = new HttpPost(url);
 					StringEntity entity = new StringEntity(json);
 					post.setEntity(entity);
@@ -134,11 +134,12 @@ public class ComunicationService {
 	
 	public Future<String> findResourceByUrl(final String url, OnArriveResource handler){
 		try{		
-			ExecutorService executor = new ComunicationThreadPoolExecutor(handler);
+			final AndroidHttpClient client = AndroidHttpClient.newInstance("Integrar-T");
+			ExecutorService executor = new ComunicationThreadPoolExecutor(client, handler);
 			return executor.submit(new Callable<String>() {
 				@Override
 				public String call() throws Exception {
-					AndroidHttpClient client = AndroidHttpClient.newInstance("Integrar-T");
+					//AndroidHttpClient client = AndroidHttpClient.newInstance("Integrar-T");
 					HttpGet get = new HttpGet(url);
 					return client.execute(get, new BasicResponseHandler());
 				}
@@ -233,19 +234,22 @@ public class ComunicationService {
 	
 	private class ComunicationThreadPoolExecutor extends ThreadPoolExecutor{
 		private final OnArriveResource handler;
+		private final AndroidHttpClient client;
 		private Future<String> future;
 		
-		public ComunicationThreadPoolExecutor(){
-			this(null);
+		public ComunicationThreadPoolExecutor(AndroidHttpClient client){
+			this(client, null);
 		}
-		public ComunicationThreadPoolExecutor(OnArriveResource handler){
+		public ComunicationThreadPoolExecutor(AndroidHttpClient client, OnArriveResource handler){
 			super(2,2,10, TimeUnit.SECONDS,new ArrayBlockingQueue<Runnable>(5));
+			this.client = client;
 			this.handler = handler;
 		}
 		@Override
 		protected void afterExecute(Runnable r, Throwable t){
 			if(handler == null) return;
 			try {
+				client.close();
 				handler.onArrive(future.get());
 			} catch (Exception e) {
 				throw new RuntimeException(e);

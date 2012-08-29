@@ -7,7 +7,7 @@
     android:layout_marginRight="16dp"
     android:divider="?android:attr/dividerHorizontal"
     android:showDividers="middle"
-    tools:context=".ItemListActivity">
+    tools:context=".menu.ItemListActivity">
 
     <fragment android:name="mockup.test.mockupandroidintegrart.ItemListFragment"
         android:id="@+id/item_list"

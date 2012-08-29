@@ -1,7 +1,96 @@
 @CHARSET "ISO-8859-1";
 
-div{
-	border-style:solid;
-	border-width:1px;
-	border-color: #28b1db;
+.accordion {
+    background-color: #F4FAFF;
+    border: 1px solid #DDF0FF;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 0 1px 0 #999999;
+    margin: 5px auto;
+    opacity: 0.9;
+    padding: 5px;
+    width: 800px;
 }
+
+section{
+	display: block;
+}
+
+section div{
+	position: relative;
+}
+
+.accordion section {
+    background: -moz-linear-gradient(center top , #f88e51 0%, #ffc410 100%) repeat scroll 0 0 transparent;
+    border-bottom: 1px solid #A6C8DB;
+    border-radius: 5px 5px 5px 5px;
+    margin: 1px;
+}
+
+.accordion h2, .accordion p {
+    margin: 0;
+}
+
+.accordion h2 {
+    background: -moz-linear-gradient(center top , #606C88 0%, #3F4C6B 100%) repeat scroll 0 0 transparent;
+    border-radius: 5px 5px 5px 5px;
+    position: relative;
+}
+
+.accordion img {
+    -moz-transform: scale(1);
+    -moz-transition: all 1s ease-in-out 0s;
+    border: 3px solid #7F8DAF;
+    border-radius: 10px 10px 10px 10px;
+    float: left;
+    margin: 10px;
+    z-index: 1;
+}
+
+.accordion p {
+    color: #53607D;
+    font: 11px/1.5 'Arial','Helvetica','sans-serif';
+    padding: 10px;
+}
+
+.accordion h2 a {
+    border-radius: 5px 5px 5px 5px;
+    color: #E3EEFF;
+    display: block;
+    font: bold 14px/1 'Arial','Helvetica','sans-serif';
+    padding: 10px;
+    text-decoration: none;
+}
+
+.accordion h2 a:hover {
+    background: -moz-linear-gradient(center top , #3F4C6B 0%, #606C88 100%) repeat scroll 0 0 transparent;
+}
+
+.accordion h2 + div {
+    -moz-transition: height 0.3s ease-in-out 0s;
+    height: 0;
+    overflow: hidden;
+}
+
+.accordion *:target h2 a:after {
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #333333;
+    margin-top: -3px;
+}
+.accordion *:target h2:after {
+    position: absolute;
+    right: 10px;
+    top: 0;
+}
+.accordion *:target h2 + div {
+    height: 400px;
+}
+
+.form h2{
+    background: transparent;
+    text-align: center;
+    margin-left: 10px;
+    margin-right: 10px;
+    position: relative;
+    color: #001160;
+}    

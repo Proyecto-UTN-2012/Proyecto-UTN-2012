@@ -82,6 +82,7 @@ public class IntegrarTMainActivity extends RoboActivity{
 				bus.dispatch(new LaunchMenuEvent(v.getContext()));
 			}
 		});
+        bus.dispatch(new LaunchMenuEvent(this));
     }
     
     /**
@@ -111,7 +112,7 @@ public class IntegrarTMainActivity extends RoboActivity{
 					android.os.Process.killProcess(android.os.Process.myPid());
 				}
 			});
-		}
+		}			
 	}
 	
 	private void showLogin(){

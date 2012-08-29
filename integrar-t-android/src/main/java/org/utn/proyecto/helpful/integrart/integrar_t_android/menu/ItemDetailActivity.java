@@ -1,4 +1,4 @@
-package org.utn.proyecto.helpful.integrart.integrar_t_android.MainMenu;
+package org.utn.proyecto.helpful.integrart.integrar_t_android.menu;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 

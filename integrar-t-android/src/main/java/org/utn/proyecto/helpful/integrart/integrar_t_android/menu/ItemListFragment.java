@@ -1,8 +1,7 @@
-package org.utn.proyecto.helpful.integrart.integrar_t_android.MainMenu;
+package org.utn.proyecto.helpful.integrart.integrar_t_android.menu;
 
-import org.utn.proyecto.helpful.integrart.integrar_t_android.MainMenu.Item.*;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.menu.item.*;
 
-import android.R;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -34,8 +33,8 @@ public class ItemListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setListAdapter(new ArrayAdapter<MainMenuItem.MenuItem>(getActivity(),
-                R.layout.simple_list_item_activated_1,
-                R.id.text1,
+        		android.R.layout.simple_list_item_activated_1,
+        		android.R.id.text1,
                 MainMenuItem.ITEMS));
     }
 

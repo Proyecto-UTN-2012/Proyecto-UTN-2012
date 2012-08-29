@@ -4,8 +4,10 @@ import java.io.InputStream;
 import java.util.List;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.pictogramas.LaunchPictogramEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.ActivityResource;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.ResourceType;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.ComunicationService;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.ComunicationService.ExternalResourceType;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.FileSystemService;
@@ -15,6 +17,7 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.services.UpdateServ
 import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
@@ -36,6 +39,9 @@ public class TestActivity extends RoboActivity {
 	@InjectView(R.id.updateTestButton)
 	private Button updateButton;
 
+	@InjectView(R.id.testPictogram)
+	private Button pictogramsButton;
+
 	@InjectView(R.id.loadTestResourceButton)
 	private Button loadResourcesButton;
 
@@ -51,12 +57,16 @@ public class TestActivity extends RoboActivity {
 	@Inject
 	private FileSystemService fileService;
 	
+	@Inject
+	private EventBus bus;
+	
 	 @Override
 	 public void onCreate(Bundle savedInstanceState) {
 		 super.onCreate(savedInstanceState);
 		 updateButton.setOnClickListener(new UpdateButtonListener());
 		 loadResourcesButton.setOnClickListener(new LoadImageListener());
 		 loadSoundButton.setOnClickListener(new LoadSoundListener());
+		 pictogramsButton.setOnClickListener(new LaunchPictogramsListener(this));
 	 }
 	 
 	 @Override
@@ -70,6 +80,21 @@ public class TestActivity extends RoboActivity {
 		 super.onDestroy();
 		 Log.d("Test Activity", "Destroy");
 	 }
+	 
+	private class LaunchPictogramsListener implements View.OnClickListener{
+		private final Context context;
+		
+		public LaunchPictogramsListener(Context context){
+			this.context = context;
+		}
+		
+		@Override
+		public void onClick(View v) {
+			bus.dispatch(new LaunchPictogramEvent(context));
+		}
+		
+	}
+	 
 	private class UpdateButtonListener implements View.OnClickListener{
 		@Override
 		public void onClick(View v) {
@@ -78,8 +103,6 @@ public class TestActivity extends RoboActivity {
 					@Override
 					public void onArriveNewResources(
 							List<ActivityResource> resources) {
-//							Toast.makeText(context, "Se updatearon "  + resources.size() + " recursos", Toast.LENGTH_LONG)
-//							.show();
 							if(resources.isEmpty()) return;
 							for(ActivityResource res : resources){
 								InputStream is = comService.findStream(ExternalResourceType.STATICS, res.getPath());
