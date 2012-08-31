@@ -2,18 +2,18 @@ package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.pictogr
 
 public class PictogramData {
 	private String name;
-	private int level;
+	private int[] levels;
 	
-	public PictogramData(String name, int level){
+	public PictogramData(String name, int[] levels){
 		this.name = name;
-		this.level = level;
+		this.levels = levels;
 	}
 	
 	public String getName() {
 		return name;
 	}
 
-	public int getLevel() {
-		return level;
+	public int[] getLevels() {
+		return levels;
 	}
 }

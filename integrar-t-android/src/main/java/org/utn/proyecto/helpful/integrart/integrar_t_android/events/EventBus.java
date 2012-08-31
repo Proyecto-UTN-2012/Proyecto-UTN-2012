@@ -1,8 +1,8 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.events;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 import com.google.inject.Singleton;
@@ -15,7 +15,7 @@ public class EventBus {
 	@SuppressWarnings("rawtypes")
 	public void addEventListener(Class<? extends Event> eventType, EventListener listener){
 		Collection<EventListener> collection = map.get(eventType);
-		if(collection == null) collection = new ArrayList<EventListener>();
+		if(collection == null) collection = new HashSet<EventListener>();
 		collection.add(listener);
 		map.put(eventType, collection);
 	}

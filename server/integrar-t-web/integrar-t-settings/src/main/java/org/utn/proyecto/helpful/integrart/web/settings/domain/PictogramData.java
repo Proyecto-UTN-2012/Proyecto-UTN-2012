@@ -12,17 +12,17 @@ public class PictogramData {
 	private String id;
 	private  String user;
 	private  String name;
-	private  int level;
+	private  int[] levels;
 	private  Collection<String> devices;
 	
 	public PictogramData(){
 		devices = new ArrayList<String>();
 	}
 	
-	public PictogramData(String user, String name, int level){
+	public PictogramData(String user, String name, int[] levels){
 		this.user = user;
 		this.name = name;
-		this.level = level;
+		this.levels = levels;
 		this.devices = new ArrayList<String>();
 	}
 	
@@ -43,25 +43,29 @@ public class PictogramData {
 	public Collection<String> getDevices() {
 		return devices;
 	}
-	public int getLevel() {
-		return level;
+	public int[] getLevels() {
+		return levels;
 	}
 	
 	@Override
 	public boolean equals(Object o){
 		if(!(o instanceof PictogramData)) return false;
 		PictogramData p = (PictogramData)o;
-		return this.user.equals(p.user) && this.name.equals(p.name) && this.level == p.level;
+		if(!(this.user.equals(p.user) && this.name.equals(p.name)) || this.levels.length != p.levels.length) return false;
+		for(int i = 0;i<levels.length;i++){
+			if(levels[i] != p.levels[i]) return false;
+		}
+		return true;
 	}
 	
 	@Override
 	public int hashCode(){
-		return this.user.hashCode() * this.name.hashCode() - this.level;
+		return this.user.hashCode() * this.name.hashCode() - this.levels.hashCode();
 	}
 	
 	@Override
 	public String toString(){
-		return "{user: " + this.user + ", name: " + this.name + ", level: " + this.level + "}";
+		return "{user: " + this.user + ", name: " + this.name + ", levels: " + this.levels + "}";
 	}
 
 	public void setUser(String user) {
@@ -72,7 +76,7 @@ public class PictogramData {
 		this.name = name;
 	}
 
-	public void setLevel(int level) {
-		this.level = level;
+	public void setLevels(int[] levels) {
+		this.levels = levels;
 	}
 }

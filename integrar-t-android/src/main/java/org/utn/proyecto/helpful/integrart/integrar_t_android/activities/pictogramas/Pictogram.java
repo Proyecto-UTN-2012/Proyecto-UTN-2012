@@ -8,6 +8,7 @@ public class Pictogram {
 	private Drawable image;
 	private String name;
 	private MediaPlayer sound;
+	private boolean ready;
 	
 	public Pictogram(String name, int level, Drawable image, MediaPlayer sound){
 		this.name = name;
@@ -30,5 +31,18 @@ public class Pictogram {
 	
 	public int getLevel(){
 		return level;
+	}
+	
+	public boolean isReady(){
+		return ready;
+	}
+	
+	public void setReady(){
+		this.ready = true;
+	}
+	
+	public void release(){
+		sound.release();
+		sound = null;
 	}
 }

@@ -51,6 +51,7 @@ public class PictogramUpdateService implements OnArriveNewResources, OnArriveRes
 	}
 	
 	private void prepareData(String key){
+		key = user.getUserName() + "." + key;
 		if(!db.contain(key)) 
 			db.put(key, new PictogramData[0]);
 	}
@@ -91,11 +92,13 @@ public class PictogramUpdateService implements OnArriveNewResources, OnArriveRes
 	
 	private void addPictogram(PictogramData pictogram){
 		List<PictogramData> list = new ArrayList<PictogramData>();
-		PictogramData[] pictograms = db.get(PICTOGRAM_LEVEL[pictogram.getLevel()-1], PictogramData[].class);
-		for(PictogramData data : pictograms){
-			list.add(data);
+		for(int level : pictogram.getLevels()){
+			PictogramData[] pictograms = db.get(user.getUserName() + "." + PICTOGRAM_LEVEL[level-1], PictogramData[].class);
+			for(PictogramData data : pictograms){
+				list.add(data);
+			}
+			list.add(pictogram);
+			db.put(user.getUserName() + "." + PICTOGRAM_LEVEL[level-1], list.toArray(new PictogramData[0]));			
 		}
-		list.add(pictogram);
-		db.put(PICTOGRAM_LEVEL[pictogram.getLevel()-1], list.toArray(new PictogramData[0]));
 	}
 }

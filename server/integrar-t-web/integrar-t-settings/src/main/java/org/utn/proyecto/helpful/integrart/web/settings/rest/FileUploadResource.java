@@ -22,9 +22,10 @@ public abstract class FileUploadResource {
 	public void uploadTestFile(@MultipartForm FileUploadForm form, 
 			@PathParam("userId") String userId, @PathParam("activity") String activity,
 			@PathParam("section") String section, @PathParam("name") String name){
-		if(name!=null)
+		if(name!=null){
+			name = name.replace(" ", "_");
 			service.addResource(form, userId, activity, section, name);
-		else
+		}else
 			service.addResource(form, userId, activity, section);
 			
 		//return Response.ok().build();

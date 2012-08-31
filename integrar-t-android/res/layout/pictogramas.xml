@@ -2,59 +2,75 @@
 <FrameLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android">
-    <GridView
+
+    <GridView
+        android:id="@+id/pictogramGrid"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/sky_blue_button"
+        android:columnWidth="100dp"
+        android:horizontalSpacing="0dp"
         android:numColumns="auto_fit"
-        android:verticalSpacing="10dp" 
-        android:horizontalSpacing="10dp" 
-        android:columnWidth="90dp">
+        android:verticalSpacing="10dp" >
+
     </GridView>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="#ffffff"
+        android:background="#f3eece"
         android:layout_gravity="bottom"
         android:paddingTop="5dp" >
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="left"
-            android:orientation="vertical"
-            >
-            
-            <HorizontalScrollView android:layout_gravity="top"></HorizontalScrollView>
-
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:text="Large Text"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="#000000" />
-            
-        </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="right"
-            >
+            android:layout_gravity="left"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+            
+            <LinearLayout
+                android:id="@+id/pictogramList"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top" >
 
+			</LinearLayout>
+
+            <TextView
+                android:id="@+id/pictogramText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000000" />
+            
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:text="Borrar" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right" >
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:text="Hablar" />
-        </LinearLayout>
+            <Button
+                android:id="@+id/pictogramDeleteButton"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/white_button"
+                android:drawableLeft="@drawable/trash_can_medium" />
+
+            <Button
+                android:id="@+id/pictogramTalkButton"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/white_button"
+                android:drawableLeft="@drawable/talk_icon" />
+        </LinearLayout>
 
     </FrameLayout>
 </FrameLayout>
