@@ -26,7 +26,6 @@
         </activity>
         
         <activity android:name=".login.LoginActivity"></activity>
-
         <activity android:name=".menu.ItemDetailActivity">
 	<meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".menu.ItemListActivity"/>
         </activity>
