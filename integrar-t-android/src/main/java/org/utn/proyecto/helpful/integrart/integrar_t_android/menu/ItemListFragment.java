@@ -15,6 +15,7 @@ public class ItemListFragment extends ListFragment {
 
     private Callbacks mCallbacks = sDummyCallbacks;
     private int mActivatedPosition = ListView.INVALID_POSITION;
+    private MainMenuItem mainMenuItem;
 
     public interface Callbacks {
 
@@ -32,6 +33,12 @@ public class ItemListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+       //This line asign activity for reference 
+        MainMenuItem.ACTIVITY_REFERENCE = getActivity();
+        //Write the menu to display
+        MainMenuItem.InitializeMenu();
+        
         setListAdapter(new ArrayAdapter<MainMenuItem.MenuItem>(getActivity(),
         		android.R.layout.simple_list_item_activated_1,
         		android.R.id.text1,

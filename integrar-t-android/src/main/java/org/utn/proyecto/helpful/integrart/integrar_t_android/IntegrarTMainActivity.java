@@ -1,6 +1,7 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android;
 
-import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.testactivity.LaunchTestActivityEvent;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.MainMenu.ItemListActivity;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.MainMenu.Item.MainMenuItem;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.LaunchMenuEvent;
@@ -46,14 +47,12 @@ public class IntegrarTMainActivity extends RoboActivity{
 	@InjectView(R.id.mainInitButton)
 	private Button mainButton;
 	
-	@InjectView(R.id.testButton)
-	private Button testButton;
-	
 	@InjectResource(R.string.registerUserMessage)
 	private String registerMessage;
 
 	@InjectResource(R.string.registerUserTitle)
 	private String registerTitle;
+	
 
 	private static String TAG = "integrar-t-android";
 
@@ -65,17 +64,10 @@ public class IntegrarTMainActivity extends RoboActivity{
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-    	super.onCreate(savedInstanceState);
+    	super.onCreate(savedInstanceState);    	
 		Log.i(TAG, "onCreate");
         OnLineMode mode = comunicationService.evaluateComunication();
         Toast.makeText(this, "OnLine mode: " + mode.name(), Toast.LENGTH_LONG).show();
-        
-        testButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				bus.dispatch(new LaunchTestActivityEvent(v.getContext()));	
-			}
-		});
         mainButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -86,7 +78,7 @@ public class IntegrarTMainActivity extends RoboActivity{
     }
     
     /**
-     * Siempre tiene que validar que el usuario esté registrado.
+     * Siempre tiene que validar que el usuario estŽ registrado.
      * si no, no puede usar la aplicación
      */
     @Override
@@ -130,6 +122,5 @@ public class IntegrarTMainActivity extends RoboActivity{
 			.setNegativeButton(R.string.no, cancelHandler);
 		builder.create().show();
 	}
-	
 }
 

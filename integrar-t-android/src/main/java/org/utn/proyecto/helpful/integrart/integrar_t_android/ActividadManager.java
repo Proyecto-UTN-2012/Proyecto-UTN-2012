@@ -4,14 +4,15 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.pictogra
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.pictogramas.PictogramActivity;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.testactivity.LaunchTestActivityEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.testactivity.TestActivity;
+
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.Event;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventListener;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.LaunchMenuEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.ShowLoginEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.login.LoginActivity;
-import org.utn.proyecto.helpful.integrart.integrar_t_android.menu.ItemListActivity;
 
+import org.utn.proyecto.helpful.integrart.integrar_t_android.menu.ItemListActivity;
 import android.content.Context;
 import android.content.Intent;
 
@@ -25,8 +26,8 @@ public class ActividadManager{
 		bus.addEventListener(LaunchMenuEvent.class, new LaunchMenuListener());
 		bus.addEventListener(ShowLoginEvent.class, new LaunchLoginListener());
 		bus.addEventListener(LaunchPictogramEvent.class, new LaunchPictogramListener());
-		
 		bus.addEventListener(LaunchTestActivityEvent.class, new LaunchTestListener());
+		//bus.addEventListener(LaunchTestActivityEvent.class, new LaunchTestListener());
 	}
 	
 	private class LaunchMenuListener implements EventListener<Void>{
@@ -47,7 +48,7 @@ public class ActividadManager{
 		}
 	}
 	
-	private class LaunchTestListener implements EventListener<Void>{
+	/*private class LaunchTestListener implements EventListener<Void>{
 		@Override
 		public void onEvent(Event<Void> event) {
 			Context context = event.getContext();
@@ -66,4 +67,5 @@ public class ActividadManager{
 		}
 		
 	}
+	*/
 }

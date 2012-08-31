@@ -14,7 +14,7 @@ public class ItemListActivity extends FragmentActivity
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(android.R.layout.activity_list_item);
+        setContentView(R.layout.mam_activity_item_list);
 
         if (findViewById(R.id.item_detail_container) != null) {
             mTwoPane = true;
