@@ -15,7 +15,6 @@ public class ItemListFragment extends ListFragment {
 
     private Callbacks mCallbacks = sDummyCallbacks;
     private int mActivatedPosition = ListView.INVALID_POSITION;
-    private MainMenuItem mainMenuItem;
 
     public interface Callbacks {
 
