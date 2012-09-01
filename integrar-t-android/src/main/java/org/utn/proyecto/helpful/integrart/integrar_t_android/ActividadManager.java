@@ -26,7 +26,7 @@ public class ActividadManager{
 		bus.addEventListener(LaunchMenuEvent.class, new LaunchMenuListener());
 		bus.addEventListener(ShowLoginEvent.class, new LaunchLoginListener());
 		bus.addEventListener(LaunchPictogramEvent.class, new LaunchPictogramListener());
-		bus.addEventListener(LaunchTestActivityEvent.class, new LaunchTestListener());
+		//bus.addEventListener(LaunchTestActivityEvent.class, new LaunchTestListener());
 		//bus.addEventListener(LaunchTestActivityEvent.class, new LaunchTestListener());
 	}
 	
@@ -56,7 +56,7 @@ public class ActividadManager{
 			context.startActivity(intent);
 		}
 	}
-	
+	*/
 	private class LaunchPictogramListener implements EventListener<Void>{
 
 		@Override
@@ -67,5 +67,4 @@ public class ActividadManager{
 		}
 		
 	}
-	*/
 }
