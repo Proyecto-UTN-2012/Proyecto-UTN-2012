@@ -5,9 +5,11 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.inject.Singleton;
+
 import roboguice.inject.ContextSingleton;
 
-@ContextSingleton
+@Singleton
 public class EventBus {
 	@SuppressWarnings("rawtypes")
 	private Map<Class<? extends Event>, Collection<EventListener>> map = new HashMap<Class<? extends Event>, Collection<EventListener>>();

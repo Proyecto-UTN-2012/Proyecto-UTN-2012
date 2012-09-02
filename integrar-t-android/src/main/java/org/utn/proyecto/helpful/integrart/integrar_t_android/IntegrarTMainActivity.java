@@ -81,7 +81,7 @@ public class IntegrarTMainActivity extends RoboActivity implements OnArriveNewRe
     @Override
     public void onResume(){
     	super.onResume();
-    	validateLogin();
+   // 	validateLogin();
     }
 
 	@Override

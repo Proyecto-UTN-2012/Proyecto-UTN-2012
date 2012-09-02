@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.utn.proyecto.helpful.integrart.integrar_t_android"
-    android:versionCode="11"
-    android:versionName="11" >
+    android:versionCode="10"
+    android:versionName="10" >
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
     <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
+    
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    
 
     <uses-sdk
-        android:minSdkVersion="11"
-        android:targetSdkVersion="11" />
+        android:minSdkVersion="10"
+        android:targetSdkVersion="10" />
 
     <application
         android:icon="@drawable/ic_launcher_integrart"
@@ -24,7 +27,7 @@
         </activity>
         
         <activity android:name=".login.LoginActivity"></activity>
-        
+        <activity android:name=".activities.hablaconcali.HablaConCaliActivity"></activity>
     </application>
 
 </manifest>

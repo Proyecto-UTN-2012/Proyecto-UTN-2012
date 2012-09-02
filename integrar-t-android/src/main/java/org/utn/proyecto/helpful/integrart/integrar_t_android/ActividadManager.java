@@ -1,5 +1,6 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android;
 
+import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.hablaconcali.HablaConCaliActivity;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.Event;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventListener;
@@ -24,9 +25,9 @@ public class ActividadManager{
 	private class LaunchMenuListener implements EventListener<Void>{
 		@Override
 		public void onEvent(Event<Void> event) {
-//			Context context = event.getContext();
-//			Intent intent = new Intent(context, MenuActivity.class);
-//			context.startActivity(intent);
+			Context context = event.getContext();
+			Intent intent = new Intent(context, HablaConCaliActivity.class);
+			context.startActivity(intent);
 		}
 	}
 	
