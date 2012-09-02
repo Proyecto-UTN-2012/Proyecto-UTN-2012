@@ -21,6 +21,7 @@ public class PictogramLoader {
 	private final User user;
 	
 	private static final String ACTIVITY_NAME = "pictogramActivity";
+	private static final String CURRENT_LEVEL = ".pictogramActivity.level";
 	private static final String[] PICTOGRAM_LEVEL = {
 		"pictogramActivity.pictograms.level.1",
 		"pictogramActivity.pictograms.level.2",
@@ -32,16 +33,24 @@ public class PictogramLoader {
 		this.fileService = fileService;
 		this.db = db;
 		this.user = user;
+		if(!db.contain(user.getUserName() + CURRENT_LEVEL))
+			db.put(user.getUserName() + CURRENT_LEVEL, Integer.valueOf(1));
 	}
 	
-	public List<Pictogram> getPictograms(int level){
+	public List<Pictogram> getPictograms(){
 		List<Pictogram> list = new ArrayList<Pictogram>();
+		int level = db.get(user.getUserName() + CURRENT_LEVEL, Integer.class);
 		PictogramData[] dataArray = db.get(user.getUserName() + "." + PICTOGRAM_LEVEL[level-1], PictogramData[].class);
 		for(PictogramData data : dataArray){
 			Pictogram pictogram = buildPictogram(data, level);
 			list.add(pictogram);
 		}
 		return list;
+	}
+	
+	public List<Pictogram> getPictograms(int level){
+		db.put(user.getUserName() + CURRENT_LEVEL, Integer.valueOf(level));
+		return getPictograms();
 	}
 	
 	private Pictogram buildPictogram(PictogramData data, int level){

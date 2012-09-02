@@ -91,8 +91,8 @@ public class PictogramUpdateService implements OnArriveNewResources, OnArriveRes
 	}
 	
 	private void addPictogram(PictogramData pictogram){
-		List<PictogramData> list = new ArrayList<PictogramData>();
 		for(int level : pictogram.getLevels()){
+			List<PictogramData> list = new ArrayList<PictogramData>();
 			PictogramData[] pictograms = db.get(user.getUserName() + "." + PICTOGRAM_LEVEL[level-1], PictogramData[].class);
 			for(PictogramData data : pictograms){
 				list.add(data);

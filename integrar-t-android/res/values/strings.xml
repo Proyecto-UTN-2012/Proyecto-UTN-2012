@@ -8,4 +8,6 @@
 
     <string name="notUserExceptionMessage">No tienes asociada una cuenta al dispositivo.\nPor favor presiona el boton "Nuevo" para asociar una nueva cuenta.</string>
     <string name="notUserExceptionTitle">No tienes una cuenta</string>
+
+    <string name="selectLevel">Seleccione un Nivel</string>
 </resources>

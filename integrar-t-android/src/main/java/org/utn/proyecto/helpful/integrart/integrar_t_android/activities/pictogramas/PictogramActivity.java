@@ -16,6 +16,9 @@ import roboguice.inject.InjectView;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -62,6 +65,7 @@ public class PictogramActivity extends RoboActivity implements EventListener<Voi
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		bus.addEventListener(UpdatePictogramsCompleteEvent.class, this);
+		bus.addEventListener(ChangeLevelEvent.class, new ChangeLevelListener());
 		updateService.findUpdate();
 		do{
 			try {
@@ -70,12 +74,31 @@ public class PictogramActivity extends RoboActivity implements EventListener<Voi
 				throw new RuntimeException(e);
 			}
 		}while(!ready);
-		List<Pictogram> pictograms = loader.getPictograms(1);
+		List<Pictogram> pictograms = loader.getPictograms();
 		grid.setAdapter(new PictogramAdapter(this, pictograms));
 		grid.setOnItemClickListener(this);
 		
 		deleteButton.setOnClickListener(new DeletePictogramListener());
 		talkButton.setOnClickListener(new TalkListener());
+	}
+	
+	/**
+	 * return false to allow normal menu processing to proceed, true to consume it here.
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item){
+		LevelActionProvider provider = new LevelActionProvider(this, bus);
+		provider.onPerformDefaultAction();
+		return true;
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu){
+		super.onCreateOptionsMenu(menu);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.pictogram_menu, menu);
+		//View view = menu.findItem(R.id.pictogramLevel).getActionView();
+		return true;
 	}
 	
 	@Override
@@ -88,6 +111,14 @@ public class PictogramActivity extends RoboActivity implements EventListener<Voi
 	@Override
 	public void onEvent(Event<Void> event) {
 		ready = true;
+	}
+	
+	private void changeLevel(int level){
+		while(!currentPictogrmas.isEmpty()){
+			removePictogram();
+		}
+		List<Pictogram> pictograms = loader.getPictograms(level);
+		grid.setAdapter(new PictogramAdapter(this, pictograms));
 	}
 	
 	private void talk(){
@@ -160,6 +191,14 @@ public class PictogramActivity extends RoboActivity implements EventListener<Voi
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	private class ChangeLevelListener implements EventListener<Integer>{
+		@Override
+		public void onEvent(Event<Integer> event) {
+			changeLevel(event.getData());
+		}
+		
 	}
 	
 	private class PictogramAdapter extends BaseAdapter{
