@@ -12,7 +12,6 @@ public class ItemDetailActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mam_activity_item_list);
         setContentView(R.layout.mam_activity_item_detail);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
