@@ -9,11 +9,12 @@
     android:showDividers="middle"
     tools:context=".menu.ItemListActivity">
 
-    <fragment android:name="mockup.test.mockupandroidintegrart.ItemListFragment"
+    <fragment
         android:id="@+id/item_list"
+        android:name="org.utn.proyecto.helpful.integrart.integrar_t_android.menu.ItemListFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1" />
+        android:layout_weight="1"/>
 
     <FrameLayout android:id="@+id/item_detail_container"
         android:layout_width="0dp"
