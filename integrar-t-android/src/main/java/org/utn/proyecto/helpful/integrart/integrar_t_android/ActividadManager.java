@@ -9,6 +9,7 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.hablacon
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.Event;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventListener;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.events.LaunchHablaConCali;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.LaunchMenuEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.ShowLoginEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.login.LoginActivity;
@@ -27,6 +28,7 @@ public class ActividadManager{
 		bus.addEventListener(LaunchMenuEvent.class, new LaunchMenuListener());
 		bus.addEventListener(ShowLoginEvent.class, new LaunchLoginListener());
 		bus.addEventListener(LaunchPictogramEvent.class, new LaunchPictogramListener());
+		///bus.addEventListener(LaunchHablaConCali.class, new LaunchHablaConCali());
 		//bus.addEventListener(LaunchTestActivityEvent.class, new LaunchTestListener());
 		//bus.addEventListener(LaunchTestActivityEvent.class, new LaunchTestListener());
 	}
@@ -48,6 +50,16 @@ public class ActividadManager{
 			context.startActivity(intent);
 		}
 	}
+	
+	private class LaunchHablaConCali implements EventListener<Void>{
+		@Override
+		public void onEvent(Event<Void> event) {
+			Context context = event.getContext();
+			Intent intent = new Intent(context, HablaConCaliActivity.class);
+			context.startActivity(intent);
+		}
+	}
+	
 	
 	/*private class LaunchTestListener implements EventListener<Void>{
 		@Override
