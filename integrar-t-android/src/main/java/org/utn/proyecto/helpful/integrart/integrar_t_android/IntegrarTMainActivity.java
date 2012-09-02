@@ -84,7 +84,7 @@ public class IntegrarTMainActivity extends RoboActivity{
     @Override
     public void onResume(){
     	super.onResume();
-   // 	validateLogin();
+    	validateLogin();
     }
 	
 	/**
