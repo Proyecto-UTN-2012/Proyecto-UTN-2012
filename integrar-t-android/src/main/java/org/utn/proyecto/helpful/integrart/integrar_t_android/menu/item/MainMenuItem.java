@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.pictogramas.LaunchPictogramEvent;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.events.Event;
 
 import android.app.Activity;
 
@@ -17,6 +19,7 @@ public class MainMenuItem {
         public String content;
         public String activityDescription;
         private Activity act;
+        public Event<Void> event;
 
         public Activity getActivity() {
             return act;
@@ -39,10 +42,11 @@ public class MainMenuItem {
             this.content = content;
         }
         
-        public MenuItem(String id, String content, String description) {
+        public MenuItem(String id, String content, String description, Event<Void> event) {
             this.id = id;
             this.content = content;
             this.activityDescription = description;
+            this.event = event;
         }
         
         @Override
@@ -61,17 +65,17 @@ public class MainMenuItem {
     public static Activity ACTIVITY_REFERENCE;
     
     public static void InitializeMenu(){
-        addItem(new MenuItem("1", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_cac),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_cac) ));
-        addItem(new MenuItem("2", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_hcc),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_hcc) ));
-        addItem(new MenuItem("3", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_dcc),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_dcc) ));
-        addItem(new MenuItem("4", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_ccc),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_ccc) ));
-        addItem(new MenuItem("5", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_ort),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_ort) ));
-        addItem(new MenuItem("6", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_csh),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_csh) ));
-        addItem(new MenuItem("7", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_pap),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_pap) ));
-        addItem(new MenuItem("8", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_jcc),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_jcc) ));
-        addItem(new MenuItem("9", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_cue),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_cue) ));
-        addItem(new MenuItem("10", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_hcd),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_hcd) ));
-        addItem(new MenuItem("11", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_jcm),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_jcm) ));
+        addItem(new MenuItem("1", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_cac),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_cac), new LaunchPictogramEvent(ACTIVITY_REFERENCE) ));
+        addItem(new MenuItem("2", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_hcc),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_hcc), new LaunchPictogramEvent(ACTIVITY_REFERENCE) ));
+        addItem(new MenuItem("3", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_dcc),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_dcc), new LaunchPictogramEvent(ACTIVITY_REFERENCE) ));
+        addItem(new MenuItem("4", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_ccc),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_ccc), new LaunchPictogramEvent(ACTIVITY_REFERENCE) ));
+        addItem(new MenuItem("5", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_ort),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_ort), new LaunchPictogramEvent(ACTIVITY_REFERENCE) ));
+        addItem(new MenuItem("6", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_csh),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_csh), new LaunchPictogramEvent(ACTIVITY_REFERENCE) ));
+        addItem(new MenuItem("7", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_pap),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_pap), new LaunchPictogramEvent(ACTIVITY_REFERENCE) ));
+        addItem(new MenuItem("8", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_jcc),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_jcc), new LaunchPictogramEvent(ACTIVITY_REFERENCE) ));
+        addItem(new MenuItem("9", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_cue),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_cue), new LaunchPictogramEvent(ACTIVITY_REFERENCE) ));
+        addItem(new MenuItem("10", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_hcd),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_hcd), new LaunchPictogramEvent(ACTIVITY_REFERENCE)));
+        addItem(new MenuItem("11", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_jcm),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_jcm), new LaunchPictogramEvent(ACTIVITY_REFERENCE) ));
     }
 
     private static void addItem(MenuItem item) {
