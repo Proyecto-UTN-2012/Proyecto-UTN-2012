@@ -1,6 +1,7 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.services;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.ActivityResource;
@@ -37,6 +38,10 @@ public class UpdateService{
 	}
 	
 	public void findUpdates(String activityName, final OnArriveNewResources handler){
+		if(comunicationService.isOffLine()){
+			handler.onArriveNewResources(new ArrayList<ActivityResource>());
+			return;
+		}
 		comunicationService.findResource(ExternalResourceType.SETTINGS, RESOURCE_NAME,
 				new String[]{user.getUserName(), getDeviceId(), activityName}, new OnArriveResource() {
 					@Override
@@ -59,7 +64,7 @@ public class UpdateService{
 		return list;
 	}
 	
-	private String getDeviceId(){
+	public String getDeviceId(){
 		if(deviceId==null) deviceId = Secure.getString(context.getContentResolver(), Secure.ANDROID_ID);
 		//if(deviceId==null) deviceId = ((TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
 		return deviceId;

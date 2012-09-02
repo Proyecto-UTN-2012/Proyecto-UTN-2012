@@ -1,4 +1,4 @@
-package org.utn.proyecto.helpful.integrart.integrar_t_android.MainMenu;
+package org.utn.proyecto.helpful.integrart.integrar_t_android.menu;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 
@@ -12,7 +12,7 @@ public class ItemDetailActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mam_activity_item_detail);
+        setContentView(R.layout.mam_activity_item_list);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
 

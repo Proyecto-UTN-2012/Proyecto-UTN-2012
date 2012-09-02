@@ -44,12 +44,13 @@ public class IntegrarTMainActivity extends RoboActivity{
 	
 	@InjectView(R.id.mainInitButton)
 	private Button mainButton;
-		
+	
 	@InjectResource(R.string.registerUserMessage)
 	private String registerMessage;
 
 	@InjectResource(R.string.registerUserTitle)
 	private String registerTitle;
+	
 
 	private static String TAG = "integrar-t-android";
 
@@ -61,21 +62,21 @@ public class IntegrarTMainActivity extends RoboActivity{
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-    	super.onCreate(savedInstanceState);
+    	super.onCreate(savedInstanceState);    	
 		Log.i(TAG, "onCreate");
         OnLineMode mode = comunicationService.evaluateComunication();
         Toast.makeText(this, "OnLine mode: " + mode.name(), Toast.LENGTH_LONG).show();
-        
         mainButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				bus.dispatch(new LaunchMenuEvent(v.getContext()));
 			}
 		});
+        bus.dispatch(new LaunchMenuEvent(this));
     }
     
     /**
-     * Siempre tiene que validar que el usuario esté registrado.
+     * Siempre tiene que validar que el usuario estŽ registrado.
      * si no, no puede usar la aplicación
      */
     @Override
@@ -101,7 +102,7 @@ public class IntegrarTMainActivity extends RoboActivity{
 					android.os.Process.killProcess(android.os.Process.myPid());
 				}
 			});
-		}
+		}			
 	}
 	
 	private void showLogin(){
@@ -119,6 +120,5 @@ public class IntegrarTMainActivity extends RoboActivity{
 			.setNegativeButton(R.string.no, cancelHandler);
 		builder.create().show();
 	}
-	
 }
 

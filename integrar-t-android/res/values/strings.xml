@@ -8,6 +8,8 @@
     <string name="registerUserTitle">Registración</string>
     <string name="notUserExceptionMessage">No tienes asociada una cuenta al dispositivo.\nPor favor presiona el boton "Nuevo" para asociar una nueva cuenta.</string>
     <string name="notUserExceptionTitle">No tienes una cuenta</string>
+
+    <string name="selectLevel">Seleccione un Nivel</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">MainActivity</string>

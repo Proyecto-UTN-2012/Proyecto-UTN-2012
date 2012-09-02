@@ -1,26 +1,33 @@
-package org.utn.proyecto.helpful.integrart.integrar_t_android.MainMenu;
+package org.utn.proyecto.helpful.integrart.integrar_t_android.menu;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
 
+import com.google.inject.Inject;
+
+import roboguice.activity.RoboFragmentActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 
-public class ItemListActivity extends FragmentActivity
+public class ItemListActivity extends RoboFragmentActivity
         implements ItemListFragment.Callbacks {
 
     private boolean mTwoPane;
+    
+    @Inject
+    private EventBus bus;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item_list);
+        setContentView(R.layout.mam_activity_item_list);
 
         if (findViewById(R.id.item_detail_container) != null) {
             mTwoPane = true;
-            ((ItemListFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.item_list))
-                    .setActivateOnItemClick(true);
+            ItemListFragment fragment = ((ItemListFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.item_list));
+            fragment.setActivateOnItemClick(true);
+            fragment.setBus(bus);
         }
     }
 

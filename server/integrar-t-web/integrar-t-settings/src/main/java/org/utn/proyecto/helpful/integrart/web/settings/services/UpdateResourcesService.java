@@ -22,10 +22,20 @@ public class UpdateResourcesService {
 		this.type = type;
 	}
 	
+	public void addResource(FileUploadForm form, String userId, String activityName, String activitySection, String resourceName){
+		ActivityResource activity = new ActivityResource(userId, activityName, resourceName, type);
+		addActivityResource(form, activity);
+	}
+	
+	protected void addActivityResource(FileUploadForm form, ActivityResource activity){
+		this.fileService.uploadFile(form, activity.getPath());
+		this.persisterService.insert(activity);
+	}
+	
 	public void addResource(FileUploadForm form, String userId, String activityName, String activitySection){
 		ActivityResource activity = buildActivity(userId, activityName, activitySection, type);
 		this.fileService.uploadFile(form, activity.getPath());
-		this.persisterService.insert(activity);
+		addActivityResource(form, activity);
 	}
 	
 	public List<ActivityResource> getResources(String userId, String activityName){
@@ -46,5 +56,5 @@ public class UpdateResourcesService {
 				new String[]{"userId", "activityName", "activitySection", "resourceType"});
 		String name = type.name() + resourceNumber + type.getResourceExtension();
 		return new ActivityResource(userId, activityName, activitySection, name, type);
-	}
+	}	
 }

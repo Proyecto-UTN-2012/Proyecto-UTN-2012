@@ -1,7 +1,7 @@
-package org.utn.proyecto.helpful.integrart.integrar_t_android.MainMenu;
+package org.utn.proyecto.helpful.integrart.integrar_t_android.menu;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
-import org.utn.proyecto.helpful.integrart.integrar_t_android.MainMenu.Item.*;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.menu.item.*;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

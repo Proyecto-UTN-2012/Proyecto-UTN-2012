@@ -1,13 +1,13 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.events;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
-import roboguice.inject.ContextSingleton;
+import com.google.inject.Singleton;
 
-@ContextSingleton
+@Singleton
 public class EventBus {
 	@SuppressWarnings("rawtypes")
 	private Map<Class<? extends Event>, Collection<EventListener>> map = new HashMap<Class<? extends Event>, Collection<EventListener>>();
@@ -15,7 +15,7 @@ public class EventBus {
 	@SuppressWarnings("rawtypes")
 	public void addEventListener(Class<? extends Event> eventType, EventListener listener){
 		Collection<EventListener> collection = map.get(eventType);
-		if(collection == null) collection = new ArrayList<EventListener>();
+		if(collection == null) collection = new HashSet<EventListener>();
 		collection.add(listener);
 		map.put(eventType, collection);
 	}
@@ -28,7 +28,7 @@ public class EventBus {
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public <T> void dispatch(Event<?> event){
+	public void dispatch(Event<?> event){
 		Collection<EventListener> listeners = map.get(event.getClass());
 		if(listeners == null) return;
 		for(EventListener listener : listeners){

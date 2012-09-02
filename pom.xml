@@ -46,7 +46,7 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-				<android.sdk.platform>11</android.sdk.platform>
+				<android.sdk.platform>14</android.sdk.platform>
 				<settings.context>/integrar-t-settings</settings.context>
 				<metrics.context>/integrar-t-metrics</metrics.context>
 				
@@ -100,7 +100,7 @@
 	</profiles>
 	<properties>
 		<db.name>integrar-t</db.name>
-	<android.sdk.platform>11</android.sdk.platform>
+		<android.sdk.platform>13</android.sdk.platform>
 	</properties>
 		<modules>
 		<module>server</module>
