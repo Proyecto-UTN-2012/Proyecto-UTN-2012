@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Integrar-T</string>
-    
+
     <!-- Messages -->
     <string name="registerUserMessage">Debes registrate como usuario, si no lo haces no puedes acceder a Integrar-T.\n ¿Quieres Registrarte?</string>
     <string name="registerUserTitle">Registración</string>
-
     <string name="notUserExceptionMessage">No tienes asociada una cuenta al dispositivo.\nPor favor presiona el boton "Nuevo" para asociar una nueva cuenta.</string>
     <string name="notUserExceptionTitle">No tienes una cuenta</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+
 </resources>

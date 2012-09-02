@@ -1,6 +1,5 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android;
 
-import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.testactivity.LaunchTestActivityEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.LaunchMenuEvent;
@@ -45,10 +44,7 @@ public class IntegrarTMainActivity extends RoboActivity{
 	
 	@InjectView(R.id.mainInitButton)
 	private Button mainButton;
-	
-	@InjectView(R.id.testButton)
-	private Button testButton;
-	
+		
 	@InjectResource(R.string.registerUserMessage)
 	private String registerMessage;
 
@@ -70,12 +66,6 @@ public class IntegrarTMainActivity extends RoboActivity{
         OnLineMode mode = comunicationService.evaluateComunication();
         Toast.makeText(this, "OnLine mode: " + mode.name(), Toast.LENGTH_LONG).show();
         
-        testButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				bus.dispatch(new LaunchTestActivityEvent(v.getContext()));	
-			}
-		});
         mainButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
