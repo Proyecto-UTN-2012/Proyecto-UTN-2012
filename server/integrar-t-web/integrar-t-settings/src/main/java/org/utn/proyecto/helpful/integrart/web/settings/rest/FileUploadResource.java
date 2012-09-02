@@ -4,7 +4,6 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Response;
 
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 import org.utn.proyecto.helpful.integrart.web.settings.services.FileUploadForm;
@@ -18,12 +17,17 @@ public abstract class FileUploadResource {
 	}
 	
 	@POST
-	@Path("/{userId}/{activity}/{section}")
+	@Path("/{userId}/{activity}/{section}/{name}")
 	@Consumes("multipart/form-data")
-	public Response uploadTestFile(@MultipartForm FileUploadForm form, 
+	public void uploadTestFile(@MultipartForm FileUploadForm form, 
 			@PathParam("userId") String userId, @PathParam("activity") String activity,
-			@PathParam("section") String section){
-		service.addResource(form, userId, activity, section);
-		return Response.ok().build();
+			@PathParam("section") String section, @PathParam("name") String name){
+		if(name!=null){
+			name = name.replace(" ", "_");
+			service.addResource(form, userId, activity, section, name);
+		}else
+			service.addResource(form, userId, activity, section);
+			
+		//return Response.ok().build();
 	}
 }

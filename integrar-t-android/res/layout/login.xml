@@ -11,34 +11,35 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical" >
-
+
         <Button
             android:id="@+id/googleLogin"
             style="@style/ButtonText"
             android:layout_gravity="center_vertical|center_horizontal"
-            android:background="@drawable/black_button"
+            android:background="@drawable/orange_button"
             android:drawableLeft="@drawable/google_icon"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
             android:text="@string/googleLogin" />
-
+
         <Button
             android:id="@+id/otherLogin"
             style="@style/ButtonText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal"
-            android:background="@drawable/black_button"
+            android:background="@drawable/blue_button"
             android:text="@string/otherLogin" />
-
+
         <Button
             android:id="@+id/customLogin"
             style="@style/ButtonText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal"
-            android:background="@drawable/black_button"
+            android:background="@drawable/green_button"
             android:text="@string/customLogin" />
+
     </LinearLayout>
 
 </FrameLayout>

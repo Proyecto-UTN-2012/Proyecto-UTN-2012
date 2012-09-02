@@ -14,3 +14,6 @@ build
 statics
 project.properties
 gen
+.externaltoolbuilders
+maven-eclipse.xml
+.DS_STORE

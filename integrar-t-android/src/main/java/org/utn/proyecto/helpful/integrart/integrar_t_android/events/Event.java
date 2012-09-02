@@ -7,7 +7,7 @@ public class Event<T> {
 	private final T data;
 	
 	public Event(){
-		this(null);
+		this(null, null);
 	}
 	
 	public Event(Context context){

@@ -5,6 +5,7 @@ public class User {
 	private String email;
 	private String accountType;
 	private String token;
+	private String device;
 	
 	public User(){}
 	
@@ -52,5 +53,13 @@ public class User {
 
 	public String getEmail() {
 		return email;
+	}
+
+	public String getDevice() {
+		return device;
+	}
+
+	public void setDevice(String device) {
+		this.device = device;
 	}
 }
