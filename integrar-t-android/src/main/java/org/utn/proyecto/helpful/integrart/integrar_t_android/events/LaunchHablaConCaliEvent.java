@@ -2,9 +2,9 @@ package org.utn.proyecto.helpful.integrart.integrar_t_android.events;
 
 import android.content.Context;
 
-public class LaunchHablaConCali extends Event<Void> {
+public class LaunchHablaConCaliEvent extends Event<Void> {
 	
-	public LaunchHablaConCali(Context context){
+	public LaunchHablaConCaliEvent(Context context){
 		super(context);
 	}
 }

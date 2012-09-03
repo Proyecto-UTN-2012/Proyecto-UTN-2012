@@ -1,6 +1,9 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.hablaconcali;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 
@@ -64,13 +67,14 @@ public class HablaConCaliActivity extends RoboActivity implements
 
 	// @InjectView(R.id.button1)
 	// private Button button1;
+	public long time;
 	public boolean listening = true;
 	public boolean grito = false;
 	public boolean contesto = false;
 	public Double amplitude1;
 	public int nrofrase = 0;
-	public int frases[] = { R.raw.como_te_llamas, R.raw.queres_jugar_conmigo,
-			R.raw.cuantos_anios_tenes, R.raw.vos_sos_dios, R.raw.chau };;
+	public List<Integer> frases = Arrays.asList( R.raw.como_te_llamas, R.raw.queres_jugar_conmigo,
+			R.raw.cuantos_anios_tenes, R.raw.vos_sos_dios, R.raw.chau );
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -117,7 +121,7 @@ public class HablaConCaliActivity extends RoboActivity implements
 	// Metodo que inicializa la escucha
 	public void start() {
 		if (mRecorder == null) {
-
+			initime();
 			// Inicializamos los parametros del grabador
 			mRecorder = new MediaRecorder();
 			mRecorder
@@ -136,19 +140,28 @@ public class HablaConCaliActivity extends RoboActivity implements
 				Log.e("error", "IOException");
 			}
 			mRecorder.start();
+			endtime();
 		}
 
+	}
+
+	private void initime() {
+		time = new Date().getTime();
+	}
+
+	private void endtime() {
+		Log.e("start", "tiempo: " + (new Date().getTime() - time));
 	}
 
 	// Para la escucha
 	public void stop() {
 
-		if (mRecorder != null) {
-			mRecorder.stop();
-			mRecorder.release();
-			mRecorder = null;
-
-		}
+		// if (mRecorder != null) {
+		// mRecorder.stop();
+		// mRecorder.release();
+		// mRecorder = null;
+		//
+		// }
 
 		if (grito == false) {
 
@@ -162,12 +175,18 @@ public class HablaConCaliActivity extends RoboActivity implements
 				contesto = false;
 				nrofrase = 4;
 				sigfrase();
-
+			} else {
+				
+					try {
+						this.finalize();
+					} catch (Throwable e) {
+						throw new RuntimeException(e);
+					}
+				
 			}
 
 		}
 
-		
 	}
 
 	public void sigfrase() {
@@ -178,7 +197,7 @@ public class HablaConCaliActivity extends RoboActivity implements
 		// frase.start();
 
 		final MediaPlayer frase = MediaPlayer.create(getApplicationContext(),
-				frases[nrofrase]);
+				frases.get(nrofrase));
 		nrofrase = nrofrase + 1;
 		frase.start();
 		frase.setOnCompletionListener(new OnCompletionListener() {
@@ -277,7 +296,7 @@ public class HablaConCaliActivity extends RoboActivity implements
 		@Override
 		protected void onProgressUpdate(Double... values) {
 			Double value = values[0];
-			if (value > 19000) {
+			if (value > 24000) {
 				grito = true;
 				stop();
 
