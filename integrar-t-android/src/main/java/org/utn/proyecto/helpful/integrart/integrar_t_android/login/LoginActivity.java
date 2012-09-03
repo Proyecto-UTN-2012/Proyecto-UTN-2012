@@ -113,4 +113,12 @@ public class LoginActivity extends RoboActivity implements EventListener<User>{
 	public void onEvent(Event<User> event) {
 		setUser(event.getData());
 	}
+
+	public LoginStrategy getOthersLoginStrategy() {
+		return othersLoginStrategy;
+	}
+
+	public void setOthersLoginStrategy(LoginStrategy othersLoginStrategy) {
+		this.othersLoginStrategy = othersLoginStrategy;
+	}
 }
