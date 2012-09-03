@@ -3,11 +3,6 @@ package org.utn.proyecto.helpful.integrart.integrar_t_android.menu;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.menu.item.*;
 
-import com.google.inject.Inject;
-
-import roboguice.RoboGuice;
-import roboguice.fragment.RoboListFragment;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -82,7 +77,8 @@ public class ItemListFragment extends ListFragment {
     public void onListItemClick(ListView listView, View view, int position, long id) {
         super.onListItemClick(listView, view, position, id);
         mCallbacks.onItemSelected(MainMenuItem.ITEMS.get(position).id);
-        bus.dispatch(MainMenuItem.ITEMS.get(position).event);
+        //TODO CLEAN this
+        //bus.dispatch(MainMenuItem.ITEMS.get(position).event);
     }
 
     @Override

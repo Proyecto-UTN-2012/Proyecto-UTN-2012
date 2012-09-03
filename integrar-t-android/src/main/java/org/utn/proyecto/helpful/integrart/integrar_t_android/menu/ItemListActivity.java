@@ -13,6 +13,7 @@ public class ItemListActivity extends RoboFragmentActivity
         implements ItemListFragment.Callbacks {
 
     private boolean mTwoPane;
+    private ItemListFragment fragment;
     
     @Inject
     private EventBus bus;
@@ -21,10 +22,10 @@ public class ItemListActivity extends RoboFragmentActivity
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mam_activity_item_list);
-
+        
         if (findViewById(R.id.item_detail_container) != null) {
             mTwoPane = true;
-            ItemListFragment fragment = ((ItemListFragment) getSupportFragmentManager()
+            fragment = ((ItemListFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.item_list));
             fragment.setActivateOnItemClick(true);
             fragment.setBus(bus);

@@ -17,7 +17,7 @@
         android:targetSdkVersion="14" />
 
     <application
-        android:icon="@drawable/icon_trans"
+        android:icon="@drawable/icon_trans_icon"
         android:label="@string/app_name" >
         <activity android:name=".IntegrarTMainActivity" >
             <intent-filter>
@@ -36,15 +36,6 @@
         <activity android:name=".activities.hablaconcali.HablaConCaliActivity"></activity>
         <!-- Test Activity Usada para hacer pruebas //TODO Eliminar cuando no se necesite -->
         <activity android:name=".activities.testactivity.TestActivity" >
-        </activity>
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/title_activity_main" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
