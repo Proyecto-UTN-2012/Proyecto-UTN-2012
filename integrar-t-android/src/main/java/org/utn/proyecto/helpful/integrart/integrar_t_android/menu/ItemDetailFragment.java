@@ -30,9 +30,10 @@ public class ItemDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
+        
         View rootView = inflater.inflate(R.layout.mam_fragment_item_detail, container, false);
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.item_detail)).setText(mItem.getActivityDescription());
+            ((TextView) rootView.findViewById(R.id.tv_activity_description)).setText(mItem.getActivityDescription());
         }
         return rootView;
     }
