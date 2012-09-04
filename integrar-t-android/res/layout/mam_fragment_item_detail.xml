@@ -12,13 +12,13 @@
         android:id="@+id/tv_activity_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="fragment description" />
+        android:text="fragment description Cell phone" />
 
     <Button
         android:id="@+id/btn_activity_launch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Comenzar Actividad" />
+        android:text="Comenzar Actividad Cell phone" />
     
 </LinearLayout>

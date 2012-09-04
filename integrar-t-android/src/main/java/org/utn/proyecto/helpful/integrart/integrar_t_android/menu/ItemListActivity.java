@@ -6,9 +6,11 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
 import com.google.inject.Inject;
 
 import roboguice.activity.RoboFragmentActivity;
+import roboguice.inject.ContentView;
 import android.content.Intent;
 import android.os.Bundle;
 
+@ContentView(R.layout.mam_activity_item_list)
 public class ItemListActivity extends RoboFragmentActivity
         implements ItemListFragment.Callbacks {
 
@@ -21,14 +23,13 @@ public class ItemListActivity extends RoboFragmentActivity
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mam_activity_item_list);
         
         if (findViewById(R.id.item_detail_container) != null) {
             mTwoPane = true;
             fragment = ((ItemListFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.item_list));
             fragment.setActivateOnItemClick(true);
-            fragment.setBus(bus);
+            //fragment.setBus(bus);
         }
     }
 
@@ -37,6 +38,7 @@ public class ItemListActivity extends RoboFragmentActivity
             Bundle arguments = new Bundle();
             arguments.putString(ItemDetailFragment.ARG_ITEM_ID, id);
             ItemDetailFragment fragment = new ItemDetailFragment();
+            fragment.setBus(bus);
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.item_detail_container, fragment)
