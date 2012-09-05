@@ -31,6 +31,10 @@ public class ItemDetailActivity extends RoboFragmentActivity {
             getSupportFragmentManager().beginTransaction()
                     .add(android.R.id.content, fragment)
                     .commit();
+            
+            //getSupportFragmentManager().beginTransaction()
+            //.add(R.id.item_detail_container, fragment)
+            //.commit();
         }
     }
 
