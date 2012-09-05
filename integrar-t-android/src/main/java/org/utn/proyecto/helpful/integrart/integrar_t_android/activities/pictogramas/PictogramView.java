@@ -12,30 +12,72 @@ public class PictogramView extends LinearLayout {
 	private ImageView imageView;
 	private TextView textView;
 	
-	public PictogramView(Context context) {
+	private static final int SMALL_SIZE = 20; 
+	private static final int LARGE_SIZE = 45; 
+
+	public PictogramView(Context context, int columnCount) {
 		super(context);
-		init();
-	}
-	public PictogramView(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		init();
-	}
-	public PictogramView(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
-		init();
+		int size = calculateSize(columnCount);
+		init(size);
 	}
 	
-	private void init(){
+	public PictogramView(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		int size = calculateSize(2);
+		init(size);
+	}
+	
+	public PictogramView(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs, defStyle);
+		int size = calculateSize(2);
+		init(size);
+	}
+	
+	private int calculateSize(int columnCount){
+		int pixel5dp = getPixelDp(5);
+		if(columnCount == 2)
+			return pixel5dp*SMALL_SIZE;
+		return pixel5dp*LARGE_SIZE;	
+			
+	}
+	
+	private int getPixelDp(int dps){
+		return (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dps, getResources().getDisplayMetrics());
+	}
+	
+
+	private void init(int size){
+		int pixel5dp = getPixelDp(5);
 		this.setOrientation(VERTICAL);
-		int pixel5dp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, getResources().getDisplayMetrics());
-		this.setPadding(pixel5dp, pixel5dp, pixel5dp, pixel5dp);
+		if(pixel5dp*SMALL_SIZE == size)
+			prepareSmall(size);
+		else
+			prepareLarge(size);
+	}
+	
+	private void prepareLarge(int size){
+		int pixeldp = getPixelDp(80);
+		this.setPadding(pixeldp, pixeldp/10, pixeldp, pixeldp/10);
 		imageView = new ImageView(this.getContext());
 		imageView.setPadding(0, 0, 0, 0);
-		addView(imageView, new LinearLayout.LayoutParams(pixel5dp*20,pixel5dp*20));
+		addView(imageView, new LinearLayout.LayoutParams(size,size));
+		
+		textView = new TextView(this.getContext());
+		textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, 22);
+		textView.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM);
+		addView(textView, new LayoutParams(LayoutParams.MATCH_PARENT, pixeldp/2));
+	}
+	
+	private void prepareSmall(int size){
+		int pixeldp = getPixelDp(30);
+		this.setPadding(pixeldp, pixeldp/6, pixeldp, pixeldp/6);
+		imageView = new ImageView(this.getContext());
+		imageView.setPadding(0, 0, 0, 0);
+		addView(imageView, new LinearLayout.LayoutParams(size,size));
 		
 		textView = new TextView(this.getContext());
 		textView.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM);
-		addView(textView, new LayoutParams(LayoutParams.MATCH_PARENT, pixel5dp*4));
+		addView(textView, new LayoutParams(LayoutParams.MATCH_PARENT, pixeldp/2));
 	}
 	
 	public void setPictogram(Pictogram pictogram){

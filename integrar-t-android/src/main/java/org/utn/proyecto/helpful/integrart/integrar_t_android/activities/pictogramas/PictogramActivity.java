@@ -227,7 +227,8 @@ public class PictogramActivity extends RoboActivity implements EventListener<Voi
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			PictogramView view = new PictogramView(context);
+			int numCollumns = ((GridView)parent).getNumColumns();
+			PictogramView view = new PictogramView(context, numCollumns);
 			view.setPictogram(this.pictograms.get(position));
 			return view;
 		}
