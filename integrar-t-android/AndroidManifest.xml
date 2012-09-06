@@ -14,7 +14,7 @@
 
     <uses-sdk
         android:minSdkVersion="11"
-        android:targetSdkVersion="14" />
+        android:targetSdkVersion="13" />
 
     <application
         android:icon="@drawable/icon_trans_icon"
