@@ -12,7 +12,7 @@ public class PictogramView extends LinearLayout {
 	private ImageView imageView;
 	private TextView textView;
 	
-	private static final int SMALL_SIZE = 20; 
+	private static final int SMALL_SIZE = 18; 
 	private static final int LARGE_SIZE = 45; 
 
 	public PictogramView(Context context, int columnCount) {
@@ -65,7 +65,7 @@ public class PictogramView extends LinearLayout {
 		textView = new TextView(this.getContext());
 		textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, 22);
 		textView.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM);
-		addView(textView, new LayoutParams(LayoutParams.MATCH_PARENT, pixeldp/2));
+		addView(textView, new LayoutParams(LayoutParams.MATCH_PARENT, (int)(pixeldp/2)));
 	}
 	
 	private void prepareSmall(int size){
@@ -77,7 +77,7 @@ public class PictogramView extends LinearLayout {
 		
 		textView = new TextView(this.getContext());
 		textView.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM);
-		addView(textView, new LayoutParams(LayoutParams.MATCH_PARENT, pixeldp/2));
+		addView(textView, new LayoutParams(LayoutParams.MATCH_PARENT, (int)(pixeldp*.65)));
 	}
 	
 	public void setPictogram(Pictogram pictogram){

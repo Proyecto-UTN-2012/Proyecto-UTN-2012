@@ -1,32 +1,35 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.pictogramas;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
 import java.util.concurrent.ArrayBlockingQueue;
 
+import org.utn.proyecto.helpful.integrart.integrar_t_android.MenuActionProvider;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.events.ChangeColorsEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.Event;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventListener;
 
-import roboguice.activity.RoboActivity;
+import roboguice.activity.RoboFragmentActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
-import android.content.Context;
+import android.graphics.drawable.GradientDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -34,7 +37,7 @@ import android.widget.TextView;
 import com.google.inject.Inject;
 
 @ContentView(R.layout.pictogramas)
-public class PictogramActivity extends RoboActivity implements EventListener<Void>, OnItemClickListener{
+public class PictogramActivity extends RoboFragmentActivity implements EventListener<Void>, OnItemClickListener{
 	@Inject
 	private PictogramLoader loader;
 	@Inject
@@ -42,8 +45,8 @@ public class PictogramActivity extends RoboActivity implements EventListener<Voi
 	@Inject
 	private EventBus bus;
 	
-	@InjectView(R.id.pictogramGrid)
-	private GridView grid;
+	@InjectView(R.id.pictogramViewPager)
+	private ViewPager pager;
 	
 	@InjectView(R.id.pictogramList)
 	private LinearLayout listView;
@@ -59,13 +62,23 @@ public class PictogramActivity extends RoboActivity implements EventListener<Voi
 	
 	private boolean ready;
 	
+	private int currentLevel;
+	
 	private Stack<Pictogram> currentPictogrmas = new Stack<Pictogram>();
+	
+	private static SparseArray<Class<? extends MenuActionProvider>> menuMap = new SparseArray<Class<? extends MenuActionProvider>>();
+	
+	{
+		menuMap.put(R.id.pictogramLevel, LevelMenuActionProvider.class);
+		menuMap.put(R.id.pictogramColor, ColorMenuActionProvider.class);
+	}
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		bus.addEventListener(UpdatePictogramsCompleteEvent.class, this);
 		bus.addEventListener(ChangeLevelEvent.class, new ChangeLevelListener());
+		bus.addEventListener(ChangeColorsEvent.class, new ChangeColorListener());
 		updateService.findUpdate();
 		do{
 			try {
@@ -75,11 +88,18 @@ public class PictogramActivity extends RoboActivity implements EventListener<Voi
 			}
 		}while(!ready);
 		List<Pictogram> pictograms = loader.getPictograms();
-		grid.setAdapter(new PictogramAdapter(this, pictograms));
-		grid.setOnItemClickListener(this);
+		pager.setAdapter(new PictogramPageAdapter(getSupportFragmentManager(), pictograms));
+		currentLevel = loader.getLevel();
 		
 		deleteButton.setOnClickListener(new DeletePictogramListener());
 		talkButton.setOnClickListener(new TalkListener());
+	}
+	
+	private void changeBackground(int[] colors){
+		GradientDrawable newDrawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
+		newDrawable.setShape(GradientDrawable.RECTANGLE);
+		newDrawable.setGradientType(GradientDrawable.LINEAR_GRADIENT);
+		pager.setBackgroundDrawable(newDrawable);
 	}
 	
 	/**
@@ -87,9 +107,14 @@ public class PictogramActivity extends RoboActivity implements EventListener<Voi
 	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item){
-		LevelActionProvider provider = new LevelActionProvider(this, bus);
-		provider.onPerformDefaultAction();
-		return true;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("currentLevel", currentLevel);
+		MenuActionProvider provider = MenuActionProvider.newInstance(
+				menuMap.get(item.getItemId()),
+				this, 
+				bus, 
+				map);
+		return provider.execute();
 	}
 	
 	@Override
@@ -105,6 +130,8 @@ public class PictogramActivity extends RoboActivity implements EventListener<Voi
 	public void onDestroy(){
 		super.onDestroy();
 		bus.removeEventListener(UpdatePictogramsCompleteEvent.class, this);
+		bus.removeEventListener(ChangeLevelEvent.class, new ChangeLevelListener());
+		bus.removeEventListener(ChangeColorsEvent.class, new ChangeColorListener());
 	}
 	 
 
@@ -114,11 +141,12 @@ public class PictogramActivity extends RoboActivity implements EventListener<Voi
 	}
 	
 	private void changeLevel(int level){
+		currentLevel = level;
 		while(!currentPictogrmas.isEmpty()){
 			removePictogram();
 		}
 		List<Pictogram> pictograms = loader.getPictograms(level);
-		grid.setAdapter(new PictogramAdapter(this, pictograms));
+		pager.setAdapter(new PictogramPageAdapter(getSupportFragmentManager(), pictograms));
 	}
 	
 	private void talk(){
@@ -199,40 +227,37 @@ public class PictogramActivity extends RoboActivity implements EventListener<Voi
 			changeLevel(event.getData());
 		}
 		
+		@Override
+		public boolean equals(Object o){
+			return o instanceof ChangeLevelListener;
+		}
+		
+		@Override
+		public int hashCode(){
+			return ChangeLevelListener.class.hashCode();
+		}
+		
+	}
+
+	private class ChangeColorListener implements EventListener<int[]>{
+		@Override
+		public void onEvent(Event<int[]> event) {
+			changeBackground(event.getData());
+		}
+		
+		@Override
+		public boolean equals(Object o){
+			return o instanceof ChangeColorListener;
+		}
+		
+		@Override
+		public int hashCode(){
+			return ChangeColorListener.class.hashCode();
+		}
+		
 	}
 	
-	private class PictogramAdapter extends BaseAdapter{
-		private final Context context;
-		private final List<Pictogram> pictograms;
-		
-		public PictogramAdapter(Context context, List<Pictogram> pictograms){
-			this.pictograms = pictograms;
-			this.context = context;
-		}
-
-		@Override
-		public int getCount() {
-			return pictograms.size();
-		}
-
-		@Override
-		public Object getItem(int position) {
-			return pictograms.get(position);
-		}
-
-		@Override
-		public long getItemId(int position) {
-			return position;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			int numCollumns = ((GridView)parent).getNumColumns();
-			PictogramView view = new PictogramView(context, numCollumns);
-			view.setPictogram(this.pictograms.get(position));
-			return view;
-		}
-	}
+	
 	
 	private class DeletePictogramListener implements OnClickListener{
 

@@ -32,5 +32,8 @@
     
     <string name="mam_item_jcm">Jugando con las manos</string>
     <string name="mam_item_detail_jcm">Usa tus dedos para jugar.</string>
+
+    <string name="mam_item_test">Pruebas</string>
+    <string name="mam_item_detail_test">Pruebas TODO Borrar al desployar</string>
     
 </resources>

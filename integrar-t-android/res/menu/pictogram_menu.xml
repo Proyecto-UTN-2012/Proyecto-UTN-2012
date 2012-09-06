@@ -6,5 +6,11 @@
         android:title="@string/level" 
         android:titleCondensed="@string/level"></item>
     
+    <item 
+        android:id="@+id/pictogramColor" 
+        android:menuCategory="container" 
+        android:title="@string/color" 
+        android:titleCondensed="@string/color"></item>
+    
 
 </menu>

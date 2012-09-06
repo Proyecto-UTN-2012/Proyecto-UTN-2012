@@ -10,4 +10,5 @@
     <string name="yes">Si</string>
     <string name="no">No</string>
     <string name="level">Nivel</string>
+    <string name="color">Color</string>
 </resources>

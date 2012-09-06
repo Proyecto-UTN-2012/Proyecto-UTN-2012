@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.pictogramas.LaunchPictogramEvent;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.testactivity.LaunchTestActivityEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.Event;
 
 import android.app.Activity;
@@ -76,6 +77,7 @@ public class MainMenuItem {
         addItem(new MenuItem("9", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_cue),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_cue), new LaunchPictogramEvent(ACTIVITY_REFERENCE) ));
         addItem(new MenuItem("10", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_hcd),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_hcd), new LaunchPictogramEvent(ACTIVITY_REFERENCE)));
         addItem(new MenuItem("11", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_jcm),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_jcm), new LaunchPictogramEvent(ACTIVITY_REFERENCE) ));
+        addItem(new MenuItem("12", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_test),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_test), new LaunchTestActivityEvent(ACTIVITY_REFERENCE) ));
     }
 
     private static void addItem(MenuItem item) {
