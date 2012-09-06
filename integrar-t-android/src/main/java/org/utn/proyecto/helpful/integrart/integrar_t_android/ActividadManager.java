@@ -1,5 +1,7 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android;
 
+import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.comosehace.ComoSeHaceActivity;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.comosehace.LaunchComoSeHaceEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.pictogramas.LaunchPictogramEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.pictogramas.PictogramActivity;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.Event;
@@ -23,9 +25,20 @@ public class ActividadManager{
 		bus.addEventListener(LaunchMenuEvent.class, new LaunchMenuListener());
 		bus.addEventListener(ShowLoginEvent.class, new LaunchLoginListener());
 		bus.addEventListener(LaunchPictogramEvent.class, new LaunchPictogramListener());
+		bus.addEventListener(LaunchComoSeHaceEvent.class, new LaunchComoLoUsoListener());
 		//bus.addEventListener(LaunchTestActivityEvent.class, new LaunchTestListener());
 		//bus.addEventListener(LaunchTestActivityEvent.class, new LaunchTestListener());
 	}
+
+    private class LaunchComoLoUsoListener implements EventListener<Void>{
+        @Override
+        public void onEvent(Event<Void> event) {
+            Context context = event.getContext();
+            Intent intent = new Intent(context, ComoSeHaceActivity.class);
+            context.startActivity(intent);
+        }
+    }
+	
 	
 	private class LaunchMenuListener implements EventListener<Void>{
 		@Override
@@ -54,6 +67,8 @@ public class ActividadManager{
 		}
 	}
 	*/
+	
+	
 	private class LaunchPictogramListener implements EventListener<Void>{
 
 		@Override
@@ -64,4 +79,5 @@ public class ActividadManager{
 		}
 		
 	}
+
 }
