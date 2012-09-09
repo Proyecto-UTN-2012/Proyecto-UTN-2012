@@ -1,8 +1,8 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android;
 
+import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.hablaconcali.LaunchHablaConCaliEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
-import org.utn.proyecto.helpful.integrart.integrar_t_android.events.LaunchHablaConCaliEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.LaunchMenuEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.ShowLoginEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.ComunicationService;
@@ -70,11 +70,11 @@ public class IntegrarTMainActivity extends RoboActivity{
         mainButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-	            bus.dispatch(new LaunchMenuEvent(v.getContext()));
-				//bus.dispatch(new LaunchHablaConCali(v.getContext()));
+	            //bus.dispatch(new LaunchMenuEvent(v.getContext()));
+				bus.dispatch(new LaunchHablaConCaliEvent(v.getContext()));
 			}
 		});
-        bus.dispatch(new LaunchMenuEvent(this));
+       // bus.dispatch(new LaunchMenuEvent(this));
     }
     
     /**

@@ -1,87 +1,100 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.hablaconcali;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
-
-import android.R.integer;
-import android.media.MediaPlayer;
-import android.media.MediaRecorder;
-import android.media.MediaPlayer.OnCompletionListener;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.SystemClock;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
+import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnCompletionListener;
+import android.media.MediaRecorder;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.SystemClock;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.ImageView;
 
 @ContentView(R.layout.hcc_main)
 public class HablaConCaliActivity extends RoboActivity implements
 		OnCompletionListener {
 
-	@Override
-	protected void onDestroy() {
-		// TODO Auto-generated method stub
+	@InjectView(R.id.caliHcc)
+	private ImageView cali;
 
-		// MediaPlayer frase = null;
-		//
-		// frase = MediaPlayer.create(getApplicationContext(), R.raw.chau);
-		// frase.setOnCompletionListener(this);
-		// frase.start();
-		listening = false;
-		if (mRecorder != null) {
-			mRecorder.stop();
-			mRecorder.release();
-			mRecorder = null;
-		}
-		listening = false;
-		super.onDestroy();
-		// // frase.reset();
-		// frase = null;
-
-	}
-
-	@Override
-	protected void onStop() {
-
-		listening = false;
-
-		if (mRecorder != null) {
-			mRecorder.stop();
-			mRecorder.release();
-			mRecorder = null;
-		}
-		nrofrase = 20;
-		super.onStop();
-	}
+	private AnimationDrawable caliAnimation;
 
 	private MediaRecorder mRecorder = null;
 
-	// @InjectView(R.id.button1)
-	// private Button button1;
-	public long time;
-	public boolean listening = true;
-	public boolean grito = false;
-	public boolean contesto = false;
-	public Double amplitude1;
-	public int nrofrase = 0;
-	public List<Integer> frases = Arrays.asList( R.raw.como_te_llamas, R.raw.queres_jugar_conmigo,
-			R.raw.cuantos_anios_tenes, R.raw.vos_sos_dios, R.raw.chau );
+	// public long time;
+	
+	
+	
+	//private int confcantfrases;
+
+	private boolean listening = true;
+
+	private boolean grito = false;
+
+	private boolean contesto = false;
+
+	private Double amplitude1;
+
+	private int nrofrase = 0;
+
+	private List<Integer> frases = new ArrayList(Arrays.asList(
+			R.raw.como_te_llamas, R.raw.queres_jugar_conmigo,
+			R.raw.cuantos_anios_tenes, R.raw.vos_sos_dios, R.raw.chau));
+
+	@Override
+	protected void onStop() {
+		Log.d("onstop", "estoy en el onstop");
+		listening = false;
+		frases.clear();
+
+		if (mRecorder != null) {
+			mRecorder.stop();
+			mRecorder.release();
+			mRecorder = null;
+		}
+		nrofrase = -1;
+		super.onStop();
+	}
+
+	@Override
+	protected void onDestroy() {
+		Log.d("ondestroy", "estoy en el ondestroy");
+		listening = false;
+		if (mRecorder != null) {
+			mRecorder.stop();
+			mRecorder.release();
+			mRecorder = null;
+		}
+		listening = false;
+		caliAnimation.stop();
+		super.onDestroy();
+
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-		// final MediaPlayer frase = new MediaPlayer();
+
 		Log.d("Habla con aida", "ahora si estoy logiando el onCreate");
+
+		cali.setBackgroundResource(R.drawable.cali_hcc);
+		caliAnimation = (AnimationDrawable) cali.getBackground();
 
 		final MediaPlayer frase = MediaPlayer.create(getApplicationContext(),
 				R.raw.hola);
@@ -102,26 +115,23 @@ public class HablaConCaliActivity extends RoboActivity implements
 				// mp.release();
 			}
 		});
-		// frase.start();
-		// button1.setOnClickListener(new View.OnClickListener() {
-		//
-		// @Override
-		// public void onClick(View v) {
-		//
-		// frase.reset();
-		// }
-		// });
-
-		// contesto = false;
-
-		// new Ear().execute();
 
 	} // cierra el oncreate
+
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+
+		super.onWindowFocusChanged(hasFocus);
+
+		if (hasFocus)
+			caliAnimation.start();
+	}
 
 	// Metodo que inicializa la escucha
 	public void start() {
 		if (mRecorder == null) {
-			initime();
+			// initime();
+
 			// Inicializamos los parametros del grabador
 			mRecorder = new MediaRecorder();
 			mRecorder
@@ -140,66 +150,64 @@ public class HablaConCaliActivity extends RoboActivity implements
 				Log.e("error", "IOException");
 			}
 			mRecorder.start();
-			endtime();
+			// endtime();
 		}
 
 	}
 
-	private void initime() {
-		time = new Date().getTime();
-	}
-
-	private void endtime() {
-		Log.e("start", "tiempo: " + (new Date().getTime() - time));
-	}
+	// private void initime() {
+	// time = new Date().getTime();
+	// }
+	//
+	// private void endtime() {
+	// Log.e("start", "tiempo: " + (new Date().getTime() - time));
+	// }
 
 	// Para la escucha
 	public void stop() {
 
-		// if (mRecorder != null) {
-		// mRecorder.stop();
-		// mRecorder.release();
-		// mRecorder = null;
-		//
-		// }
-
 		if (grito == false) {
 
-			if ((amplitude1 > 0.0) && (nrofrase < 3)) {
+			if ((amplitude1 > 0.0) && (frases.size() > 0)) {
+
 				listening = true;
 				contesto = false;
-				sigfrase();
-			} else if ((amplitude1 > 0.0) && (nrofrase == 3)
-					&& (grito == false)) {
-				listening = true;
-				contesto = false;
-				nrofrase = 4;
 				sigfrase();
 			} else {
-				
-					try {
-						this.finalize();
-					} catch (Throwable e) {
-						throw new RuntimeException(e);
-					}
-				
+
+				try {
+					this.finalize();
+				} catch (Throwable e) {
+					throw new RuntimeException(e);
+				}
+
 			}
 
+		} else {
+			Log.d("si gritó", "gritó");
 		}
-
 	}
 
 	public void sigfrase() {
-		// MediaPlayer frase = new MediaPlayer();
-		// frase = MediaPlayer.create(getApplicationContext(),
-		// R.raw.como_te_llamas);
-		// frase.setOnCompletionListener(this);
-		// frase.start();
+
+		int cantfrases = frases.size() - 1;
+		if (cantfrases > 1) {
+			nrofrase = randomNumber(0, cantfrases - 1);
+		} else {
+			nrofrase = 0;
+		}
 
 		final MediaPlayer frase = MediaPlayer.create(getApplicationContext(),
 				frases.get(nrofrase));
-		nrofrase = nrofrase + 1;
+		// nrofrase = nrofrase + 1;
+
 		frase.start();
+
+		caliAnimation.stop();
+		caliAnimation.start();
+
+		frases.remove(nrofrase);
+
 		frase.setOnCompletionListener(new OnCompletionListener() {
 
 			@Override
@@ -218,6 +226,10 @@ public class HablaConCaliActivity extends RoboActivity implements
 
 	}
 
+	public static int randomNumber(int min, int max) {
+		return min + (new Random()).nextInt(max - min);
+	}
+
 	// Devuelve la mayor amplitud del sonido captado desde la ultima vez que se
 	// llamo al metodo
 
@@ -233,10 +245,6 @@ public class HablaConCaliActivity extends RoboActivity implements
 	public class Ear extends AsyncTask<Void, Double, Void> {
 		protected void onPreExecute() {
 			start();
-			// double amplitudeini = 20 * Math.log10(getAmplitude() / 32768.0);
-			// if (amplitudeini < -80) {
-			// amplitudeini = new Double(-80);
-			// }
 		}
 
 		@Override
@@ -253,7 +261,7 @@ public class HablaConCaliActivity extends RoboActivity implements
 					amplitude = getAmplitude();
 
 					SystemClock.sleep(600);
-					// amplitude = 20 * Math.log10(getAmplitude() / 32768.0);
+
 					amplitude = getAmplitude();
 					amplitude1 = amplitude;
 					Log.d("HablaConCali", "Amplitud1: " + amplitude1);
@@ -262,12 +270,7 @@ public class HablaConCaliActivity extends RoboActivity implements
 				SystemClock.sleep(400);
 				amplitude = getAmplitude();
 
-				// double amplitude = getAmplitude();
-				// Double amplitude = 0d;
-				// if (mRecorder != null) {
-				// amplitude = (double) mRecorder.getMaxAmplitude();
 				Log.d("HablaConCali", "Amplitud: " + amplitude);
-				// }
 
 				if (amplitude > amplitude1 + 2000) {
 					publishProgress(amplitude);
@@ -280,14 +283,6 @@ public class HablaConCaliActivity extends RoboActivity implements
 							"salió con esta amplitud " + amplitude);
 				}
 
-				// if (amplitude < amplitudeini){
-				// contesto = true;
-				// }
-				// if ((amplitude < amplitudeini+1) && (contesto == true)){
-
-				// listening = false;
-
-				// }
 			}
 			return null;
 
@@ -315,5 +310,68 @@ public class HablaConCaliActivity extends RoboActivity implements
 	public void onCompletion(MediaPlayer mp) {
 		mp.release();
 	}
-
-} // cierra la clase
+	
+//	@Override
+//    public boolean onCreateOptionsMenu(Menu menu)
+//    {
+//    	//creates a menu inflater
+//    	MenuInflater inflater = getMenuInflater();
+//    	//generates a Menu from a menu resource file
+//    	//R.menu.main_menu represents the ID of the XML resource file
+//    	inflater.inflate(R.menu.hablaconcali_menu, menu);
+//    	return true;
+//    }
+//	
+//	@Override
+//    public boolean onOptionsItemSelected(MenuItem item)
+//    { 	
+////    	//check selected menu item
+////    	// R.id.exit is @+id/exit
+////    	if(item.getItemId() == R.id.exit){
+////    		//close the Activity
+////    		this.finish();
+////    		return true;
+////    	}
+////    	return false;
+//		
+//		switch (item.getItemId()) {
+//		case R.id.uno: confcantfrases = 1;
+//		break;
+//				
+//		case R.id.dos: confcantfrases = 2;
+//		break;
+//		
+//		
+//		case R.id.tres: confcantfrases = 3;
+//		break;
+//		
+//		
+//		case R.id.cuatro: confcantfrases = 4;
+//		
+//		break;
+//		
+//		case R.id.cinco: confcantfrases = 5;
+//		break;
+//		
+//		
+//		case R.id.seis: confcantfrases = 6;
+//		break;
+//		
+//		case R.id.siete: confcantfrases = 7;
+//		break;
+//		
+//		case R.id.ocho: confcantfrases = 8;
+//		break;
+//		
+//		case R.id.nueve: confcantfrases = 9;
+//		break;
+//		
+//		case R.id.diez: confcantfrases = 10;
+//		
+//		break;
+//		
+//		}
+//		return true;
+//    }
+	 
+}

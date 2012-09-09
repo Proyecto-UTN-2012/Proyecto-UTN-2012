@@ -33,19 +33,10 @@
         </activity>
         <activity android:name=".menu.ItemListActivity"></activity>
         <activity android:name=".activities.pictogramas.PictogramActivity"></activity>
-        <activity android:name=".activities.hablaconcali.HablaConCaliActivity"></activity>
+        <activity android:name=".activities.hablaconcali.HablaConCaliActivity" android:screenOrientation="nosensor"></activity>
         <!-- Test Activity Usada para hacer pruebas //TODO Eliminar cuando no se necesite -->
         <activity android:name=".activities.testactivity.TestActivity" >
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/title_activity_main" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-    </application>
+     </application>
 
 </manifest>
