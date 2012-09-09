@@ -68,6 +68,8 @@ public class MainMenuItem {
     public static Activity ACTIVITY_REFERENCE;
     
     public static void InitializeMenu(){
+        
+        if (ITEM_MAP.size() == 0){
         addItem(new MenuItem("1", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_cac),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_cac), new LaunchPictogramEvent(ACTIVITY_REFERENCE) ));
         addItem(new MenuItem("2", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_hcc),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_hcc), new LaunchPictogramEvent(ACTIVITY_REFERENCE) ));
         addItem(new MenuItem("3", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_dcc),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_dcc), new LaunchPictogramEvent(ACTIVITY_REFERENCE) ));
@@ -80,6 +82,7 @@ public class MainMenuItem {
         addItem(new MenuItem("10", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_hcd),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_hcd), new LaunchPictogramEvent(ACTIVITY_REFERENCE)));
         addItem(new MenuItem("11", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_jcm),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_jcm), new LaunchPictogramEvent(ACTIVITY_REFERENCE) ));
         addItem(new MenuItem("12", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_test),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_test), new LaunchTestActivityEvent(ACTIVITY_REFERENCE) ));
+        }
     }
 
     private static void addItem(MenuItem item) {

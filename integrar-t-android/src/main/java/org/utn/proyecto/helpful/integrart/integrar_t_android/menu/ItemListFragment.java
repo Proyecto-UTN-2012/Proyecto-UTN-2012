@@ -36,7 +36,6 @@ public class ItemListFragment extends ListFragment {
         MainMenuItem.ACTIVITY_REFERENCE = getActivity();
         //Write the menu to display
 
-        //bus = RoboGuice.getInjector(MainMenuItem.ACTIVITY_REFERENCE).getInstance(EventBus.class);
         MainMenuItem.InitializeMenu();
         
         setListAdapter(new ArrayAdapter<MainMenuItem.MenuItem>(getActivity(),
