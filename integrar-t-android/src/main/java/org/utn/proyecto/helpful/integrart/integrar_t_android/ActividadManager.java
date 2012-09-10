@@ -5,6 +5,8 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.pictogra
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.testactivity.LaunchTestActivityEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.testactivity.TestActivity;
 
+import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.cantaconcali.CantaConCaliActivity;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.cantaconcali.LaunchCantaConCaliEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.hablaconcali.HablaConCaliActivity;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.Event;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
@@ -14,6 +16,7 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.events.ShowLoginEve
 import org.utn.proyecto.helpful.integrart.integrar_t_android.login.LoginActivity;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.menu.ItemListActivity;
+
 import android.content.Context;
 import android.content.Intent;
 
@@ -27,6 +30,7 @@ public class ActividadManager{
 		bus.addEventListener(LaunchMenuEvent.class, new LaunchMenuListener());
 		bus.addEventListener(ShowLoginEvent.class, new LaunchLoginListener());
 		bus.addEventListener(LaunchPictogramEvent.class, new LaunchPictogramListener());
+		bus.addEventListener(LaunchCantaConCaliEvent.class, new LaunchCantaConCaliListener());
 		//bus.addEventListener(LaunchTestActivityEvent.class, new LaunchTestListener());
 		//bus.addEventListener(LaunchTestActivityEvent.class, new LaunchTestListener());
 	}
@@ -64,6 +68,17 @@ public class ActividadManager{
 		public void onEvent(Event<Void> event) {
 			Context context = event.getContext();
 			Intent intent = new Intent(context, PictogramActivity.class);
+			context.startActivity(intent);
+		}
+		
+	}
+	
+	private class LaunchCantaConCaliListener implements EventListener<Void>{
+
+		@Override
+		public void onEvent(Event<Void> event) {
+			Context context = event.getContext();
+			Intent intent = new Intent(context, CantaConCaliActivity.class);
 			context.startActivity(intent);
 		}
 		

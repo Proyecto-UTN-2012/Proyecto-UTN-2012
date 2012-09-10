@@ -34,6 +34,7 @@
         <activity android:name=".menu.ItemListActivity"></activity>
         <activity android:name=".activities.pictogramas.PictogramActivity"></activity>
         <activity android:name=".activities.hablaconcali.HablaConCaliActivity"></activity>
+		<activity android:name=".activities.cantaconcali.CantaConCaliActivity"></activity>
         <!-- Test Activity Usada para hacer pruebas //TODO Eliminar cuando no se necesite -->
         <activity android:name=".activities.testactivity.TestActivity" >
         </activity>

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.cantaconcali.LaunchCantaConCaliEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.pictogramas.LaunchPictogramEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.Event;
 
@@ -68,7 +69,7 @@ public class MainMenuItem {
         addItem(new MenuItem("1", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_cac),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_cac), new LaunchPictogramEvent(ACTIVITY_REFERENCE) ));
         addItem(new MenuItem("2", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_hcc),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_hcc), new LaunchPictogramEvent(ACTIVITY_REFERENCE) ));
         addItem(new MenuItem("3", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_dcc),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_dcc), new LaunchPictogramEvent(ACTIVITY_REFERENCE) ));
-        addItem(new MenuItem("4", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_ccc),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_ccc), new LaunchPictogramEvent(ACTIVITY_REFERENCE) ));
+        addItem(new MenuItem("4", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_ccc),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_ccc), new LaunchCantaConCaliEvent(ACTIVITY_REFERENCE) ));
         addItem(new MenuItem("5", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_ort),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_ort), new LaunchPictogramEvent(ACTIVITY_REFERENCE) ));
         addItem(new MenuItem("6", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_csh),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_csh), new LaunchPictogramEvent(ACTIVITY_REFERENCE) ));
         addItem(new MenuItem("7", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_pap),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_pap), new LaunchPictogramEvent(ACTIVITY_REFERENCE) ));
