@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
+    <issue id="DrawAllocation">
+        <ignore path="src\main\java\org\utn\proyecto\helpful\integrart\integrar_t_android\activities\pictogramas\ColorPickerDialog.java" />
+    </issue>
+    <issue id="FloatMath">
+        <ignore path="src\main\java\org\utn\proyecto\helpful\integrart\integrar_t_android\activities\pictogramas\ColorPickerDialog.java" />
+    </issue>
     <issue id="NewApi">
         <ignore path="src\main\java\org\utn\proyecto\helpful\integrart\integrar_t_android\MenuListFragment.java" />
     </issue>

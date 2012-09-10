@@ -37,6 +37,10 @@ public class PictogramLoader {
 			db.put(user.getUserName() + CURRENT_LEVEL, Integer.valueOf(1));
 	}
 	
+	public int getLevel(){
+		return db.get(user.getUserName() + CURRENT_LEVEL, Integer.class);
+	}
+	
 	public List<Pictogram> getPictograms(){
 		List<Pictogram> list = new ArrayList<Pictogram>();
 		int level = db.get(user.getUserName() + CURRENT_LEVEL, Integer.class);

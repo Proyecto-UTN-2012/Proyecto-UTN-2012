@@ -1,8 +1,24 @@
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="?android:attr/textAppearanceLarge"
     android:id="@+id/item_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".menu.ItemDetailFragment" />
+    android:orientation="vertical"
+    tools:context=".menu.ItemDetailFragment" >
+
+    <TextView
+        android:id="@+id/tv_activity_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="fragment description Cell phone" />
+
+    <Button
+        android:id="@+id/btn_activity_launch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Comenzar Actividad Cell phone" />
+    
+</LinearLayout>

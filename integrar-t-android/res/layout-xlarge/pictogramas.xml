@@ -3,31 +3,30 @@
     android:layout_height="match_parent"
     android:padding="5dp"
     android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android">
-<!-- 
-    <GridView
+
+ <!--    <GridView
         android:id="@+id/pictogramGrid"
         android:layout_width="match_parent"
-        android:layout_height="385dp"
+        android:layout_height="609dp"
         android:background="@drawable/sky_blue_button"
-        android:columnWidth="140dp"
+        android:columnWidth="400dp"
         android:horizontalSpacing="0dp"
-        android:numColumns="2"
+        android:numColumns="3"
         android:verticalSpacing="0dp" >
 
-    </GridView>
- -->
- 
-    <android.support.v4.view.ViewPager
+    </GridView> -->
+
+        <android.support.v4.view.ViewPager
         android:id="@+id/pictogramViewPager"
         android:layout_width="match_parent"
-        android:layout_height="385dp" 
+        android:layout_height="609dp" 
         android:background="@drawable/sky_blue_background">
 
     </android.support.v4.view.ViewPager>
-
+    
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="118dp"
         android:layout_gravity="bottom"
         android:background="#f3eece"
         android:paddingTop="5dp" >
@@ -83,5 +82,4 @@
         </LinearLayout>
 
     </FrameLayout>
-
 </FrameLayout>

@@ -1,12 +1,6 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.menu;
 
-import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
-import org.utn.proyecto.helpful.integrart.integrar_t_android.menu.item.*;
-
-import com.google.inject.Inject;
-
-import roboguice.RoboGuice;
-import roboguice.fragment.RoboListFragment;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.menu.item.MainMenuItem;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -21,8 +15,6 @@ public class ItemListFragment extends ListFragment {
 
     private Callbacks mCallbacks = sDummyCallbacks;
     private int mActivatedPosition = ListView.INVALID_POSITION;
-    
-    private EventBus bus;
     
     public interface Callbacks {
 
@@ -82,7 +74,6 @@ public class ItemListFragment extends ListFragment {
     public void onListItemClick(ListView listView, View view, int position, long id) {
         super.onListItemClick(listView, view, position, id);
         mCallbacks.onItemSelected(MainMenuItem.ITEMS.get(position).id);
-        bus.dispatch(MainMenuItem.ITEMS.get(position).event);
     }
 
     @Override
@@ -108,8 +99,4 @@ public class ItemListFragment extends ListFragment {
 
         mActivatedPosition = position;
     }
-
-	public void setBus(EventBus bus) {
-		this.bus = bus;
-	}
 }
