@@ -11,6 +11,7 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventListene
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.LaunchMenuEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.ShowLoginEvent;
 import android.app.Activity;
+
 import android.content.Context;
 import android.content.Intent;
 
@@ -26,6 +27,7 @@ public class ActividadManager implements EventListener<Class<Activity>>{
 		bus.addEventListener(LaunchPictogramEvent.class, this);
 		bus.addEventListener(LaunchComoSeHaceEvent.class, this);
 		bus.addEventListener(LaunchCalendarEvent.class, this);
+		bus.addEventListener(LaunchCantaConCaliEvent.class, new LaunchCantaConCaliListener());
 		//bus.addEventListener(LaunchTestActivityEvent.class, new LaunchTestListener());
 		bus.addEventListener(LaunchTestActivityEvent.class, this);
 	}
@@ -36,4 +38,15 @@ public class ActividadManager implements EventListener<Class<Activity>>{
         Intent intent = new Intent(context, event.getData());
         context.startActivity(intent);
     }
+	
+	private class LaunchCantaConCaliListener implements EventListener<Void>{
+
+		@Override
+		public void onEvent(Event<Void> event) {
+			Context context = event.getContext();
+			Intent intent = new Intent(context, CantaConCaliActivity.class);
+			context.startActivity(intent);
+		}
+		
+	}
 }

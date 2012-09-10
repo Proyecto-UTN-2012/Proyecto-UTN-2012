@@ -37,10 +37,12 @@
             android:screenOrientation="nosensor"></activity>
         <activity android:name=".activities.hablaconcali.HablaConCaliActivity"
             android:screenOrientation="nosensor"></activity>
+		<activity android:name=".activities.cantaconcali.CantaConCaliActivity"></activity>
         <activity android:name=".activities.calendar.CalendarActivity"></activity>
         <!-- Test Activity Usada para hacer pruebas //TODO Eliminar cuando no se necesite -->
         <activity android:name=".activities.testactivity.TestActivity" >
         </activity>
+        <activity android:name=".activities.comosehace.ComoSeHaceActivity"></activity>
     </application>
 
 </manifest>
