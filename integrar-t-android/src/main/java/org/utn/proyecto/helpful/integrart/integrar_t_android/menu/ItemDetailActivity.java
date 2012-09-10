@@ -1,18 +1,23 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.menu;
 
-import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
 
+import roboguice.activity.RoboFragmentActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.*;
+import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
-public class ItemDetailActivity extends FragmentActivity {
+import com.google.inject.Inject;
 
+public class ItemDetailActivity extends RoboFragmentActivity {
+
+	@Inject
+	private EventBus bus;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mam_activity_item_list);
+        //setContentView(R.layout.mam_fragment_item_detail);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -22,9 +27,14 @@ public class ItemDetailActivity extends FragmentActivity {
                     getIntent().getStringExtra(ItemDetailFragment.ARG_ITEM_ID));
             ItemDetailFragment fragment = new ItemDetailFragment();
             fragment.setArguments(arguments);
+            fragment.setBus(bus);
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.item_detail_container, fragment)
+                    .add(android.R.id.content, fragment)
                     .commit();
+            
+            //getSupportFragmentManager().beginTransaction()
+            //.add(R.id.item_detail_container, fragment)
+            //.commit();
         }
     }
 

@@ -14,10 +14,10 @@
 
     <uses-sdk
         android:minSdkVersion="11"
-        android:targetSdkVersion="14" />
+        android:targetSdkVersion="13" />
 
     <application
-        android:icon="@drawable/icon_trans"
+        android:icon="@drawable/icon_trans_icon"
         android:label="@string/app_name" >
         <activity android:name=".IntegrarTMainActivity" >
             <intent-filter>
@@ -32,21 +32,15 @@
 	<meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".menu.ItemListActivity"/>
         </activity>
         <activity android:name=".menu.ItemListActivity"></activity>
-        <activity android:name=".activities.pictogramas.PictogramActivity"></activity>
+        <activity android:name=".activities.pictogramas.PictogramActivity"
+            android:screenOrientation="nosensor"></activity>
         <activity android:name=".activities.hablaconcali.HablaConCaliActivity"></activity>
 		<activity android:name=".activities.cantaconcali.CantaConCaliActivity"></activity>
+        <activity android:name=".activities.calendar.CalendarActivity"></activity>
         <!-- Test Activity Usada para hacer pruebas //TODO Eliminar cuando no se necesite -->
         <activity android:name=".activities.testactivity.TestActivity" >
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/title_activity_main" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".activities.comosehace.ComoSeHaceActivity"></activity>
     </application>
 
 </manifest>

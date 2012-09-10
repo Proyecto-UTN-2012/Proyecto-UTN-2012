@@ -1,25 +1,25 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/item_detail_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".menu.ItemDetailActivity" >
+     >
 
     <LinearLayout
+        android:id="@+id/item_detail_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical" >
-
         <TextView
-            android:id="@+id/tv_activity_description_cellphone"
+            android:id="@+id/tv_activity_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Item Description" />
+
         <Button
-            android:id="@+id/btn_activity_launch_cellphone"
+            android:id="@+id/btn_activity_launch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Comenzar Actividad cellphone"
+            android:text="Comenzar Actividad"
             android:layout_gravity="center_horizontal" 
             />
     </LinearLayout>

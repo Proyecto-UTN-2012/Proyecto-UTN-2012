@@ -1,154 +1,101 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.testactivity;
 
-import java.io.InputStream;
-import java.util.List;
-
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
-import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.pictogramas.LaunchPictogramEvent;
-import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.ActivityResource;
-import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.ResourceType;
-import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
-import org.utn.proyecto.helpful.integrart.integrar_t_android.services.ComunicationService;
-import org.utn.proyecto.helpful.integrart.integrar_t_android.services.ComunicationService.ExternalResourceType;
-import org.utn.proyecto.helpful.integrart.integrar_t_android.services.FileSystemService;
-import org.utn.proyecto.helpful.integrart.integrar_t_android.services.UpdateService;
-import org.utn.proyecto.helpful.integrart.integrar_t_android.services.UpdateService.OnArriveNewResources;
 
-import roboguice.activity.RoboActivity;
+import roboguice.activity.RoboFragmentActivity;
 import roboguice.inject.ContentView;
-import roboguice.inject.InjectView;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnCompletionListener;
-import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.ListFragment;
+import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-
-import com.google.inject.Inject;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 @ContentView(R.layout.test_activity)
-public class TestActivity extends RoboActivity {
-	private final static String NAME = "testActivity";
-	@InjectView(R.id.testImage)
-	private ImageView image;
-	
-	@InjectView(R.id.updateTestButton)
-	private Button updateButton;
-
-	@InjectView(R.id.testPictogram)
-	private Button pictogramsButton;
-
-	@InjectView(R.id.loadTestResourceButton)
-	private Button loadResourcesButton;
-
-	@InjectView(R.id.loadTestSoundButton)
-	private Button loadSoundButton;
-	
-	@Inject
-	private UpdateService updateService;
-	
-	@Inject
-	private ComunicationService comService;
-	
-	@Inject
-	private FileSystemService fileService;
-	
-	@Inject
-	private EventBus bus;
+public class TestActivity extends RoboFragmentActivity {
 	
 	 @Override
 	 public void onCreate(Bundle savedInstanceState) {
 		 super.onCreate(savedInstanceState);
-		 updateButton.setOnClickListener(new UpdateButtonListener());
-		 loadResourcesButton.setOnClickListener(new LoadImageListener());
-		 loadSoundButton.setOnClickListener(new LoadSoundListener());
-		 pictogramsButton.setOnClickListener(new LaunchPictogramsListener(this));
+		 ViewPager pager = (ViewPager)findViewById(R.id.viewFlipper1);
+		 pager.setAdapter(new MyAdapter(getSupportFragmentManager()));
 	 }
-	 
-	 @Override
-	 public void onStop(){
-		 super.onStop();
-		 Log.d("Test Activity", "Stop");
-	 }
-	 
-	 @Override
-	 public void onDestroy(){
-		 super.onDestroy();
-		 Log.d("Test Activity", "Destroy");
-	 }
-	 
-	private class LaunchPictogramsListener implements View.OnClickListener{
-		private final Context context;
-		
-		public LaunchPictogramsListener(Context context){
-			this.context = context;
-		}
-		
-		@Override
-		public void onClick(View v) {
-			bus.dispatch(new LaunchPictogramEvent(context));
-		}
-		
-	}
-	 
-	private class UpdateButtonListener implements View.OnClickListener{
-		@Override
-		public void onClick(View v) {
-	        if(comService.isOnLine()){
-	        	updateService.findUpdates("testActivity", new OnArriveNewResources(){
-					@Override
-					public void onArriveNewResources(
-							List<ActivityResource> resources) {
-							if(resources.isEmpty()) return;
-							for(ActivityResource res : resources){
-								InputStream is = comService.findStream(ExternalResourceType.STATICS, res.getPath());
-								fileService.addResource(NAME, res.getResourceName(), res.getResourceType(), is); 
-							}
-					}
-	        		
-	        	});
-			}		
-		}
-	}
-	
-	private class LoadImageListener implements View.OnClickListener{
-		@Override
-		public void onClick(View v) {
-			String[] names = fileService.getResourcesNames(NAME, ResourceType.IMAGE);
-			if(names.length > 0)
-				image.setImageDrawable((Drawable)fileService.getResource(NAME, names[0]).getResource());
-		}	
-	}
-	
-	private class LoadSoundListener implements View.OnClickListener, OnPreparedListener, OnCompletionListener{
-		@Override
-		public void onClick(View v) {
-			String[] names = fileService.getResourcesNames(NAME, ResourceType.SOUND);
-			for(String name : names){
-				MediaPlayer player = (MediaPlayer)fileService.getResource(NAME, name).getResource();
-				player.setOnPreparedListener(this);
-				player.setOnCompletionListener(this);
-				try {
-					player.prepare();
-				} catch (Exception e) {
-					throw new RuntimeException(e);
-				} 
-			}
+	private class MyAdapter extends FragmentPagerAdapter{
+
+		public MyAdapter(FragmentManager fm) {
+			super(fm);
 		}
 
 		@Override
-		public void onPrepared(MediaPlayer mp) {
-			mp.start();
-			
+		public Fragment getItem(int position) {
+			return ArrayListFragment.newInstance(position);
 		}
 
 		@Override
-		public void onCompletion(MediaPlayer mp) {
-			mp.release();
-		}	
+		public int getCount() {
+			// TODO Auto-generated method stub
+			return 5;
+		}
+	
 	}
+	
+	public static class ArrayListFragment extends Fragment {
+        int mNum;
+
+        /**
+         * Create a new instance of CountingFragment, providing "num"
+         * as an argument.
+         */
+        static ArrayListFragment newInstance(int num) {
+            ArrayListFragment f = new ArrayListFragment();
+
+            // Supply num input as an argument.
+            Bundle args = new Bundle();
+            args.putInt("num", num);
+            f.setArguments(args);
+
+            return f;
+        }
+
+        /**
+         * When creating, retrieve this instance's number from its arguments.
+         */
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            mNum = getArguments() != null ? getArguments().getInt("num") : 1;
+        }
+
+        /**
+         * The Fragment's UI is just a simple text view showing its
+         * instance number.
+         */
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                Bundle savedInstanceState) {
+            View v = inflater.inflate(R.layout.test_pager_content, container, false);
+            View tv = v.findViewById(R.id.testLabel);
+            ((TextView)tv).setText("Fragment #" + mNum);
+            return v;
+        }
+
+        @Override
+        public void onActivityCreated(Bundle savedInstanceState) {
+            super.onActivityCreated(savedInstanceState);
+//            setListAdapter(new ArrayAdapter<String>(getActivity(),
+//                    android.R.layout.simple_list_item_1));
+        }
+
+//        @Override
+//        public void onListItemClick(ListView l, View v, int position, long id) {
+//            Log.i("FragmentList", "Item clicked: " + id);
+//        }
+    }
+		
 }
