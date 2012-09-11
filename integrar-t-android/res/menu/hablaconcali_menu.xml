@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+  
+	<item android:id="@+id/diez" android:title="10"></item>
+	<item android:id="@+id/nueve" android:title="9"></item>
+    <item android:id="@+id/ocho" android:title="8"></item>
+	<item android:id="@+id/siete" android:title="7"></item>
+	<item android:id="@+id/seis" android:title="6"></item>
+	<item android:id="@+id/cinco" android:title="5"></item>
+	<item android:id="@+id/cuatro" android:title="4"></item>
+	<item android:id="@+id/tres" android:title="3"></item>
+	<item android:id="@+id/dos" android:title="2"></item>
+	<item android:id="@+id/uno" android:title="1"></item>
+	
+</menu>

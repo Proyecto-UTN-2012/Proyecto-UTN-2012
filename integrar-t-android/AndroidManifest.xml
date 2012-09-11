@@ -13,6 +13,7 @@
     
 
     <uses-sdk
+
         android:minSdkVersion="11"
         android:targetSdkVersion="13" />
 
@@ -34,12 +35,20 @@
         <activity android:name=".menu.ItemListActivity"></activity>
         <activity android:name=".activities.pictogramas.PictogramActivity"
             android:screenOrientation="nosensor"></activity>
+<<<<<<< HEAD
         <activity android:name=".activities.hablaconcali.HablaConCaliActivity"></activity>
         <activity android:name=".activities.calendar.CalendarActivity" android:theme="@android:style/Theme.Holo.Light"></activity>
         <activity android:name=".activities.calendar.CalendarDetailActivity" android:theme="@android:style/Theme.Holo.Light"></activity>
+=======
+        <activity android:name=".activities.hablaconcali.HablaConCaliActivity"
+            android:screenOrientation="nosensor"></activity>
+		<activity android:name=".activities.cantaconcali.CantaConCaliActivity"></activity>
+        <activity android:name=".activities.calendar.CalendarActivity"></activity>
+>>>>>>> 0fccba58f9021a38977476e648816c07f1bdaa2b
         <!-- Test Activity Usada para hacer pruebas //TODO Eliminar cuando no se necesite -->
         <activity android:name=".activities.testactivity.TestActivity" >
         </activity>
+        <activity android:name=".activities.comosehace.ComoSeHaceActivity"></activity>
     </application>
 
 </manifest>
