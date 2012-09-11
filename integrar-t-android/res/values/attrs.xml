@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CalendarViewIntegrarT">
+	    <attr name="beforeMonthColor" format="color"/>
+	    <attr name="afterMonthColor" format="color"/>
+	    <attr name="currentMonthColor" format="color"/>
+	    <attr name="headerBackground" format="color"/>
+	    <attr name="previousButtonImage" format="color"/>
+	    <attr name="nextButtonImage" format="color"/>
+	    <attr name="beforeMonthBackground" format="color"/>
+	    <attr name="currentMonthBackground" format="color"/>
+	    <attr name="afterMonthBackground" format="color"/>
+	    <attr name="selectedDayBackground" format="color"/>
+	    <attr name="selectedDayColor" format="color"/>
+	    <attr name="headerColor" format="color"/>
+	    <attr name="headerSize" format="dimension"/>
+	    <attr name="lineColor" format="color"/>
+	    <attr name="selectedBackground" format="color"/>
+	    <attr name="selectedColor" format="color"/>
+	    
+    </declare-styleable>
+</resources>

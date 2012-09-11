@@ -1,3 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     <item type="layout" name="mam_activity_item_list">@layout/mam_activity_item_twopane</item>
+    <item type="layout" name="calendar_activity">@layout/calendar_two_panel</item>
 </resources>

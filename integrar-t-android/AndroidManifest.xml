@@ -35,7 +35,8 @@
         <activity android:name=".activities.pictogramas.PictogramActivity"
             android:screenOrientation="nosensor"></activity>
         <activity android:name=".activities.hablaconcali.HablaConCaliActivity"></activity>
-        <activity android:name=".activities.calendar.CalendarActivity"></activity>
+        <activity android:name=".activities.calendar.CalendarActivity" android:theme="@android:style/Theme.Holo.Light"></activity>
+        <activity android:name=".activities.calendar.CalendarDetailActivity" android:theme="@android:style/Theme.Holo.Light"></activity>
         <!-- Test Activity Usada para hacer pruebas //TODO Eliminar cuando no se necesite -->
         <activity android:name=".activities.testactivity.TestActivity" >
         </activity>

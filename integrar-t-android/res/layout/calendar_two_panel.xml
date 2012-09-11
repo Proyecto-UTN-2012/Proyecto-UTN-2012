@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="0dp"
+    android:layout_marginRight="0dp"
+    android:divider="?android:attr/dividerHorizontal"
+    android:showDividers="middle"
+    tools:context=".activities.calendar.CalendarActivity">
+
+    <fragment
+        android:id="@+id/calendar"
+        android:name="org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar.CalendarFragment"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+
+    <FrameLayout android:id="@+id/calendar_detail_container"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3" />
+
+</LinearLayout>

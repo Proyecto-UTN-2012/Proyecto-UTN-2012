@@ -13,6 +13,11 @@
 	    <item name="android:shadowDy">1</item>
 	    <item name="android:shadowRadius">2</item>
 	</style>
+
 	
     <style name="AppTheme" parent="android:Theme.Light" />
+    
+    <style name="BoldText" parent="@android:attr/textAppearanceLarge">
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

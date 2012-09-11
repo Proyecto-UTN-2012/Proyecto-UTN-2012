@@ -9,10 +9,12 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.MenuActionProvider;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.ChangeColorsEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.Event;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventListener;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
 
 import roboguice.activity.RoboFragmentActivity;
 import roboguice.inject.ContentView;
@@ -38,12 +40,21 @@ import com.google.inject.Inject;
 
 @ContentView(R.layout.pictogramas)
 public class PictogramActivity extends RoboFragmentActivity implements EventListener<Void>, OnItemClickListener{
+	private static final String START_COLOR = ".pictogramActivity.startColor";
+	private static final String END_COLOR = ".pictogramActivity.endColor";
+	
 	@Inject
 	private PictogramLoader loader;
 	@Inject
 	private PictogramUpdateService updateService;
 	@Inject
 	private EventBus bus;
+	
+	@Inject
+	private User user;
+	
+	@Inject
+	private DataStorageService db;
 	
 	@InjectView(R.id.pictogramViewPager)
 	private ViewPager pager;
@@ -66,6 +77,9 @@ public class PictogramActivity extends RoboFragmentActivity implements EventList
 	
 	private Stack<Pictogram> currentPictogrmas = new Stack<Pictogram>();
 	
+	private int startColor = 0xfff0f6fb;
+	private int endColor = 0xffb7dcf4;
+	
 	private static SparseArray<Class<? extends MenuActionProvider>> menuMap = new SparseArray<Class<? extends MenuActionProvider>>();
 	
 	{
@@ -79,6 +93,15 @@ public class PictogramActivity extends RoboFragmentActivity implements EventList
 		bus.addEventListener(UpdatePictogramsCompleteEvent.class, this);
 		bus.addEventListener(ChangeLevelEvent.class, new ChangeLevelListener());
 		bus.addEventListener(ChangeColorsEvent.class, new ChangeColorListener());
+		if(db.contain(user.getUserName() + START_COLOR)){
+			startColor = db.get(user.getUserName() + START_COLOR, Integer.class);
+		}
+		if(db.contain(user.getUserName() + END_COLOR)){
+			endColor = db.get(user.getUserName() + END_COLOR, Integer.class);
+		}
+		
+		changeBackground(new int[]{startColor, endColor});
+		
 		updateService.findUpdate();
 		do{
 			try {
@@ -96,10 +119,14 @@ public class PictogramActivity extends RoboFragmentActivity implements EventList
 	}
 	
 	private void changeBackground(int[] colors){
+		startColor = colors[0];
+		endColor = colors[1];
 		GradientDrawable newDrawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
 		newDrawable.setShape(GradientDrawable.RECTANGLE);
 		newDrawable.setGradientType(GradientDrawable.LINEAR_GRADIENT);
 		pager.setBackgroundDrawable(newDrawable);
+		db.put(user.getUserName() + START_COLOR, startColor);
+		db.put(user.getUserName() + END_COLOR, endColor);
 	}
 	
 	/**

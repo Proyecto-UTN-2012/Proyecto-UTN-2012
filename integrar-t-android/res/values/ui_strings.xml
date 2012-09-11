@@ -11,4 +11,6 @@
     <string name="no">No</string>
     <string name="level">Nivel</string>
     <string name="color">Color</string>
+    <string name="previous">&lt;&lt;</string>
+    <string name="next">>></string>
 </resources>

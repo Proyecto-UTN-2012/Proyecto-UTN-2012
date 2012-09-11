@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.pictogramas;
+package org.utn.proyecto.helpful.integrart.integrar_t_android.utils;
 
 import android.os.Bundle;
 import android.app.Dialog;

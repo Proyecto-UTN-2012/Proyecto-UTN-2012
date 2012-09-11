@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    xmlns:utils="http://schemas.android.com/apk/res/org.utn.proyecto.helpful.integrart.integrar_t_android"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
-    <CalendarView
-        android:id="@+id/calendarView1"
+	
+    <org.utn.proyecto.helpful.integrart.integrar_t_android.utils.CalendarView 
+        android:id="@+id/calendar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
+        android:layout_height="match_parent"
+        android:background="#444444"
+        utils:headerBackground="@drawable/blue_background"
+        utils:beforeMonthColor="#cccccc"
+        utils:currentMonthColor="#444444"
+        utils:afterMonthColor="#cccccc"
+        utils:beforeMonthBackground="#a0a0a0"
+        utils:currentMonthBackground="#f0f0f0"
+        utils:afterMonthBackground="#a0a0a0"
+        utils:previousButtonImage="@drawable/left_icon"
+        utils:nextButtonImage="@drawable/right_icon"
+        utils:headerColor="#ffffff"
+        utils:headerSize="14dp"
+        utils:lineColor="#cccccc"
+        utils:selectedBackground="#79aedd"
+        utils:selectedColor="#ffff00"
+       />
 </LinearLayout>

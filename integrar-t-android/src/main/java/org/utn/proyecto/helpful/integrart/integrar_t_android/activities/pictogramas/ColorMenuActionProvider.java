@@ -6,6 +6,7 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.MenuActionProvider;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.ChangeColorsEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.utils.ColorPickerDialog;
 
 import android.content.Context;
 
