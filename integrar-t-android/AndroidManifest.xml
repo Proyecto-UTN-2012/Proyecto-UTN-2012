@@ -35,8 +35,12 @@
         <activity android:name=".menu.ItemListActivity"></activity>
         <activity android:name=".activities.pictogramas.PictogramActivity"
             android:screenOrientation="nosensor"></activity>
-        <activity android:name=".activities.calendar.CalendarActivity" android:theme="@android:style/Theme.Holo.Light"></activity>
-        <activity android:name=".activities.calendar.CalendarDetailActivity" android:theme="@android:style/Theme.Holo.Light"></activity>
+        <activity android:name=".activities.calendar.CalendarActivity" 
+            android:theme="@android:style/Theme.Holo.Light"
+            android:screenOrientation="landscape"></activity>
+        <activity android:name=".activities.calendar.CalendarDetailActivity" 
+            android:theme="@android:style/Theme.Holo.Light"
+            android:screenOrientation="landscape"></activity>
         <activity android:name=".activities.hablaconcali.HablaConCaliActivity"
             android:screenOrientation="nosensor"></activity>
 		<activity android:name=".activities.cantaconcali.CantaConCaliActivity"></activity>
