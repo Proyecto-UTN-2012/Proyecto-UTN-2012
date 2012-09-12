@@ -36,11 +36,8 @@ public class HablaConCaliActivity extends RoboActivity implements
 
 	private MediaRecorder mRecorder = null;
 
+	private MediaPlayer frase = null;
 	// public long time;
-	
-	
-	
-	//private int confcantfrases;
 
 	private boolean listening = true;
 
@@ -61,13 +58,20 @@ public class HablaConCaliActivity extends RoboActivity implements
 		Log.d("onstop", "estoy en el onstop");
 		listening = false;
 		frases.clear();
+		grito = false;
 
 		if (mRecorder != null) {
 			mRecorder.stop();
 			mRecorder.release();
 			mRecorder = null;
 		}
-		nrofrase = -1;
+
+		if (frase != null) {
+			frase.stop();
+			frase.release();
+			// frase = null;
+		}
+		//
 		super.onStop();
 	}
 
@@ -80,8 +84,9 @@ public class HablaConCaliActivity extends RoboActivity implements
 			mRecorder.release();
 			mRecorder = null;
 		}
-		listening = false;
+
 		caliAnimation.stop();
+
 		super.onDestroy();
 
 	}
@@ -96,8 +101,10 @@ public class HablaConCaliActivity extends RoboActivity implements
 		cali.setBackgroundResource(R.drawable.cali_hcc);
 		caliAnimation = (AnimationDrawable) cali.getBackground();
 
-		final MediaPlayer frase = MediaPlayer.create(getApplicationContext(),
-				R.raw.hola);
+		// final MediaPlayer frase = MediaPlayer.create(getApplicationContext(),
+		// R.raw.hola);
+
+		frase = MediaPlayer.create(getApplicationContext(), R.raw.hola);
 
 		frase.start();
 		frase.setOnCompletionListener(new OnCompletionListener() {
@@ -197,10 +204,11 @@ public class HablaConCaliActivity extends RoboActivity implements
 			nrofrase = 0;
 		}
 
-		final MediaPlayer frase = MediaPlayer.create(getApplicationContext(),
-				frases.get(nrofrase));
-		// nrofrase = nrofrase + 1;
+		// final MediaPlayer frase = MediaPlayer.create(getApplicationContext(),
+		// frases.get(nrofrase));
 
+		frase = MediaPlayer.create(getApplicationContext(),
+				frases.get(nrofrase));
 		frase.start();
 
 		caliAnimation.stop();
@@ -310,68 +318,60 @@ public class HablaConCaliActivity extends RoboActivity implements
 	public void onCompletion(MediaPlayer mp) {
 		mp.release();
 	}
-	
-//	@Override
-//    public boolean onCreateOptionsMenu(Menu menu)
-//    {
-//    	//creates a menu inflater
-//    	MenuInflater inflater = getMenuInflater();
-//    	//generates a Menu from a menu resource file
-//    	//R.menu.main_menu represents the ID of the XML resource file
-//    	inflater.inflate(R.menu.hablaconcali_menu, menu);
-//    	return true;
-//    }
-//	
-//	@Override
-//    public boolean onOptionsItemSelected(MenuItem item)
-//    { 	
-////    	//check selected menu item
-////    	// R.id.exit is @+id/exit
-////    	if(item.getItemId() == R.id.exit){
-////    		//close the Activity
-////    		this.finish();
-////    		return true;
-////    	}
-////    	return false;
-//		
-//		switch (item.getItemId()) {
-//		case R.id.uno: confcantfrases = 1;
-//		break;
-//				
-//		case R.id.dos: confcantfrases = 2;
-//		break;
-//		
-//		
-//		case R.id.tres: confcantfrases = 3;
-//		break;
-//		
-//		
-//		case R.id.cuatro: confcantfrases = 4;
-//		
-//		break;
-//		
-//		case R.id.cinco: confcantfrases = 5;
-//		break;
-//		
-//		
-//		case R.id.seis: confcantfrases = 6;
-//		break;
-//		
-//		case R.id.siete: confcantfrases = 7;
-//		break;
-//		
-//		case R.id.ocho: confcantfrases = 8;
-//		break;
-//		
-//		case R.id.nueve: confcantfrases = 9;
-//		break;
-//		
-//		case R.id.diez: confcantfrases = 10;
-//		
-//		break;
-//		
-//		}
-//		return true;
-//    }
-	 
+
+	// @Override
+	// public boolean onCreateOptionsMenu(Menu menu)
+	// {
+	// //creates a menu inflater
+	// MenuInflater inflater = getMenuInflater();
+	// //generates a Menu from a menu resource file
+	// //R.menu.main_menu represents the ID of the XML resource file
+	// inflater.inflate(R.menu.hablaconcali_menu, menu);
+	// return true;
+	// }
+	//
+	// @Override
+	// public boolean onOptionsItemSelected(MenuItem item)
+	// {
+	// // //check selected menu item
+	// switch (item.getItemId()) {
+	// case R.id.uno: confcantfrases = 1;
+	// break;
+	//
+	// case R.id.dos: confcantfrases = 2;
+	// break;
+	//
+	//
+	// case R.id.tres: confcantfrases = 3;
+	// break;
+	//
+	//
+	// case R.id.cuatro: confcantfrases = 4;
+	//
+	// break;
+	//
+	// case R.id.cinco: confcantfrases = 5;
+	// break;
+	//
+	//
+	// case R.id.seis: confcantfrases = 6;
+	// break;
+	//
+	// case R.id.siete: confcantfrases = 7;
+	// break;
+	//
+	// case R.id.ocho: confcantfrases = 8;
+	// break;
+	//
+	// case R.id.nueve: confcantfrases = 9;
+	// break;
+	//
+	// case R.id.diez: confcantfrases = 10;
+	//
+	// break;
+	//
+	// }
+	// return true;
+	// }
+
 }
