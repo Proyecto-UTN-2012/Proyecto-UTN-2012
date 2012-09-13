@@ -4,213 +4,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingLeft="3dp"
-    android:paddingRight="3dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
     tools:context=".activities.calendar.CalendarDetailFragment" >
+
+	<ZoomControls
+	    android:id="@+id/zoom"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:gravity="center_vertical|center_horizontal|center" />
 
-
-    <TableRow
-        android:id="@+id/tableRow0"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-	    <TextView
-	        android:background="#ff0000"
-	        android:layout_width="44dp"
-	        android:layout_height="44dp"
-	        android:textAppearance="?android:attr/textAppearanceLarge" />
-	    <TextView
-	        android:background="#00ff00"
-	        android:layout_width="44dp"
-	        android:layout_height="44dp"
-	        android:textAppearance="?android:attr/textAppearanceLarge" />
-	    <TextView
-	        android:background="#0000ff"
-	        android:layout_width="44dp"
-	        android:layout_height="44dp"
-	        android:textAppearance="?android:attr/textAppearanceLarge" />
-	    <TextView
-	        android:background="#ffff00"
-	        android:layout_width="44dp"
-	        android:layout_height="44dp"
-	        android:textAppearance="?android:attr/textAppearanceLarge" />
-	    <TextView
-	        android:background="#ff00ff"
-	        android:layout_width="44dp"
-	        android:layout_height="44dp"
-	        android:textAppearance="?android:attr/textAppearanceLarge" />
-	    <TextView
-	        android:background="#00ffff"
-	        android:layout_width="44dp"
-	        android:layout_height="44dp"
-	        android:textAppearance="?android:attr/textAppearanceLarge" />
-	    <TextView
-	        android:background="#888888"
-	        android:layout_width="44dp"
-	        android:layout_height="44dp"
-	        android:textAppearance="?android:attr/textAppearanceLarge" />
-	    <TextView
-	        android:background="#4488ff"
-	        android:layout_width="44dp"
-	        android:layout_height="44dp"
-	        android:textAppearance="?android:attr/textAppearanceLarge" />
-	    <TextView
-	        android:background="#44ff88"
-	        android:layout_width="44dp"
-	        android:layout_height="44dp"
-	        android:textAppearance="?android:attr/textAppearanceLarge" />
-	    <TextView
-	        android:background="#ff4488"
-	        android:layout_width="44dp"
-	        android:layout_height="44dp"
-	        android:textAppearance="?android:attr/textAppearanceLarge" />
-	    <TextView
-	        android:background="#ff8844"
-	        android:layout_width="44dp"
-	        android:layout_height="44dp"
-	        android:textAppearance="?android:attr/textAppearanceLarge" />
-	    <TextView
-	        android:background="#8844ff"
-	        android:layout_width="44dp"
-	        android:layout_height="44dp"
-	        android:textAppearance="?android:attr/textAppearanceLarge" />
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow17"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow18"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow19"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow20"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow21"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow22"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow23"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-    </TableRow>
-
+	<HorizontalScrollView android:id="@+id/grid"
+	    android:paddingLeft="0dp"
+    	android:paddingRight="0dp"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent">
+	    
+		<ListView android:id="@+id/list"
+		    android:paddingLeft="0dp"
+    		android:paddingRight="0dp"
+		    android:layout_width="wrap_content"
+		    android:layout_height="match_parent">
+		    
+		</ListView>
+	</HorizontalScrollView>
 </LinearLayout>

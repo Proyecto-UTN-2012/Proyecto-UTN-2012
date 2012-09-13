@@ -19,4 +19,11 @@
 	    <attr name="selectedColor" format="color"/>
 	    
     </declare-styleable>
+    <declare-styleable name="CalendarHourIntegrarT">
+	    <attr name="hour" format="integer"/>
+	    <attr name="itemSize" format="dimension"/>
+	    <attr name="titleBackground" format="color"/>
+	    <attr name="titleColor" format="color"/>
+	    <attr name="titleSize" format="dimension"/>
+    </declare-styleable>
 </resources>
