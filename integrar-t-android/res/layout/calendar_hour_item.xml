@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar.CalendarHourView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:utils="http://schemas.android.com/apk/res/org.utn.proyecto.helpful.integrart.integrar_t_android"
+   	utils:itemSize="44dp"
+	utils:titleBackground="@drawable/grey_background_with_border"
+	utils:titleColor="#000000"
+	utils:titleSize="8sp" >
+</org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar.CalendarHourView>
