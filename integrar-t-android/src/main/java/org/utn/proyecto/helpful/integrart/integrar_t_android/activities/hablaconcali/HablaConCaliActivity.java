@@ -55,7 +55,7 @@ public class HablaConCaliActivity extends RoboActivity implements
 
 	@Override
 	protected void onStop() {
-		Log.d("onstop", "estoy en el onstop");
+
 		listening = false;
 		frases.clear();
 		grito = false;
@@ -66,12 +66,14 @@ public class HablaConCaliActivity extends RoboActivity implements
 			mRecorder = null;
 		}
 
-		if (frase != null) {
+		if ((frase != null) && (frase.isPlaying())) {
+
 			frase.stop();
 			frase.release();
-			// frase = null;
+			frase = null;
 		}
 		//
+		Log.d("onstop", "estoy en el onstop");
 		super.onStop();
 	}
 
@@ -107,6 +109,18 @@ public class HablaConCaliActivity extends RoboActivity implements
 		frase = MediaPlayer.create(getApplicationContext(), R.raw.hola);
 
 		frase.start();
+
+		frase.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+
+			@Override
+			public boolean onError(MediaPlayer mp, int what, int extra) {
+				Log.d("hola frase error", "hola error");
+				mp.release();
+				frase = null;
+				return false;
+			}
+		});
+
 		frase.setOnCompletionListener(new OnCompletionListener() {
 
 			@Override
@@ -115,7 +129,8 @@ public class HablaConCaliActivity extends RoboActivity implements
 				if (mp != null) {
 					mp.stop();
 					mp.release();
-					mp = null;
+					frase = null;
+
 				}
 
 				new Ear().execute();
@@ -215,7 +230,16 @@ public class HablaConCaliActivity extends RoboActivity implements
 		caliAnimation.start();
 
 		frases.remove(nrofrase);
+		frase.setOnErrorListener(new MediaPlayer.OnErrorListener() {
 
+			@Override
+			public boolean onError(MediaPlayer mp, int what, int extra) {
+				Log.d("frase error", "error");
+				mp.release();
+				frase = null;
+				return false;
+			}
+		});
 		frase.setOnCompletionListener(new OnCompletionListener() {
 
 			@Override
@@ -224,7 +248,7 @@ public class HablaConCaliActivity extends RoboActivity implements
 				if (mp != null) {
 					mp.stop();
 					mp.release();
-					mp = null;
+					frase = null;
 				}
 
 				new Ear().execute();
@@ -316,7 +340,7 @@ public class HablaConCaliActivity extends RoboActivity implements
 
 	@Override
 	public void onCompletion(MediaPlayer mp) {
-		mp.release();
+//		mp.release();
 	}
 
 	// @Override
