@@ -13,4 +13,5 @@
     <string name="color">Color</string>
     <string name="previous">&lt;&lt;</string>
     <string name="next">>></string>
+    <string name="zoom">Zoom</string>
 </resources>

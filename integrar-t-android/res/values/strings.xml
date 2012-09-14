@@ -8,6 +8,7 @@
     <string name="registerUserTitle">Registración</string>
     <string name="notUserExceptionMessage">No tienes asociada una cuenta al dispositivo.\nPor favor presiona el boton "Nuevo" para asociar una nueva cuenta.</string>
     <string name="notUserExceptionTitle">No tienes una cuenta</string>
+    <string name="showZoomText">Mostrar los controles de Zoom</string>
 
     <string name="selectLevel">Seleccione un Nivel</string>
     <string name="selectColor">Seleccione el Color</string>
