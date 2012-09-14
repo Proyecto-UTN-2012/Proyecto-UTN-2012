@@ -15,7 +15,7 @@
 			<groupId>org.utn.proyecto.helpful</groupId>
  			 <artifactId>andar</artifactId>
   			<version>1</version>
-		</dependency>
+		</dependency>	
 		<!-- Testing -->
 		<dependency>
 			<groupId>com.google.android</groupId>
