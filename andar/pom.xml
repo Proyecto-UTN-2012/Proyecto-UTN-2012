@@ -6,96 +6,20 @@
         <groupId>org.utn.proyecto.helpful.integrart</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-  	<artifactId>integrar-t-android</artifactId>
+  	<artifactId>andar</artifactId>
   	<version>0.0.1-SNAPSHOT</version>
-  	<packaging>apk</packaging>
-  	<name>integrar-t-android</name>
-  	<dependencies>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>andar</artifactId>
-			<version>${project.version}</version>
-			<type>jar</type>
-		</dependency>
-		<!-- Testing -->
+	<packaging>apk</packaging>
+  	<name>Andar</name>
+  	<dependencies>	
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>android-test</artifactId>
 			<version>2.2.1</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-			<version>4.9</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.hamcrest</groupId>
-					<artifactId>hamcrest-core</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<!-- <dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<scope>test</scope>
-			<version>1.9.0-rc1</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.hamcrest</groupId>
-					<artifactId>hamcrest-core</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency> -->
-		
-    	<dependency>
-      		<groupId>com.google.android</groupId>
-      		<artifactId>android</artifactId>
-      		<version>4.0.1.2</version>
-      		<scope>provided</scope>
-    	</dependency>
-    	<dependency>
-			<groupId>com.google.android</groupId>
-			<artifactId>support-v4</artifactId>
-			<version>r7</version>
-		</dependency>
-    	<dependency>
-    		<groupId>org.roboguice</groupId>
-    		<artifactId>roboguice</artifactId>
-    		<version>2.0</version>
-    	</dependency>
-		<dependency>
-      		<groupId>com.google.code.gson</groupId>
-      		<artifactId>gson</artifactId>
-      		<version>2.2.1</version>
-    	</dependency>
-		<!-- <dependency>
-			<groupId>com.google.api-client</groupId>
-			<artifactId>google-api-client-android2</artifactId>
-			<version>1.10.3-beta</version>
-		</dependency> -->
   	</dependencies>
 
   	<build>
-  		<resources>
-			<resource>
-				<directory>${project.basedir}/config</directory>
-				<filtering>true</filtering>
-				<targetPath>${project.build.directory}/res</targetPath>
-				<includes>
-					<include>**/*.xml</include>
-				</includes>
-			</resource>
-			<resource>
-				<directory>${project.basedir}/config</directory>
-				<filtering>false</filtering>
-				<targetPath>${project.build.directory}/res</targetPath>
-				<excludes>
-					<exclude>**/*.xml</exclude>
-				</excludes>
-			</resource>
-		</resources>
     	<pluginManagement>
         	<plugins>
             	<plugin>
@@ -116,7 +40,7 @@
           			<resourceDirectory>${project.build.directory}/res</resourceDirectory>
           			<nativeLibrariesDirectory>${project.basedir}/src/main/native</nativeLibrariesDirectory>
           			<sdk>
-            			<platform>11</platform>
+            			<platform>13</platform>
           			</sdk>
           			<deleteConflictingFiles>true</deleteConflictingFiles>
           			<undeployBeforeDeploy>true</undeployBeforeDeploy>
