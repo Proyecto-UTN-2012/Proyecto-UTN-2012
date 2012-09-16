@@ -3,6 +3,8 @@ package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calenda
 import java.util.Calendar;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -18,17 +20,34 @@ import android.widget.ZoomControls;
 
 public class CalendarDetailFragment extends Fragment {
 	private Calendar date;
+	private ZoomControls zoom;
+	private ZoomHelper zoomHelper;
+	private final DataStorageService db;
+	private final User user;
+	
+	public CalendarDetailFragment(User user, DataStorageService db){
+		this.db = db;
+		this.user = user;
+	}
+	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 		final ViewGroup view = (ViewGroup) inflater.inflate(R.layout.calendar_detail_fragment, container, false);
-		ZoomControls zoom = (ZoomControls)view.findViewById(R.id.zoom);
+		zoom = (ZoomControls)view.findViewById(R.id.zoom);
+		boolean showZoom = db.get(user.getUserName() + CalendarActivity.SHOW_ZOOM_KEY, Boolean.class);
 		final ViewGroup grid = (ViewGroup) view.findViewById(R.id.grid);
 		final ListView list = (ListView) view.findViewById(R.id.list);
-		new ZoomHelper(grid, zoom);
+		zoomHelper = new ZoomHelper(grid, zoom);
 		ListAdapter adapter = new HoursAdapter(getActivity());
 		list.setAdapter(adapter);
+		setZoomVisible(showZoom);
 		return view;
+	}
+	
+	public void setZoomVisible(boolean visible){
+		zoomHelper.showControls(visible);
+		zoom.setVisibility(visible? View.VISIBLE : View.GONE);
 	}
 	
 	public void setDate(Calendar date){
@@ -76,14 +95,20 @@ public class CalendarDetailFragment extends Fragment {
 
 		private int initialViewWidth;
 		private int initialViewHeight;
+		private int controlHeight;
 		private float zoomLevel = 1f;
-		public ZoomHelper(View theView, ZoomControls controls){
+		private boolean visible = false;
+		private int toAddHeight = 0;
+		
+		public ZoomHelper(View theView, final ZoomControls controls){
 			this.view = theView;
+			controlHeight = controls.getHeight();
 			controls.setOnZoomInClickListener(new View.OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
 					if(initialViewWidth==0){
+						controlHeight = controls.getHeight();
 						initialViewWidth = view.getWidth();
 						initialViewHeight = view.getHeight();
 					}
@@ -101,6 +126,13 @@ public class CalendarDetailFragment extends Fragment {
 					changeZoom(-SCALE_FACTOR);
 				}
 			});
+		}
+		
+		public void showControls(boolean show){
+			if(controlHeight==0) return;
+			visible = show;
+			toAddHeight = visible ? 0 : controlHeight;
+			view.setLayoutParams(new LinearLayout.LayoutParams((int)(initialViewWidth/zoomLevel), (int)((initialViewHeight + toAddHeight)/zoomLevel)));
 		}
 		
 		private void changeZoom(float factor){

@@ -1,6 +1,7 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar.LaunchCalendarEvent;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar.LaunchOrganizarEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.cantaconcali.LaunchCantaConCaliEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.comosehace.LaunchComoSeHaceEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.hablaconcali.LaunchHablaConCaliEvent;
@@ -28,6 +29,7 @@ public class ActividadManager implements EventListener<Class<Activity>>{
 		bus.addEventListener(LaunchPictogramEvent.class, this);
 		bus.addEventListener(LaunchComoSeHaceEvent.class, this);
 		bus.addEventListener(LaunchCalendarEvent.class, this);
+		bus.addEventListener(LaunchOrganizarEvent.class, this);
 		bus.addEventListener(LaunchHablaConCaliEvent.class, this);
 		bus.addEventListener(LaunchCantaConCaliEvent.class, this);
 		//bus.addEventListener(LaunchTestActivityEvent.class, new LaunchTestListener());
