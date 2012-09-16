@@ -41,7 +41,7 @@ public class ComoSeHaceAndarActivity extends AndARActivity {
 			artoolkit.registerARObject(someObject);
 		} catch (AndARException ex){
 			//handle the exception, that means: show the user what happened
-			System.out.println("");
+			System.out.println("Hubo um error generando Patrones.");
 		}		
 		startPreview();
 	}

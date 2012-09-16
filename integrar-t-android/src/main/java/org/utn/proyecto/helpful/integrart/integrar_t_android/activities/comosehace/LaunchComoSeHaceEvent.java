@@ -6,6 +6,6 @@ import android.content.Context;
 
 public class LaunchComoSeHaceEvent extends LaunchActivityEvent {
     public LaunchComoSeHaceEvent(Context context){
-        super(context, ComoSeHaceActivity.class);
+        super(context, ComoSeHaceAndarActivity.class);
     }
 } 
