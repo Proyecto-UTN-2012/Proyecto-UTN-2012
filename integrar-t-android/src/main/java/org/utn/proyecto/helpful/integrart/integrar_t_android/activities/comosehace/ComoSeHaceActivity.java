@@ -54,9 +54,17 @@ public class ComoSeHaceActivity extends RoboActivity implements EventListener<Vo
         Intent intent = new Intent(context, event.getData());
         context.startActivity(intent);
         */
+        /*Intent intent =  new Intent(this,ComoSeHaceAndarActivity.class);
+        this.startActivity(intent);
+        return true; */
+        executeCustomActivity();
+        return super.onMenuItemSelected(featureId, item);
+    }
+    
+    private void executeCustomActivity()
+    {
         Intent intent =  new Intent(this,ComoSeHaceAndarActivity.class);
         this.startActivity(intent);
-        return super.onMenuItemSelected(featureId, item);
     }
 
     @Override

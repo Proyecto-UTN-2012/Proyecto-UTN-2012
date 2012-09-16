@@ -10,12 +10,7 @@
   	<version>0.0.1-SNAPSHOT</version>
   	<packaging>apk</packaging>
   	<name>integrar-t-android</name>
-  	<dependencies>
-		<dependency>
-			<groupId>org.utn.proyecto.helpful</groupId>
- 			 <artifactId>andar</artifactId>
-  			<version>1</version>
-		</dependency>
+  	<dependencies>	
 		<!-- Testing -->
 		<dependency>
 			<groupId>com.google.android</groupId>
