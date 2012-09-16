@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 33
+/svn/!svn/ver/187/trunk/AndAR/jni
+END
+marker_info.h
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/187/trunk/AndAR/jni/marker_info.h
+END
+preview_handler_jni.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/187/trunk/AndAR/jni/preview_handler_jni.h
+END
+jni.bat
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/!svn/ver/39/trunk/AndAR/jni/jni.bat
+END
+Android.mk
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/34/trunk/AndAR/jni/Android.mk
+END
+Application.mk
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/135/trunk/AndAR/jni/Application.mk
+END
+jni.sh
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/!svn/ver/39/trunk/AndAR/jni/jni.sh
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/!svn/ver/118/trunk/AndAR/jni/README
+END

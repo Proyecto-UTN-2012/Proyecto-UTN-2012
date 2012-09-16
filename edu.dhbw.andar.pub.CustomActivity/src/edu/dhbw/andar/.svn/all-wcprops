@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/186/trunk/AndAR/src/edu/dhbw/andar
+END
+AndARActivity.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/186/trunk/AndAR/src/edu/dhbw/andar/AndARActivity.java
+END
+Config.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/140/trunk/AndAR/src/edu/dhbw/andar/Config.java
+END
+GenericFunctions.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/45/trunk/AndAR/src/edu/dhbw/andar/GenericFunctions.java
+END
+CameraHolder.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/35/trunk/AndAR/src/edu/dhbw/andar/CameraHolder.java
+END
+ARToolkit.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/186/trunk/AndAR/src/edu/dhbw/andar/ARToolkit.java
+END
+CameraPreviewHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/140/trunk/AndAR/src/edu/dhbw/andar/CameraPreviewHandler.java
+END
+ARObject.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/177/trunk/AndAR/src/edu/dhbw/andar/ARObject.java
+END
+AndARRenderer.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/178/trunk/AndAR/src/edu/dhbw/andar/AndARRenderer.java
+END
+CameraStatus.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/122/trunk/AndAR/src/edu/dhbw/andar/CameraStatus.java
+END
+CameraParameters.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/140/trunk/AndAR/src/edu/dhbw/andar/CameraParameters.java
+END

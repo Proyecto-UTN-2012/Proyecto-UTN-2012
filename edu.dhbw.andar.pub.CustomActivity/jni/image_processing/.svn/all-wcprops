@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/34/trunk/AndAR/jni/image_processing
+END
+yuv420sp2rgb.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/34/trunk/AndAR/jni/image_processing/yuv420sp2rgb.h
+END
+Android.mk
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/34/trunk/AndAR/jni/image_processing/Android.mk
+END
+yuv420sp2rgb.c
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/34/trunk/AndAR/jni/image_processing/yuv420sp2rgb.c
+END

@@ -1,0 +1,299 @@
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/svn/!svn/ver/187/trunk/AndAR/jni/AR
+END
+arGetTransMat2.c
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/arGetTransMat2.c
+END
+arGetTransMat3.c
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/arGetTransMat3.c
+END
+none.c
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/none.c
+END
+paramGet.c
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/paramGet.c
+END
+gsub.c
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/gsub.c
+END
+Makefile.in
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/Makefile.in
+END
+paramChangeSize.c
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/paramChangeSize.c
+END
+mAllocUnit.c
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/mAllocUnit.c
+END
+vHouse.c
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/vHouse.c
+END
+mInv.c
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/mInv.c
+END
+arDetectMarker2.c
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/arDetectMarker2.c
+END
+mPCA.c
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/mPCA.c
+END
+vAlloc.c
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/vAlloc.c
+END
+paramDisp.c
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/paramDisp.c
+END
+mAllocInv.c
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/mAllocInv.c
+END
+arGl.c
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/arGl.c
+END
+simclist.c
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/39/trunk/AndAR/jni/AR/simclist.c
+END
+mDet.c
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/mDet.c
+END
+simclist.h
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/39/trunk/AndAR/jni/AR/simclist.h
+END
+mUnit.c
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/mUnit.c
+END
+libAR.dsp
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/libAR.dsp
+END
+arDetectMarker.c
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/arDetectMarker.c
+END
+mFree.c
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/mFree.c
+END
+arUtil.c
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/arUtil.c
+END
+arLabeling.c
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/arLabeling.c
+END
+arGetTransMatCont.c
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/arGetTransMatCont.c
+END
+paramFile.c
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/paramFile.c
+END
+mTrans.c
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/mTrans.c
+END
+Android.mk
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/107/trunk/AndAR/jni/AR/Android.mk
+END
+mDup.c
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/mDup.c
+END
+mAlloc.c
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/mAlloc.c
+END
+vFree.c
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/vFree.c
+END
+arToolKit.c
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/187/trunk/AndAR/jni/AR/arToolKit.c
+END
+vTridiag.c
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/vTridiag.c
+END
+libAR.vcproj
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/libAR.vcproj
+END
+mMul.c
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/mMul.c
+END
+mDisp.c
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/mDisp.c
+END
+arGetTransMat.c
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/arGetTransMat.c
+END
+config.h.in
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/config.h.in
+END
+mAllocTrans.c
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/mAllocTrans.c
+END
+paramDistortion.c
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/paramDistortion.c
+END
+mAllocDup.c
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/mAllocDup.c
+END
+arGetMarkerInfo.c
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/arGetMarkerInfo.c
+END
+vInnerP.c
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/vInnerP.c
+END
+mSelfInv.c
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/mSelfInv.c
+END
+mAllocMul.c
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/mAllocMul.c
+END
+vDisp.c
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/vDisp.c
+END
+paramDecomp.c
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/paramDecomp.c
+END
+arGetCode.c
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/arGetCode.c
+END

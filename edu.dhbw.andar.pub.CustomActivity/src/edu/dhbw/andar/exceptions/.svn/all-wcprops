@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/47/trunk/AndAR/src/edu/dhbw/andar/exceptions
+END
+AndARException.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/47/trunk/AndAR/src/edu/dhbw/andar/exceptions/AndARException.java
+END
+AndARRuntimeException.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/47/trunk/AndAR/src/edu/dhbw/andar/exceptions/AndARRuntimeException.java
+END

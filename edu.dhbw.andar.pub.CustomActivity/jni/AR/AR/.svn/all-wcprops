@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/!svn/ver/74/trunk/AndAR/jni/AR/AR
+END
+gsub.h
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/AR/gsub.h
+END
+param.h
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/AR/param.h
+END
+ar.h
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/74/trunk/AndAR/jni/AR/AR/ar.h
+END
+matrix.h
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/AR/matrix.h
+END
+arGl.h
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/AR/arGl.h
+END
+config.h
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/34/trunk/AndAR/jni/AR/AR/config.h
+END
