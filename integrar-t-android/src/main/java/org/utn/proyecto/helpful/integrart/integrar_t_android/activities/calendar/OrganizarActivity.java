@@ -18,8 +18,8 @@ import android.view.MenuItem;
 import com.google.inject.Inject;
 
 @ContentView(R.layout.organizar_t)
-public class OrganizarActivity extends RoboActivity {
-	private final static String ORGANIZAR_T_PACKAGE_KEY = ".calendar.tasks.";
+public class OrganizarActivity extends RoboActivity{
+	public final static String ORGANIZAR_T_PACKAGE_KEY = ".calendar.tasks.";
 	
 	private Calendar date = Calendar.getInstance();
 	
@@ -32,13 +32,22 @@ public class OrganizarActivity extends RoboActivity {
 	@Inject
 	private EventBus bus;
 	
+	@Inject
+	private OrganizarTUpdateService updateService;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		updateService.findUpdate();
 		String dateKey = DateFormat.format("yyyy.MMMM.dd", date).toString();
 		if(!db.contain(user.getUserName() + ORGANIZAR_T_PACKAGE_KEY + dateKey)){
 			showEmptyPanel();
 		}
+	}
+	
+	@Override
+	public void onDestroy(){
+		super.onDestroy();
 	}
 	
 	@Override

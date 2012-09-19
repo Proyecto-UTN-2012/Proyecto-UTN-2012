@@ -1,6 +1,9 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar;
 
+import java.util.List;
+
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar.EmptyMinuteView.OnSelectMinuteListener;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -15,27 +18,29 @@ import android.widget.TextView;
 
 public class CalendarHourView extends FrameLayout {
 	private ViewGroup title;
-	
+	private ViewGroup content;
 	private int hour;
 	private float itemSize;
 	private Drawable titleBackground;
 	private int titleColor;
 	private float titleSize;
+	
+	private OnSelectMinuteListener onSelectMinuteListener;
 
 	public CalendarHourView(Context context) {
 		super(context);
-		init();
+		//init();
 	}
 	public CalendarHourView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		setAttributes(attrs);
-		init();
+		//init();
 	}
 	public CalendarHourView(Context context, AttributeSet attrs, int hour) {
 		super(context, attrs);
 		setAttributes(attrs);
 		this.hour = hour;
-		init();
+		//init();
 	}
 	
 	private void setAttributes(AttributeSet attrs){
@@ -47,12 +52,29 @@ public class CalendarHourView extends FrameLayout {
 		titleSize = ta.getDimension(R.styleable.CalendarHourIntegrarT_titleSize, 14);
 	}
 	
-	private void init(){
+	public void init(){
 		LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View view = inflater.inflate(R.layout.calendar_hour, null);
+		content = (ViewGroup) view.findViewById(R.id.content);
 		title = (ViewGroup) view.findViewById(R.id.title);
 		setTitle();
+		for(int i=0;i<60;i+=5){
+			addEmptyView();
+		}
 		this.addView(view);
+	}
+	
+	private void addEmptyView(){
+		for(int i=0;i<12;i++){
+			EmptyMinuteView emptyView = new EmptyMinuteView(getContext(), hour, i*5);
+			emptyView.setLayoutParams(new ViewGroup.LayoutParams(content.getLayoutParams().height, content.getLayoutParams().height));
+			emptyView.setOnSelectMinuteListener(onSelectMinuteListener);
+			content.addView(emptyView);
+		}
+	}
+	
+	public void setOnSelectMinuteListener(OnSelectMinuteListener listener){
+		this.onSelectMinuteListener = listener;
 	}
 	
 	private void setTitle(){
@@ -74,7 +96,11 @@ public class CalendarHourView extends FrameLayout {
 	
 	public void setHour(int hour){
 		this.hour = hour;
-		setTitle();
+		//setTitle();
+	}
+	
+	public void update(List<Task> tasks){
+		//TODO
 	}
 
 }

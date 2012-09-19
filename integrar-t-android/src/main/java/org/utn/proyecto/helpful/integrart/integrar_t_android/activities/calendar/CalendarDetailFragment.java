@@ -1,33 +1,58 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar.EmptyMinuteView.OnSelectMinuteListener;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.services.FileSystemService;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 import android.widget.ZoomControls;
 
-public class CalendarDetailFragment extends Fragment {
+@SuppressLint({ "ValidFragment", "ValidFragment" })
+public class CalendarDetailFragment extends Fragment implements OnSelectMinuteListener{
+	private static final String ACTIVITY_NAME = "calendarActivity";
 	private Calendar date;
 	private ZoomControls zoom;
 	private ZoomHelper zoomHelper;
 	private final DataStorageService db;
 	private final User user;
+	private ListView hoursView;
+	private HoursAdapter adapter;
 	
-	public CalendarDetailFragment(User user, DataStorageService db){
+	private List<Task> tasks = new ArrayList<Task>();
+	
+	private List<TaskType> taskTypes = new ArrayList<TaskType>();
+	
+	public CalendarDetailFragment(User user, DataStorageService db, FileSystemService fileService){
 		this.db = db;
 		this.user = user;
+		TaskTypeData[] taskData = db.get(OrganizarTUpdateService.getTaskTypesKey(user), TaskTypeData[].class);
+		for(TaskTypeData data : taskData){
+			Drawable pictogram = (Drawable) fileService.getResource(ACTIVITY_NAME, data.getName() + "_pictogram.png").getResource();
+			Drawable large = (Drawable) fileService.getResource(ACTIVITY_NAME, data.getName() + "_large.png").getResource();
+			Drawable small = (Drawable) fileService.getResource(ACTIVITY_NAME, data.getName() + "_small.png").getResource();
+			taskTypes.add(new TaskType(data.getName(), pictogram, large, small));
+		}
+		
 	}
 	
 	@Override
@@ -37,12 +62,18 @@ public class CalendarDetailFragment extends Fragment {
 		zoom = (ZoomControls)view.findViewById(R.id.zoom);
 		boolean showZoom = db.get(user.getUserName() + CalendarActivity.SHOW_ZOOM_KEY, Boolean.class);
 		final ViewGroup grid = (ViewGroup) view.findViewById(R.id.grid);
-		final ListView list = (ListView) view.findViewById(R.id.list);
+		hoursView = (ListView) view.findViewById(R.id.list);
 		zoomHelper = new ZoomHelper(grid, zoom);
-		ListAdapter adapter = new HoursAdapter(getActivity());
-		list.setAdapter(adapter);
+		adapter = new HoursAdapter(getActivity(), this);
+		hoursView.setAdapter(adapter);
 		setZoomVisible(showZoom);
+		updateCalendar();
 		return view;
+	}
+	
+	private void updateCalendar(){
+		if(adapter!=null)
+			adapter.update(tasks);
 	}
 	
 	public void setZoomVisible(boolean visible){
@@ -52,12 +83,30 @@ public class CalendarDetailFragment extends Fragment {
 	
 	public void setDate(Calendar date){
 		this.date = date;
+		String dateKey = DateFormat.format("yyyy.MMMM.dd", date).toString();
+		if(db.contain(user.getUserName() + OrganizarActivity.ORGANIZAR_T_PACKAGE_KEY + dateKey)){
+			tasks.clear();
+			Task[] taskArray = db.get(user.getUserName() + OrganizarActivity.ORGANIZAR_T_PACKAGE_KEY + dateKey, Task[].class);
+			for(Task task : taskArray){
+				tasks.add(task);
+			}
+		}
+		updateCalendar();
 	}
 	
+	@Override
+	public void onSelectMinute(int hour, int minute) {
+		
+		Toast.makeText(getActivity(), "Seleccionó: " + hour + ":" + minute, Toast.LENGTH_LONG).show();
+	}
+		
 	private class HoursAdapter extends BaseAdapter{
 		private Context context;
-		public HoursAdapter(Context context){
+		private CalendarHourView[] views = new CalendarHourView[24];
+		private OnSelectMinuteListener onSelectMinuteListener;
+		public HoursAdapter(Context context, OnSelectMinuteListener onSelectMinuteListener){
 			this.context = context;
+			this.onSelectMinuteListener = onSelectMinuteListener;
 		}
 		@Override
 		public int getCount() {
@@ -75,15 +124,36 @@ public class CalendarDetailFragment extends Fragment {
 			// TODO Auto-generated method stub
 			return 0;
 		}
+		
+		public void update(List<Task> tasks){
+			for(int i=0;i<24;i++){
+				final int j = i;
+				List<Task> filteredList = new ArrayList<Task>();
+				CollectionUtils.filter(filteredList, new Predicate() {
+					@Override
+					public boolean evaluate(Object object) {
+						Task task = (Task)object;
+						return task.inHour(j);
+					}
+				});
+				if(views[i]==null){
+					views[i] = (CalendarHourView) getView(i, null, hoursView);
+				}
+				views[i].update(filteredList);
+			}
+		}
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {			
-			if(convertView==null){
+			if(views[position]==null){
 				LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				convertView = (CalendarHourView) inflater.inflate(R.layout.calendar_hour_item, null);
+				CalendarHourView view = (CalendarHourView) inflater.inflate(R.layout.calendar_hour_item, null);
+				view.setHour(position);
+				view.setOnSelectMinuteListener(onSelectMinuteListener);
+				view.init();
+				views[position] = view;
 			}
-			((CalendarHourView)convertView).setHour(position);
-			return convertView;
+			return views[position];
 		}
 		
 	}

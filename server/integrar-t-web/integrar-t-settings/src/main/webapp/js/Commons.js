@@ -3,7 +3,8 @@ function loadTags(){
 	tags = 	[{title:"Test Image", bodyFunction: "buildTestImageSection"},
 			 {title:"Test Sound", bodyFunction: "buildTestSoundSection"},
 			 {title:"Test Get Resources", bodyFunction: "buildTestConsumeResourceSection"},
-			 {title:"Agregar Pictograma", bodyFunction: "buildPictogramSection"}
+			 {title:"Agregar Pictograma", bodyFunction: "buildPictogramSection"},
+			 {title:"Agregar Tarea", bodyFunction: "buildOrganizarTSection"}
 			];
 	for(var i in tags){
 		accordion.append(
