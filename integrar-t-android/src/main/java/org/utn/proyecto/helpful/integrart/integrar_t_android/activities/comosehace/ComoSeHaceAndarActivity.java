@@ -2,6 +2,7 @@ package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.comoseh
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -18,7 +19,8 @@ import edu.dhbw.andar.exceptions.AndARException;
 
 public class ComoSeHaceAndarActivity extends AndARActivity {
 
-	@Override
+	private static final String VIDEO = "video";
+    @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
             ContextMenuInfo menuInfo) {
         // TODO Auto-generated method stub
@@ -59,13 +61,13 @@ public class ComoSeHaceAndarActivity extends AndARActivity {
 			//register a object for each marker type
 			artoolkit = super.getArtoolkit();
 			someObject = new ComoSeHaceCustomAndarObject
-				("test", "patt.hiro", 80.0, new double[]{0,0});
+				("test", "patt.hiro", 80.0, new double[]{0,0},this);
 			artoolkit.registerARObject(someObject);
 			someObject = new ComoSeHaceCustomAndarObject
-			("test", "android.patt", 80.0, new double[]{0,0});
+			("test", "android.patt", 80.0, new double[]{0,0},this);
 			artoolkit.registerARObject(someObject);
 			someObject = new ComoSeHaceCustomAndarObject
-			("test", "barcode.patt", 80.0, new double[]{0,0});
+			("test", "barcode.patt", 80.0, new double[]{0,0},this);
 			artoolkit.registerARObject(someObject);
 		} catch (AndARException ex){
 			//handle the exception, that means: show the user what happened
@@ -84,6 +86,13 @@ public class ComoSeHaceAndarActivity extends AndARActivity {
 		finish();
 	}
 	
+	
+    public void executeReproductor(String path) {
+        // TODO Auto-generated method stub
+        Intent intent =  new Intent(this,ComoSeHaceReproductor.class);
+        intent.putExtra(VIDEO, path);
+        this.startActivity(intent);
+    }
 	
 	
 }

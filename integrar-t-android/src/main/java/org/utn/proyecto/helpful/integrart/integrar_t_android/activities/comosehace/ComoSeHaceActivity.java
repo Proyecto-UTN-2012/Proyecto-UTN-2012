@@ -44,16 +44,8 @@ public class ComoSeHaceActivity extends RoboActivity implements EventListener<Vo
             @Override
             public void onClick(View v) {
                 // TODO instanciar configuracion general.
-                executeReproductor("android.resource://" + getPackageName() +"/"+R.raw.assasin);
             }
        });
-    }
-
-    protected void executeReproductor(String path) {
-        // TODO Auto-generated method stub
-        Intent intent =  new Intent(this,ComoSeHaceReproductor.class);
-        intent.putExtra(VIDEO, path);
-        this.startActivity(intent);
     }
 
     @Override
