@@ -52,6 +52,10 @@
         </activity>
         <activity android:name=".activities.comosehace.ComoSeHaceActivity"></activity>
         <activity android:name=".activities.comosehace.ComoSeHaceAndarActivity"></activity>
+        <activity android:name=".preferencias.PreferenceActivity"></activity>
+        <activity android:name=".activities.comosehace.ComoSeHaceReproductor" 
+            	android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            	></activity>
     </application>
 
 </manifest>

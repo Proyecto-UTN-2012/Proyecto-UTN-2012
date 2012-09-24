@@ -4,7 +4,13 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.AdapterView;
 import edu.dhbw.andar.ARToolkit;
 import edu.dhbw.andar.AndARActivity;
 import edu.dhbw.andar.exceptions.AndARException;
@@ -13,9 +19,31 @@ import edu.dhbw.andar.exceptions.AndARException;
 public class ComoSeHaceAndarActivity extends AndARActivity {
 
 	@Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+            ContextMenuInfo menuInfo) {
+        // TODO Auto-generated method stub
+	    
+	    MenuInflater inflater = getMenuInflater();
+	      inflater.inflate(R.menu.csh_activity_main_menu, menu);
+
+         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+         long itemID = info.position;
+         menu.setHeaderTitle("lior" + itemID);
+	    
+         
+        super.onCreateContextMenu(menu, v, menuInfo);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        // TODO Auto-generated method stub
+        return super.onTouchEvent(event);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // TODO Auto-generated method stub
-	    getMenuInflater().inflate(R.menu.csh_activity_main_menu, menu);
+	    //getMenuInflater().inflate(R.menu.csh_activity_main_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
