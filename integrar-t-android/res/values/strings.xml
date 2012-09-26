@@ -9,6 +9,8 @@
     <string name="notUserExceptionMessage">No tienes asociada una cuenta al dispositivo.\nPor favor presiona el boton "Nuevo" para asociar una nueva cuenta.</string>
     <string name="notUserExceptionTitle">No tienes una cuenta</string>
     <string name="showZoomText">Mostrar los controles de Zoom</string>
+    <string name="selectTestTitle">Seleccione una Tarea</string>
+    <string name="emptyTaskTypes">Todabia no existen tareas creadas, por favor accede al centro de administración y agrega una tarea</string>
 
     <string name="selectLevel">Seleccione un Nivel</string>
     <string name="selectColor">Seleccione el Color</string>

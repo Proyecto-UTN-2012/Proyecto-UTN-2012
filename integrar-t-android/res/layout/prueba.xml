@@ -34,5 +34,37 @@
         android:layout_height="wrap_content"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="90px"
+            android:layout_height="90px"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/google_icon" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="90px"
+            android:layout_height="90px"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/imageView1"
+            android:src="@drawable/google_icon" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="25dp"
+            android:layout_toRightOf="@+id/imageView1"
+            android:text="Levantarme"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    </RelativeLayout>
 
 </TableLayout>

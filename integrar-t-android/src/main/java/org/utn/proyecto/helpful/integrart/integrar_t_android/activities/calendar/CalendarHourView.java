@@ -1,16 +1,25 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar.EmptyMinuteView.OnSelectMinuteListener;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar.TaskView.OnDeleteTaskListener;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar.TaskView.OnInitDragTaskListener;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -25,7 +34,20 @@ public class CalendarHourView extends FrameLayout {
 	private int titleColor;
 	private float titleSize;
 	
+	private int colorIndex = 0;
+	
+	private Map<Task, TaskBackground> colorMap = new HashMap<Task, TaskBackground>();
+	
+	private List<TaskBackground> colors = Arrays.asList(
+			TaskBackground.BLUE, 
+			TaskBackground.GREEN, 
+			TaskBackground.ORANGE,
+			TaskBackground.PINK,
+			TaskBackground.YELLOW);
+	
 	private OnSelectMinuteListener onSelectMinuteListener;
+	private OnDeleteTaskListener onDeleteTaskListener;
+	private OnInitDragTaskListener onInitDragTaskListener;
 
 	public CalendarHourView(Context context) {
 		super(context);
@@ -56,25 +78,40 @@ public class CalendarHourView extends FrameLayout {
 		LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View view = inflater.inflate(R.layout.calendar_hour, null);
 		content = (ViewGroup) view.findViewById(R.id.content);
+		content.setOnTouchListener(new View.OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				if(event.getAction() == MotionEvent.ACTION_DOWN){
+					Log.i("CalendarHour", "DOWN");
+					return true;
+				}
+				if(event.getAction()==MotionEvent.ACTION_MOVE){
+					Log.i("CalendarHour", "MOVE");
+					return true;
+				}
+				Log.i("CalendarHour", "Other Action " + event.getAction());
+				
+				return false;
+			}
+		});
 		title = (ViewGroup) view.findViewById(R.id.title);
 		setTitle();
 		for(int i=0;i<60;i+=5){
-			addEmptyView();
+			addEmptyView(hour, i);
 		}
 		this.addView(view);
 	}
 	
-	private void addEmptyView(){
-		for(int i=0;i<12;i++){
-			EmptyMinuteView emptyView = new EmptyMinuteView(getContext(), hour, i*5);
-			emptyView.setLayoutParams(new ViewGroup.LayoutParams(content.getLayoutParams().height, content.getLayoutParams().height));
-			emptyView.setOnSelectMinuteListener(onSelectMinuteListener);
-			content.addView(emptyView);
-		}
-	}
-	
 	public void setOnSelectMinuteListener(OnSelectMinuteListener listener){
 		this.onSelectMinuteListener = listener;
+	}
+	
+	public void setOndeleteTaskListener(OnDeleteTaskListener listener){
+		this.onDeleteTaskListener = listener;
+	}
+
+	public void setInitDragTaskListener(OnInitDragTaskListener listener){
+		this.onInitDragTaskListener = listener;
 	}
 	
 	private void setTitle(){
@@ -96,11 +133,56 @@ public class CalendarHourView extends FrameLayout {
 	
 	public void setHour(int hour){
 		this.hour = hour;
-		//setTitle();
+		this.colorIndex = hour%5;
 	}
 	
-	public void update(List<Task> tasks){
-		//TODO
+	public List<View> update(List<Task> tasks){
+		content.removeAllViews();
+		List<View> views = new ArrayList<View>();
+		Collections.sort(tasks);
+		int currentMinute = 0;
+		do{
+			Task currentTask = null;
+			for(Task task : tasks){
+				if(task.getMinute()==currentMinute || task.getHour() != hour){
+					currentTask = task;
+					break;
+				}
+			}
+			if(currentTask!=null){
+				views.add(addTaskView(currentTask));
+				if(currentTask.getHour()!=hour){
+					currentMinute+=(currentTask.getSize() + currentTask.getMinute() - (hour - currentTask.getHour())*60);
+					tasks.remove(currentTask);
+				}
+				else currentMinute+=currentTask.getSize();
+			}
+			else{
+				views.add(addEmptyView(hour, currentMinute));
+				currentMinute+=5;
+			}
+		}while(currentMinute<60);
+		return views;
 	}
-
+	
+	private View addTaskView(Task task){
+		TaskBackground background = colors.get((++colorIndex)%5);
+		
+		if(colorMap.containsKey(task)) background = colorMap.get(task);
+		else colorMap.put(task, background);
+			
+		TaskView view = new TaskView(getContext(), content.getLayoutParams().height, hour, task, background);
+		view.setOnDeleteListener(onDeleteTaskListener);
+		view.setOnInitDragTaskListener(onInitDragTaskListener);
+		content.addView(view);
+		return view;
+	}
+	
+	private View addEmptyView(int hour, int minute){
+		EmptyMinuteView emptyView = new EmptyMinuteView(getContext(), hour, minute);
+		emptyView.setLayoutParams(new ViewGroup.LayoutParams(content.getLayoutParams().height, content.getLayoutParams().height));
+		emptyView.setOnSelectMinuteListener(onSelectMinuteListener);
+		content.addView(emptyView);
+		return emptyView;
+	}
 }

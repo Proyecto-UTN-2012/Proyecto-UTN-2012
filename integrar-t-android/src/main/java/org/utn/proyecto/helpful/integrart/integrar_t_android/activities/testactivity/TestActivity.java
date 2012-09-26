@@ -16,6 +16,8 @@ import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.Html;
 import android.text.Spannable;
+import android.text.TextPaint;
+import android.text.style.CharacterStyle;
 import android.text.style.StyleSpan;
 import android.text.style.TextAppearanceSpan;
 import android.text.style.TypefaceSpan;
@@ -46,9 +48,16 @@ public class TestActivity extends RoboFragmentActivity {
 			@Override
 			public void onClick(View v) {
 				int index = s.indexOf("amarillos");
+				
 				span.setSpan(new TextAppearanceSpan(v.getContext(), R.style.TestText), index, index + 9, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 				index = s.lastIndexOf("amarilla");
 				span.setSpan(new TextAppearanceSpan(v.getContext(), R.style.TestText), index, index + 8, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+				span.setSpan(new CharacterStyle() {
+					@Override
+					public void updateDrawState(TextPaint tp) {
+						tp.setShadowLayer(10f, 0f, 0f, 0xffffff00);
+					}
+				}, index, index + 8, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 				text.setText(span);
 			}
 		});
