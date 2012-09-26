@@ -1,67 +1,69 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.comosehace;
 
-import java.util.logging.Logger;
-
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.R.string;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.Event;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventListener;
 
+import com.google.inject.Inject;
+
 import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
-import android.app.AlertDialog;
-import android.content.Context;
+import roboguice.inject.InjectView;
 import android.content.Intent;
-import android.util.Log;
+import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 
 @ContentView(R.layout.csh_activity_main)
 public class ComoSeHaceActivity extends RoboActivity implements EventListener<Void>, OnItemClickListener {
 
+    @InjectView(R.id.btn_csh_application)
+    private Button applicationButton; 
+    
+    @InjectView(R.id.btn_csh_setting)
+    private Button settingButton;
+    
+    static public String VIDEO = "video";
+    
     @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        // TODO Auto-generated method stub
-        
-        return super.onContextItemSelected(item);
-    }
+    protected void onCreate(Bundle savedInstanceState) {
+        // TODO Auto-generated method stub        
+        super.onCreate(savedInstanceState);
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v,
-            ContextMenuInfo menuInfo) {
-        // TODO Auto-generated method stub
-        super.onCreateContextMenu(menu, v, menuInfo);
+        applicationButton.setOnClickListener(new ComoSeHaceEvents(this));
+        settingButton.setOnClickListener(new OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                // TODO instanciar configuracion general.
+            }
+       });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // TODO Auto-generated method stub
-        getMenuInflater().inflate(R.menu.csh_activity_main_menu, menu);
+        
+        //getMenuInflater().inflate(R.menu.csh_activity_main_menu, menu);
         //SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
-
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         // TODO Auto-generated method stub
-        
-        /*Context context = this.getContext();
-        Intent intent = new Intent(context, event.getData());
-        context.startActivity(intent);
-        */
-        /*Intent intent =  new Intent(this,ComoSeHaceAndarActivity.class);
-        this.startActivity(intent);
-        return true; */
-        executeCustomActivity();
         return super.onMenuItemSelected(featureId, item);
     }
     
-    private void executeCustomActivity()
+    public void executeCustomActivity()
     {
         Intent intent =  new Intent(this,ComoSeHaceAndarActivity.class);
         this.startActivity(intent);

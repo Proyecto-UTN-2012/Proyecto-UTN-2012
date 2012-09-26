@@ -11,12 +11,6 @@
   	<packaging>apk</packaging>
   	<name>integrar-t-android</name>
   	<dependencies>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>andar</artifactId>
-			<version>${project.version}</version>
-			<type>jar</type>
-		</dependency>
 		<!-- Testing -->
 		<dependency>
 			<groupId>com.google.android</groupId>
