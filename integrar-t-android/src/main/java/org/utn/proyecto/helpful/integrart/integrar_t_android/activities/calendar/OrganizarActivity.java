@@ -11,6 +11,7 @@ import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.SparseIntArray;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,7 +21,17 @@ import com.google.inject.Inject;
 @ContentView(R.layout.organizar_t)
 public class OrganizarActivity extends RoboActivity{
 	public final static String ORGANIZAR_T_PACKAGE_KEY = ".calendar.tasks.";
-	
+	public final static String ORGANIZAR_T_PACKAGE_WEEK_KEY = ".calendar.tasks.week.";
+	public final static SparseIntArray DAYS_OF_WEEK = new SparseIntArray(7);
+	{
+		DAYS_OF_WEEK.put(Calendar.SUNDAY, R.string.sunday);
+		DAYS_OF_WEEK.put(Calendar.MONDAY, R.string.monday);
+		DAYS_OF_WEEK.put(Calendar.TUESDAY, R.string.tuesday);
+		DAYS_OF_WEEK.put(Calendar.WEDNESDAY, R.string.wednesday);
+		DAYS_OF_WEEK.put(Calendar.THURSDAY, R.string.thursday);
+		DAYS_OF_WEEK.put(Calendar.FRIDAY, R.string.friday);
+		DAYS_OF_WEEK.put(Calendar.SATURDAY, R.string.saturday);
+	}
 	private Calendar date = Calendar.getInstance();
 	
 	@Inject

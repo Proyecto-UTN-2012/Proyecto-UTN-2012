@@ -19,9 +19,15 @@ public class TaskView extends RelativeLayout {
 	
 	private OnDeleteTaskListener deleteListener;
 	private OnInitDragTaskListener dragListener;
+	private OnMoveTaskListener moveListener;
+	private OnRepeatTaskListener repeatListener;
 	
 	private ImageView dragImage;
 	private ImageView deleteImage;
+	private ImageView moveImage;
+	private ImageView repeatImage;
+	
+	private boolean isShownControls = false;
 	
 	private int hour;
 	
@@ -54,8 +60,9 @@ public class TaskView extends RelativeLayout {
 		
 		dragImage = new ImageView(context);
 		dragImage.setId(1001);
-		params = new RelativeLayout.LayoutParams(minSize/2 - 15, minSize -10);
+		params = new RelativeLayout.LayoutParams(minSize/2 - 8, minSize/2 -8);
 		params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+		params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 		dragImage.setImageResource(R.drawable.drag);
 		dragImage.setVisibility(View.INVISIBLE);
 		dragImage.setOnTouchListener(new View.OnTouchListener() {
@@ -74,6 +81,27 @@ public class TaskView extends RelativeLayout {
 		});
 		this.addView(dragImage, params);
 
+		moveImage = new ImageView(context);
+		moveImage.setId(1001);
+		params = new RelativeLayout.LayoutParams(minSize/2 - 8, minSize/2 -8);
+		params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+		params.addRule(RelativeLayout.ALIGN_TOP);
+		moveImage.setImageResource(R.drawable.move);
+		moveImage.setVisibility(View.INVISIBLE);
+		moveImage.setOnTouchListener(new View.OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				if(event.getAction()==MotionEvent.ACTION_DOWN){
+					if(moveListener!=null){
+						moveListener.onMoveTask(task);
+						return true;
+					}					
+				}
+				return false;
+			}
+		});
+		this.addView(moveImage, params);
+
 		deleteImage = new ImageView(context);
 		params = new RelativeLayout.LayoutParams(minSize/2 - 8, minSize/2 -8);
 		params.setMargins(0, 0, 5, 0);
@@ -84,27 +112,61 @@ public class TaskView extends RelativeLayout {
 		deleteImage.setOnTouchListener(new View.OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				if(deleteListener!=null){
-					deleteListener.onDeleteTask(task);
-					return true;
-				}
+				if(event.getAction()==MotionEvent.ACTION_DOWN){
+					if(deleteListener!=null){
+						deleteListener.onDeleteTask(task);
+						return true;
+					}
+				}	
 				return false;
 			}
 		});
 		this.addView(deleteImage, params);
+
+		repeatImage = new ImageView(context);
+		params = new RelativeLayout.LayoutParams(minSize/2 - 8, minSize/2 -8);
+		params.setMargins(0, 0, 5, 0);
+		params.addRule(RelativeLayout.LEFT_OF, dragImage.getId());
+		params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		repeatImage.setImageResource(R.drawable.repeat);
+		repeatImage.setVisibility(View.INVISIBLE);
+		repeatImage.setOnTouchListener(new View.OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				if(event.getAction()==MotionEvent.ACTION_DOWN){
+					if(repeatListener!=null){
+						repeatListener.onRepeatTask(task);
+						return true;
+					}
+				}
+				return false;
+			}
+		});
+		this.addView(repeatImage, params);
 		
 		this.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				isShownControls = !isShownControls;
 				if(!showControls()) return;
-				dragImage.setVisibility(View.VISIBLE);
-				deleteImage.setVisibility(View.VISIBLE);
+				if(isShownControls){
+					dragImage.setVisibility(View.VISIBLE);
+					deleteImage.setVisibility(View.VISIBLE);
+					moveImage.setVisibility(View.VISIBLE);					
+					repeatImage.setVisibility(View.VISIBLE);					
+				}
+				else{
+					dragImage.setVisibility(View.INVISIBLE);
+					deleteImage.setVisibility(View.INVISIBLE);
+					moveImage.setVisibility(View.INVISIBLE);										
+					repeatImage.setVisibility(View.INVISIBLE);										
+				}
 			}
 		});
 	}
 	
 	private boolean showControls(){
-		return hour == task.getHour() + (task.getMinute() + task.getSize() - 1)/60;
+		return hour == task.getHour();
 	}
 	
 	public int getTaskSize(){
@@ -121,9 +183,17 @@ public class TaskView extends RelativeLayout {
 	public void setOnDeleteListener(OnDeleteTaskListener listener){
 		this.deleteListener = listener;
 	}
+
+	public void setOnMoveListener(OnMoveTaskListener listener){
+		this.moveListener = listener;
+	}
 	
 	public void setOnInitDragTaskListener(OnInitDragTaskListener listener){
 		this.dragListener = listener;
+	}
+	
+	public void setOnRepeatTaskListener(OnRepeatTaskListener listener){
+		this.repeatListener = listener;
 	}
 	
 	public interface OnDeleteTaskListener{
@@ -132,5 +202,13 @@ public class TaskView extends RelativeLayout {
 	
 	public interface OnInitDragTaskListener{
 		public void onInitDragTask(Task task);
+	}
+	
+	public interface OnMoveTaskListener{
+		public void onMoveTask(Task task);
+	}
+	
+	public interface OnRepeatTaskListener{
+		public void onRepeatTask(Task task);
 	}
 }

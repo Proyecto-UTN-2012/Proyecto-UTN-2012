@@ -10,14 +10,25 @@
     <string name="notUserExceptionTitle">No tienes una cuenta</string>
     <string name="showZoomText">Mostrar los controles de Zoom</string>
     <string name="selectTestTitle">Seleccione una Tarea</string>
+    <string name="selectTaskSize">Minutos que dura la tarea</string>
+    <string name="selectTaskInit">¿A que hora comienza la tarea?</string>
     <string name="emptyTaskTypes">Todabia no existen tareas creadas, por favor accede al centro de administración y agrega una tarea</string>
-
+	<string name="dayOfWeekTitle">Días a repetir la tarea</string>
+	<string name="deleteTaskTitle">Tarea Repetible</string>
+	<string name="deleteTaskMessage">Esta tarea está marcada como "Reptible", por favor antes de eliminar la tarea desmarque los dias en que se repite.</string>
+    
     <string name="selectLevel">Seleccione un Nivel</string>
     <string name="selectColor">Seleccione el Color</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">IntegrarT</string>
 
-    
+    <string name="sunday">Domingo</string>
+    <string name="monday">Lunes</string>
+    <string name="tuesday">Martes</string>
+    <string name="wednesday">Miercoles</string>
+    <string name="thursday">Jueves</string>
+    <string name="friday">Viernes</string>
+    <string name="saturday">Sabado</string>
     
 </resources>

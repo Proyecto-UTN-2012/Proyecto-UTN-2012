@@ -11,6 +11,8 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar.EmptyMinuteView.OnSelectMinuteListener;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar.TaskView.OnDeleteTaskListener;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar.TaskView.OnInitDragTaskListener;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar.TaskView.OnMoveTaskListener;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar.TaskView.OnRepeatTaskListener;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -48,6 +50,8 @@ public class CalendarHourView extends FrameLayout {
 	private OnSelectMinuteListener onSelectMinuteListener;
 	private OnDeleteTaskListener onDeleteTaskListener;
 	private OnInitDragTaskListener onInitDragTaskListener;
+	private OnMoveTaskListener onMoveTaskListener;
+	private OnRepeatTaskListener onRepeatTaskListener;
 
 	public CalendarHourView(Context context) {
 		super(context);
@@ -113,6 +117,14 @@ public class CalendarHourView extends FrameLayout {
 	public void setInitDragTaskListener(OnInitDragTaskListener listener){
 		this.onInitDragTaskListener = listener;
 	}
+
+	public void setMoveTaskListener(OnMoveTaskListener listener){
+		this.onMoveTaskListener = listener;
+	}
+	
+	public void setRepeatTaskListener(OnRepeatTaskListener listener){
+		this.onRepeatTaskListener = listener;
+	}
 	
 	private void setTitle(){
 		title.removeAllViews();
@@ -174,6 +186,8 @@ public class CalendarHourView extends FrameLayout {
 		TaskView view = new TaskView(getContext(), content.getLayoutParams().height, hour, task, background);
 		view.setOnDeleteListener(onDeleteTaskListener);
 		view.setOnInitDragTaskListener(onInitDragTaskListener);
+		view.setOnMoveListener(onMoveTaskListener);
+		view.setOnRepeatTaskListener(onRepeatTaskListener);
 		content.addView(view);
 		return view;
 	}

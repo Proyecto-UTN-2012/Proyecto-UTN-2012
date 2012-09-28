@@ -42,6 +42,9 @@ public class CalendarActivity extends RoboFragmentActivity implements OnSelectDa
     
     @Inject
     private FileSystemService fs;
+    
+    @Inject
+    private CalendarDataLoader loader;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -58,7 +61,7 @@ public class CalendarActivity extends RoboFragmentActivity implements OnSelectDa
             bus.addEventListener(ShowZoomEvent.class, this);
             //Bundle arguments = new Bundle();
             //arguments.putString(ItemDetailFragment.ARG_ITEM_ID, id);
-            detailFragment = new CalendarDetailFragment(user, db, fs);
+            detailFragment = new CalendarDetailFragment(user, db, loader);
             //fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.calendar_detail_container, detailFragment)

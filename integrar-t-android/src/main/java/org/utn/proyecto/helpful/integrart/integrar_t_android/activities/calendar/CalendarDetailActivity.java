@@ -35,7 +35,7 @@ public class CalendarDetailActivity extends RoboFragmentActivity implements Even
 		private EventBus bus;
 		
 		@Inject
-		private FileSystemService fs;
+		private CalendarDataLoader loader;
 		
 		private CalendarDetailFragment fragment;
 		
@@ -47,7 +47,7 @@ public class CalendarDetailActivity extends RoboFragmentActivity implements Even
 	        bus.addEventListener(ShowZoomEvent.class, this);
 	        if (savedInstanceState == null) {
 	            Bundle arguments = getIntent().getExtras();
-	            fragment = new CalendarDetailFragment(user, db, fs);
+	            fragment = new CalendarDetailFragment(user, db, loader);
 	            if(arguments.containsKey(CalendarDetailActivity.DATE))
 	            	fragment.setDate((Calendar)arguments.get(DATE));
 	            //fragment.setArguments(arguments);

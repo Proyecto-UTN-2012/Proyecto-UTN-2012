@@ -1,6 +1,8 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar;
 
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 
 import android.graphics.drawable.Drawable;
 
@@ -12,6 +14,7 @@ public class Task implements Comparable<Task>{
 	private final int hour;
 	private final int minute;
 	private int size;
+	private Set<Integer> repeatDays = new HashSet<Integer>();
 	
 	public Task(TaskType type, Calendar date){
 		this(type, date, 5);
@@ -92,8 +95,32 @@ public class Task implements Comparable<Task>{
 		return day;
 	}
 	
+	public boolean isRepeatable(){
+		return !repeatDays.isEmpty();
+	}
+	
 	public TaskData getData(){
 		return new TaskData(this);
+	}
+	
+	public void addRepeatDay(int dayOfWeek){
+		repeatDays.add(dayOfWeek);
+	}
+	
+	public void removeRepeatDay(int dayOfWeek){
+		repeatDays.remove(dayOfWeek);
+	}
+	
+	public void clearRepeat(){
+		repeatDays.clear();
+	}
+	
+	public Set<Integer> getRepeatDays(){
+		return new HashSet<Integer>(repeatDays);
+	}
+	
+	public boolean isRepeatAtDay(int dayOfWeek){
+		return repeatDays.contains(dayOfWeek);
 	}
 	
 	@Override
@@ -101,15 +128,12 @@ public class Task implements Comparable<Task>{
 		if(!(o instanceof Task)) return false;
 		Task t = (Task)o;
 		return this.type.equals(t.type) 
-				&& this.year == t.year
-				&& this.month == t.month
-				&& this.day == t.day
 				&& this.hour == t.hour
 				&& this.minute == t.minute;
 	}
 	
 	public int hashCode(){
-		return this.type.hashCode() + this.year - this.month + this.day - this.hour + this.minute;
+		return this.type.hashCode() - this.hour + this.minute;
 	}
 	
 	@Override
@@ -124,7 +148,8 @@ public class Task implements Comparable<Task>{
 		private final int day;
 		private final int hour;
 		private final int minute;
-		private int size;
+		private final int size;
+		private final boolean repeatable;
 		
 		private TaskData(Task task){
 			this.type = task.getName();
@@ -134,14 +159,11 @@ public class Task implements Comparable<Task>{
 			this.hour = task.getHour();
 			this.minute = task.getMinute();
 			this.size = task.getSize();
+			this.repeatable = task.isRepeatable();
 		}
 
 		public int getSize() {
 			return size;
-		}
-
-		public void setSize(int size) {
-			this.size = size;
 		}
 
 		public String getType() {
@@ -166,6 +188,10 @@ public class Task implements Comparable<Task>{
 
 		public int getMinute() {
 			return minute;
+		}
+		
+		public boolean getRepeatable(){
+			return repeatable;
 		}
 		
 		public Calendar buildCalendar(){
