@@ -2,12 +2,10 @@ package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calenda
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 
 @SuppressLint({ "ViewConstructor", "ViewConstructor" })
-public class EmptyMinuteView extends View implements View.OnClickListener, View.OnTouchListener{
+public class EmptyMinuteView extends View implements View.OnClickListener{
 	private int hour;
 	private int minute;
 	
@@ -19,7 +17,6 @@ public class EmptyMinuteView extends View implements View.OnClickListener, View.
 		this.hour = hour;
 		this.minute = minute;
 		super.setOnClickListener(this);
-		this.setOnTouchListener(this);
 	}
 	
 	public void setOnSelectMinuteListener(OnSelectMinuteListener listener){
@@ -53,13 +50,5 @@ public class EmptyMinuteView extends View implements View.OnClickListener, View.
 		if(listener!=null){
 			listener.onSelectMinute(hour, minute);
 		}
-	}
-
-	@Override
-	public boolean onTouch(View v, MotionEvent event) {
-		if(event.getAction()==MotionEvent.ACTION_HOVER_ENTER){
-			Log.i("EmptyMinuteView", "ENTER ON: " + hour + "h " + minute + "m");
-		}
-		return false;
 	}
 }
