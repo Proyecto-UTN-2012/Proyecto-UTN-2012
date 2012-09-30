@@ -5,6 +5,7 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.net.Uri;
@@ -20,6 +21,10 @@ public class ComoSeHaceReproductor extends RoboActivity {
     @Override
     protected void onDestroy() {
         // TODO Auto-generated method stub
+        
+        Intent intent =  new Intent(this,ComoSeHaceAndarActivity.class);
+        this.startActivity(intent);
+        
         super.onDestroy();
     }
 

@@ -67,7 +67,8 @@ public class ComoSeHaceCustomAndarObject extends ARObject {
 	
 	@Override
 	public final void draw(GL10 gl) {
-		super.draw(gl);
+		
+	    //super.draw(gl);
 		
 		/*gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_SPECULAR,mat_flash);
 		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_SHININESS, mat_flash_shiny);	
@@ -81,7 +82,15 @@ public class ComoSeHaceCustomAndarObject extends ARObject {
 	    //draw the box
 	    box.draw(gl);
 	    */
-		executeReproductor("android.resource://" + activity.getPackageName() +"/"+R.raw.assasin);
+	    
+	    
+	    if (super.getPatternName().equals("patt.hiro")){
+	        //double width = super.getMarkerWidth();
+	        double[] matrix = super.getTransMatrix();
+	        
+	        if (matrix.length > 1)
+	        executeReproductor("android.resource://" + activity.getPackageName() +"/"+R.raw.assasin);
+	    }
 	}
 	
     protected void executeReproductor(String path) {
