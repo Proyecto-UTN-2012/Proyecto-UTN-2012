@@ -10,6 +10,7 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.events.Event;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventListener;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.services.FileSystemService;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.utils.CalendarView.OnSelectDateListener;
 
 import roboguice.activity.RoboFragmentActivity;
@@ -38,6 +39,12 @@ public class CalendarActivity extends RoboFragmentActivity implements OnSelectDa
     
     @Inject
     private EventBus bus;
+    
+    @Inject
+    private FileSystemService fs;
+    
+    @Inject
+    private CalendarDataLoader loader;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -54,7 +61,7 @@ public class CalendarActivity extends RoboFragmentActivity implements OnSelectDa
             bus.addEventListener(ShowZoomEvent.class, this);
             //Bundle arguments = new Bundle();
             //arguments.putString(ItemDetailFragment.ARG_ITEM_ID, id);
-            detailFragment = new CalendarDetailFragment(user, db);
+            detailFragment = new CalendarDetailFragment(user, db, loader);
             //fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.calendar_detail_container, detailFragment)

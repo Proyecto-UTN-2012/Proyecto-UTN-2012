@@ -14,8 +14,10 @@
 
     <uses-sdk
 
-        android:minSdkVersion="10"
+        android:minSdkVersion="11"
         android:targetSdkVersion="13" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:icon="@drawable/icon_trans_icon"
@@ -49,7 +51,13 @@
         <activity android:name=".activities.testactivity.TestActivity" >
         </activity>
         <activity android:name=".activities.comosehace.ComoSeHaceActivity"></activity>
-        <activity android:name=".activities.comosehace.ComoSeHaceAndarActivity"></activity>
+        <activity android:name=".activities.comosehace.ComoSeHaceAndarActivity"
+            	android:screenOrientation="landscape"
+            ></activity>
+        <activity android:name=".preferencias.PreferenceActivity"></activity>
+        <activity android:name=".activities.comosehace.ComoSeHaceReproductor" 
+            	android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            	></activity>
         <activity android:name=".activities.cuentos.CuentosActivity"
                   android:screenOrientation="landscape"></activity>
     </application>

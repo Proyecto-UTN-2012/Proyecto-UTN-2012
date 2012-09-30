@@ -2,19 +2,40 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#aaaaaa"
     android:orientation="vertical" >
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewFlipper1"
+    <TextView
+        android:id="@+id/testText"
         android:layout_width="match_parent"
-        android:layout_height="294dp" >
+        android:layout_height="wrap_content"
+        android:editable="true"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    </android.support.v4.view.ViewPager>
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
         <ImageView
             android:id="@+id/imageView1"
+            android:layout_width="90px"
+            android:layout_height="90px"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/google_icon" />
+
+        <TextView
+            android:id="@+id/textView1"
             android:layout_width="wrap_content"
-            android:layout_height="222dp"
-            android:src="@drawable/icon_trans" />
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/imageView1"
+            android:layout_marginLeft="10dp"
+            android:text="Levantarme"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    </RelativeLayout>
 
 </LinearLayout>

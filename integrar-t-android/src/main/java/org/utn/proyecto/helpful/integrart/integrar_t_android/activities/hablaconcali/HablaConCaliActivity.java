@@ -198,7 +198,7 @@ public class HablaConCaliActivity extends RoboActivity implements
 			} else {
 
 				try {
-					this.finalize();
+					this.finish();
 				} catch (Throwable e) {
 					throw new RuntimeException(e);
 				}
@@ -206,6 +206,7 @@ public class HablaConCaliActivity extends RoboActivity implements
 			}
 
 		} else {
+			//TODO melany this.finish();
 			Log.d("si gritó", "gritó");
 		}
 	}

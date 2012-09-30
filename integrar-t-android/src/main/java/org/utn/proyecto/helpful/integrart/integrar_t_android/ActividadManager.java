@@ -33,7 +33,6 @@ public class ActividadManager implements EventListener<Class<Activity>>{
 		bus.addEventListener(LaunchOrganizarEvent.class, this);
 		bus.addEventListener(LaunchHablaConCaliEvent.class, this);
 		bus.addEventListener(LaunchCantaConCaliEvent.class, this);
-		//bus.addEventListener(LaunchTestActivityEvent.class, new LaunchTestListener());
 		bus.addEventListener(LaunchTestActivityEvent.class, this);
 		bus.addEventListener(LaunchCuentosEvent.class, this);
 	}

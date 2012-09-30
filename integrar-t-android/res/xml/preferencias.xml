@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:title="Preferencias Integrar-T" 
+    android:summary="Ingrese Preferencias" 
+    android:orderingFromXml="true" 
+    android:key="preferencias"
+    >
+    <CheckBoxPreference android:title="prueba" android:summary="esto es una prueba" android:key="algo"/>
+    
+
+</PreferenceScreen>
