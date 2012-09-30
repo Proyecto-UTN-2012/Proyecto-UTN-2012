@@ -325,9 +325,47 @@ public class HablaConCaliActivity extends RoboActivity implements
 			Double value = values[0];
 			if (value > 24000) {
 				grito = true;
+
+				
+				frase = MediaPlayer.create(getApplicationContext(), R.raw.melani);
+
+				frase.start();
+
+				frase.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+
+					@Override
+					public boolean onError(MediaPlayer mp, int what, int extra) {
+						Log.d("melani frase error", "melani error");
+						mp.release();
+						frase = null;
+						return false;
+					}
+				});
+
+				frase.setOnCompletionListener(new OnCompletionListener() {
+
+					@Override
+					public void onCompletion(MediaPlayer mp) {
+
+						if (mp != null) {
+							mp.stop();
+							mp.release();
+							frase = null;
+
+						}
+
+					}
+				});
+
+				
+				
+				
+				
+				
 				stop();
 
 			}
+
 		}
 
 		@Override
@@ -340,7 +378,7 @@ public class HablaConCaliActivity extends RoboActivity implements
 
 	@Override
 	public void onCompletion(MediaPlayer mp) {
-//		mp.release();
+		// mp.release();
 	}
 
 	// @Override
