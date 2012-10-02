@@ -58,6 +58,8 @@
         <activity android:name=".activities.comosehace.ComoSeHaceReproductor" 
             	android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             	></activity>
+        <activity android:name=".activities.cuentos.CuentosActivity"
+                  android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

@@ -50,7 +50,7 @@ public class TaskView extends RelativeLayout {
 			params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 			params.addRule(RelativeLayout.RIGHT_OF, image.getId());
 			text.setText(task.getName());
-			text.setTextAppearance(context, android.R.style.TextAppearance_DeviceDefault_Small);
+			text.setTextAppearance(context, android.R.style.TextAppearance_Holo_Small);
 			text.setTextColor(0xff333333);
 			text.setGravity(Gravity.CENTER);
 			this.addView(text, params);

@@ -23,6 +23,8 @@
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">IntegrarT</string>
 
+     <string name="pinocho_pag1">En una vieja carpintería, Geppetto, un señor amable y simpático, terminaba un día más de trabajo dando los últimos retoques de pintura a un muñeco de madera que había construído ese día. Al mirarlo pensó ¡qué bonito me ha quedado! Y como el muñeco había sido hecho de madera de pino, Geppetto decidió llamarlo Pinocho. </string>
+     <string name="pinocho_pag2">Aquella noche, Geppetto se fue a dormir deseando que su muñeco fuese un niño de verdad. Siempre había deseado tener un hijo. Y al encontrarse profundamente dormido, llegó un hada buena y viendo a Pinocho tan bonito, quiso premiar al buen carpintero, dando, con su varita mágica, vida al muñeco. </string>
     <string name="sunday">Domingo</string>
     <string name="monday">Lunes</string>
     <string name="tuesday">Martes</string>
