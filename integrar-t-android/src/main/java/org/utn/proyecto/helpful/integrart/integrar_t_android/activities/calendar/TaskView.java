@@ -2,7 +2,6 @@ package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calenda
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.Gravity;
@@ -13,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-@SuppressLint({ "ViewConstructor", "ViewConstructor" })
 public class TaskView extends RelativeLayout {
 	private final Task task;
 	

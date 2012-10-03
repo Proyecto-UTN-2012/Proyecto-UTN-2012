@@ -13,6 +13,11 @@
   	<dependencies>
 		<!-- Testing -->
 		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>andar</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>android-test</artifactId>
 			<version>2.2.1</version>

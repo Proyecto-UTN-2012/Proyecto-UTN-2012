@@ -1,10 +1,8 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.View;
 
-@SuppressLint({ "ViewConstructor", "ViewConstructor" })
 public class EmptyMinuteView extends View implements View.OnClickListener{
 	private int hour;
 	private int minute;
