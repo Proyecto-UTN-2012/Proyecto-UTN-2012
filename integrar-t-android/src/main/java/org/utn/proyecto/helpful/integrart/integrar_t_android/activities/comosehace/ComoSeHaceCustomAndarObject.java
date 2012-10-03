@@ -11,6 +11,7 @@ import android.app.Application;
 import android.content.Intent;
 
 import edu.dhbw.andar.ARObject;
+import edu.dhbw.andar.ARToolkit;
 import edu.dhbw.andar.pub.SimpleBox;
 import edu.dhbw.andar.util.GraphicsUtil;
 
@@ -82,14 +83,17 @@ public class ComoSeHaceCustomAndarObject extends ARObject {
 	    //draw the box
 	    box.draw(gl);
 	    */
-	    
+	   
 	    
 	    if (super.getPatternName().equals("patt.hiro")){
 	        //double width = super.getMarkerWidth();
 	        double[] matrix = super.getTransMatrix();
+	        int variableTochange = 22;
 	        
-	        if (matrix.length > 1)
-	        executeReproductor("android.resource://" + activity.getPackageName() +"/"+R.raw.assasin);
+	        
+	        if (matrix.length > variableTochange){
+	            executeReproductor("android.resource://" + activity.getPackageName() +"/"+R.raw.assasin);
+	        }
 	    }
 	}
 	
