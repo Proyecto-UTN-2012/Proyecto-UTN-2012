@@ -1,6 +1,7 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
@@ -22,6 +23,7 @@ import com.google.inject.Inject;
 public class OrganizarActivity extends RoboActivity{
 	public final static String ORGANIZAR_T_PACKAGE_KEY = ".calendar.tasks.";
 	public final static String ORGANIZAR_T_PACKAGE_WEEK_KEY = ".calendar.tasks.week.";
+	public final static String LAST_UPDATE_KEY = ".calendar.lastUpdate";
 	public final static SparseIntArray DAYS_OF_WEEK = new SparseIntArray(7);
 	{
 		DAYS_OF_WEEK.put(Calendar.SUNDAY, R.string.sunday);
@@ -46,14 +48,28 @@ public class OrganizarActivity extends RoboActivity{
 	@Inject
 	private OrganizarTUpdateService updateService;
 	
+	@Inject
+	private CalendarDataLoader loader;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		if(db.contain(user.getUserName() + LAST_UPDATE_KEY)){
+			deleteOldTasks();
+		}
+		db.put(user.getUserName() + LAST_UPDATE_KEY, new Date().getTime());
 		updateService.findUpdate();
 		String dateKey = DateFormat.format("yyyy.MMMM.dd", date).toString();
 		if(!db.contain(user.getUserName() + ORGANIZAR_T_PACKAGE_KEY + dateKey)){
 			showEmptyPanel();
 		}
+	}
+	
+	private void deleteOldTasks(){
+		long date = db.get(user.getUserName() + LAST_UPDATE_KEY, Long.class);
+		Calendar calendar = (Calendar) Calendar.getInstance().clone();
+		calendar.setTime(new Date(date));
+		loader.deleteTask(calendar, (Calendar)Calendar.getInstance().clone());
 	}
 	
 	@Override

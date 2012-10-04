@@ -24,4 +24,10 @@ public class DataStorageMock implements DataStorageService {
 		return map.containsKey(key);
 	}
 
+	@Override
+	public void delete(String key) {
+		map.remove(key);
+		
+	}
+
 }
