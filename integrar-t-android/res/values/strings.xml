@@ -16,6 +16,7 @@
 	<string name="dayOfWeekTitle">Días a repetir la tarea</string>
 	<string name="deleteTaskTitle">Tarea Repetible</string>
 	<string name="deleteTaskMessage">Esta tarea está marcada como "Reptible", por favor antes de eliminar la tarea desmarque los dias en que se repite.</string>
+	<string name="organizarTListTitle">Tareas de hoy</string>
     
     <string name="selectLevel">Seleccione un Nivel</string>
     <string name="selectColor">Seleccione el Color</string>

@@ -43,7 +43,7 @@
         <activity android:name=".activities.calendar.CalendarDetailActivity" 
             android:theme="@android:style/Theme.Holo.Light"
             android:screenOrientation="landscape"></activity>
-        <activity android:name=".activities.calendar.OrganizarActivity"></activity>
+        <activity android:name=".activities.calendar.OrganizarTListActivity"></activity>
         <activity android:name=".activities.hablaconcali.HablaConCaliActivity"
             android:screenOrientation="nosensor"></activity>
 		<activity android:name=".activities.cantaconcali.CantaConCaliActivity"></activity>

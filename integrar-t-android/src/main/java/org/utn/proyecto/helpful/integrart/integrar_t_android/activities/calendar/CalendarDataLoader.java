@@ -78,8 +78,8 @@ public class CalendarDataLoader {
 	
 	public List<Task> loadRepeatableTaskFromDayOfWeek(int dayOfWeek){
 		List<Task> tasks = new ArrayList<Task>();
-		if(db.contain(user.getUserName() + OrganizarActivity.ORGANIZAR_T_PACKAGE_WEEK_KEY + dayOfWeek)){
-			TaskData[] taskArray = db.get(user.getUserName() + OrganizarActivity.ORGANIZAR_T_PACKAGE_WEEK_KEY + dayOfWeek, TaskData[].class);
+		if(db.contain(user.getUserName() + OrganizarTListActivity.ORGANIZAR_T_PACKAGE_WEEK_KEY + dayOfWeek)){
+			TaskData[] taskArray = db.get(user.getUserName() + OrganizarTListActivity.ORGANIZAR_T_PACKAGE_WEEK_KEY + dayOfWeek, TaskData[].class);
 			for(TaskData taskData : taskArray){
 				for(TaskType type : taskTypes){
 					if(type.getName().equals(taskData.getType())){
@@ -97,8 +97,8 @@ public class CalendarDataLoader {
 	public List<Task> loadUnrepeatableTaskFromDay(Calendar date){
 		String dateKey = DateFormat.format("yyyy.MMMM.dd", date).toString();
 		List<Task> tasks = new ArrayList<Task>();
-		if(db.contain(user.getUserName() + OrganizarActivity.ORGANIZAR_T_PACKAGE_KEY + dateKey)){
-			TaskData[] taskArray = db.get(user.getUserName() + OrganizarActivity.ORGANIZAR_T_PACKAGE_KEY + dateKey, TaskData[].class);
+		if(db.contain(user.getUserName() + OrganizarTListActivity.ORGANIZAR_T_PACKAGE_KEY + dateKey)){
+			TaskData[] taskArray = db.get(user.getUserName() + OrganizarTListActivity.ORGANIZAR_T_PACKAGE_KEY + dateKey, TaskData[].class);
 			for(TaskData task : taskArray){
 				for(TaskType type : taskTypes){
 					if(type.getName().equals(task.getType())){
@@ -137,7 +137,7 @@ public class CalendarDataLoader {
 			for(Task task : union){
 				tasksArray[j++] = task.getData();
 			}
-			db.put(user.getUserName() + OrganizarActivity.ORGANIZAR_T_PACKAGE_WEEK_KEY + dayOfWeek, tasksArray);			
+			db.put(user.getUserName() + OrganizarTListActivity.ORGANIZAR_T_PACKAGE_WEEK_KEY + dayOfWeek, tasksArray);			
 		}
 	}
 	
@@ -147,7 +147,7 @@ public class CalendarDataLoader {
 		for(int i=0;i<tasksArray.length;i++){
 			tasksArray[i] = tasks.get(i).getData();
 		}
-		db.put(user.getUserName() + OrganizarActivity.ORGANIZAR_T_PACKAGE_KEY + dateKey, tasksArray);
+		db.put(user.getUserName() + OrganizarTListActivity.ORGANIZAR_T_PACKAGE_KEY + dateKey, tasksArray);
 	}
 	
 	/**
@@ -160,7 +160,7 @@ public class CalendarDataLoader {
 		do{
 			date.add(Calendar.DAY_OF_MONTH, -1);
 			String dateKey = DateFormat.format("yyyy.MMMM.dd", date).toString();
-			db.delete(user.getUserName() + OrganizarActivity.ORGANIZAR_T_PACKAGE_KEY + dateKey);
+			db.delete(user.getUserName() + OrganizarTListActivity.ORGANIZAR_T_PACKAGE_KEY + dateKey);
 		}while(!equalDays(date, from) && date.compareTo(from)>0);
 	}
 	
