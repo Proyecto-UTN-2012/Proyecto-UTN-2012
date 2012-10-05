@@ -13,6 +13,7 @@ import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.SparseIntArray;
@@ -124,10 +125,12 @@ public class OrganizarTListActivity extends RoboActivity{
 		private final List<Task> tasks;
 		private final View[] views;
 		
+		private final Typeface font;
 		public TaskListAdapter(Context context, List<Task> tasks){
 			this.context = context;
 			this.tasks = tasks;
 			this.views = new View[tasks.size()];
+			this.font = Typeface.createFromAsset(getAssets(), "fonts/EraserRegular.ttf");
 		}
 		
 		@Override
@@ -149,47 +152,21 @@ public class OrganizarTListActivity extends RoboActivity{
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			if(views[position] == null){
+				Task task = tasks.get(position);
 				LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				ViewGroup view = (ViewGroup) inflater.inflate(R.layout.task_row, null);
 				TextView timeText = (TextView) view.findViewById(R.id.timeText);
-				timeText.setText(tasks.get(position).getTimeString());
+				timeText.setTypeface(font);
+				timeText.setText(task.getTimeString());
 				
 				ImageView image = (ImageView)view.findViewById(R.id.image);
-				image.setImageDrawable(tasks.get(position).getSmallImage());
+				image.setImageDrawable(task.getSmallImage());
+				
+				TextView nameText = (TextView) view.findViewById(R.id.nameText);
+				nameText.setTypeface(font);
+				nameText.setText(task.getName());
 				
 				views[position] = view;
-//				RelativeLayout.LayoutParams params;
-//				RelativeLayout layout = new RelativeLayout(context);
-//				layout.setPadding(2, 10, 2, 10);
-//				
-//				TextView timeText = new TextView(context);
-//				timeText.setId(1000);
-//				params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
-//				//params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-//				//params.addRule(RelativeLayout.CENTER_VERTICAL);
-//				//params.setMargins(0, 0, 2, 0);
-//				timeText.setGravity(Gravity.CENTER_VERTICAL);
-//				timeText.setText(tasks.get(position).getTimeString());
-//				timeText.setTextColor(0xff00ff00);
-//				timeText.setBackgroundColor(0xffffffff);
-//				layout.addView(timeText, params);
-//				
-//				ImageView divider = new ImageView(context);
-//				divider.setId(1001);
-//				divider.setImageResource(R.drawable.line_divider);
-//				params = new RelativeLayout.LayoutParams(2, RelativeLayout.LayoutParams.MATCH_PARENT);
-//				params.addRule(RelativeLayout.RIGHT_OF, timeText.getId());
-//				params.setMargins(0, 0, 2, 0);
-//				layout.addView(divider, params);
-//				
-//				ImageView image = new ImageView(context);
-//				params = new RelativeLayout.LayoutParams(120, 120);
-//				params.addRule(RelativeLayout.RIGHT_OF, divider.getId());
-//				image.setBackgroundResource(R.drawable.grey_image_background);
-//				image.setImageDrawable(tasks.get(position).getSmallImage());
-//				layout.addView(image, params);
-				
-//				views[position] = layout;
 			}
 			return views[position];
 		}
