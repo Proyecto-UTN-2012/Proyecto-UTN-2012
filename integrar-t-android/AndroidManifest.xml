@@ -14,7 +14,7 @@
 
     <uses-sdk
 
-        android:minSdkVersion="11"
+        android:minSdkVersion="10"
         android:targetSdkVersion="13" />
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -60,6 +60,7 @@
             	></activity>
         <activity android:name=".activities.cuentos.CuentosActivity"
                   android:screenOrientation="landscape"></activity>
+        <activity android:name=".activities.cuentos.CurrentCuentoActivity"></activity>
     </application>
 
 </manifest>
