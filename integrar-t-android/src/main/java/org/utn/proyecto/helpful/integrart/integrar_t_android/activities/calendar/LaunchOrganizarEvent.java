@@ -7,7 +7,7 @@ import android.content.Context;
 public class LaunchOrganizarEvent extends LaunchActivityEvent {
 
 	public LaunchOrganizarEvent(Context context) {
-		super(context, OrganizarActivity.class);
+		super(context, OrganizarTListActivity.class);
 	}
 
 }

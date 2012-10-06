@@ -71,8 +71,8 @@ public class IntegrarTMainActivity extends RoboActivity{
         mainButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-	        //    bus.dispatch(new LaunchMenuEvent(v.getContext()));
-				bus.dispatch(new LaunchCuentosEvent(v.getContext()));
+	            bus.dispatch(new LaunchMenuEvent(v.getContext()));
+			//	bus.dispatch(new LaunchCuentosEvent(v.getContext()));
 			}
 		});
        // bus.dispatch(new LaunchMenuEvent(this));

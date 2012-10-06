@@ -35,4 +35,9 @@ public class DataStorageServiceImpl implements DataStorageService {
 	public boolean contain(String key){
 		return helper.contains(key);
 	}
+
+	@Override
+	public void delete(String key) {
+		helper.edit().remove(key);
+	}
 }

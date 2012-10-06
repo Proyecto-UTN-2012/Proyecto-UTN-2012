@@ -123,6 +123,14 @@ public class Task implements Comparable<Task>{
 		return repeatDays.contains(dayOfWeek);
 	}
 	
+	public String getTimeString(){
+		StringBuffer sb = new StringBuffer();
+		sb.append(hour<10? "0" + hour : hour);
+		sb.append(":");
+		sb.append(minute<10? "0" + minute : minute);
+		return sb.toString();
+	}
+	
 	@Override
 	public boolean equals(Object o){
 		if(!(o instanceof Task)) return false;

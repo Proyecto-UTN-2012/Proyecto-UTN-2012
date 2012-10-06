@@ -1,6 +1,7 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,6 +53,7 @@ public class CalendarActivity extends RoboFragmentActivity implements OnSelectDa
 		if(!db.contain(user.getUserName() + SHOW_ZOOM_KEY)){
 			db.put(user.getUserName() + SHOW_ZOOM_KEY, false);
 		}
+		
 		calendarFragment = ((CalendarFragment) getSupportFragmentManager()
 				.findFragmentById(R.id.calendar));
 		calendarFragment.setOnSelectDateListener(this);

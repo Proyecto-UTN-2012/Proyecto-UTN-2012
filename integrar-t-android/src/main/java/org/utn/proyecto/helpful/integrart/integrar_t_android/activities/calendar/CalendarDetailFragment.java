@@ -2,7 +2,6 @@ package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calenda
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -11,7 +10,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar.EmptyMinuteView.OnSelectMinuteListener;
-import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar.Task.TaskData;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar.TaskView.OnDeleteTaskListener;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar.TaskView.OnInitDragTaskListener;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar.TaskView.OnMoveTaskListener;
@@ -26,7 +24,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
