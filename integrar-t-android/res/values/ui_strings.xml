@@ -15,4 +15,8 @@
     <string name="next">>></string>
     <string name="zoom">Zoom</string>
     <string name="calendar">Armar Calendario</string>
+    <string name="activateTask">Comenzar</string>
+    <string name="finalizeTask">Terminar</string>
+    <string name="listTasks">Lista</string>
+    <string name="nextTasks">Proxima</string>
 </resources>

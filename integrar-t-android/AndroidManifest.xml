@@ -29,14 +29,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- Login -->
         <activity android:name=".login.LoginActivity" >
         </activity>
+        
+        <!-- Menú -->
         <activity android:name=".menu.ItemDetailActivity">
 	<meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".menu.ItemListActivity"/>
         </activity>
         <activity android:name=".menu.ItemListActivity"></activity>
+        
+        <!-- Pictogramas -->
         <activity android:name=".activities.pictogramas.PictogramActivity"
             android:screenOrientation="nosensor"></activity>
+        
+        <!-- OrganiazarT -->
         <activity android:name=".activities.calendar.CalendarActivity" 
             android:theme="@android:style/Theme.Holo.Light"
             android:screenOrientation="landscape"></activity>
@@ -44,12 +51,22 @@
             android:theme="@android:style/Theme.Holo.Light"
             android:screenOrientation="landscape"></activity>
         <activity android:name=".activities.calendar.OrganizarTListActivity"></activity>
+        <activity android:name=".activities.calendar.ShowTaskActivity"
+             android:theme="@android:style/Theme.Holo.Light"></activity>
+        
+        <!-- Habla con Cali -->
         <activity android:name=".activities.hablaconcali.HablaConCaliActivity"
             android:screenOrientation="nosensor"></activity>
+        
+        <!-- Canta con Cali -->
 		<activity android:name=".activities.cantaconcali.CantaConCaliActivity"></activity>
+        
+        
         <!-- Test Activity Usada para hacer pruebas //TODO Eliminar cuando no se necesite -->
         <activity android:name=".activities.testactivity.TestActivity" >
         </activity>
+        
+        <!-- Como se Hace -->
         <activity android:name=".activities.comosehace.ComoSeHaceActivity"></activity>
         <activity android:name=".activities.comosehace.ComoSeHaceAndarActivity"
             	android:screenOrientation="landscape"
@@ -58,6 +75,8 @@
         <activity android:name=".activities.comosehace.ComoSeHaceReproductor" 
             	android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             	></activity>
+        
+        <!-- Cuentos -->
         <activity android:name=".activities.cuentos.CuentosActivity"
                   android:screenOrientation="landscape"></activity>
         <activity android:name=".activities.cuentos.CurrentCuentoActivity"></activity>

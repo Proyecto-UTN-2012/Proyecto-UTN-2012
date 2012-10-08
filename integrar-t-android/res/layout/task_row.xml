@@ -50,11 +50,16 @@
 	        />    
     </LinearLayout>
     
-    <LinearLayout android:layout_width="wrap_content"
+    <FrameLayout android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         >
-		<ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/grey_image_background"/>
-    </LinearLayout>
+		<ImageView 
+		    android:id="@+id/stateImage"
+		    android:layout_width="20dp" 
+		    android:layout_height="20dp" 
+		    android:layout_gravity="center_vertical"
+		/>
+    </FrameLayout>
 
 </RelativeLayout>

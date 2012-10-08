@@ -1,42 +1,52 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.events.Event;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventListener;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.SparseIntArray;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.inject.Inject;
 
 @ContentView(R.layout.organizar_t)
-public class OrganizarTListActivity extends RoboActivity{
+public class OrganizarTListActivity extends RoboActivity implements OnItemClickListener, EventListener<Task>{
 	public final static String ORGANIZAR_T_PACKAGE_KEY = ".calendar.tasks.";
 	public final static String ORGANIZAR_T_PACKAGE_WEEK_KEY = ".calendar.tasks.week.";
+	public final static String ORGANIZAR_T_CURRENT_TASK_KEY = ".calendar.curretTask";
 	public final static String LAST_UPDATE_KEY = ".calendar.lastUpdate";
 	public final static SparseIntArray DAYS_OF_WEEK = new SparseIntArray(7);
 	{
@@ -65,26 +75,57 @@ public class OrganizarTListActivity extends RoboActivity{
 	@Inject
 	private CalendarDataLoader loader;
 	
+	TaskListAdapter adapter;
+	
 	@InjectView(R.id.list)
 	private ListView list;
 	
 	private List<Task> tasks;
 	
+	private Timer timer;
+	
+	private Task currentTask;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		bus.addEventListener(UpdateTaskEvent.class, this);
 		if(db.contain(user.getUserName() + LAST_UPDATE_KEY)){
 			deleteOldTasks();
 		}
 		db.put(user.getUserName() + LAST_UPDATE_KEY, new Date().getTime());
 		updateService.findUpdate();
+	}
+	
+	@Override
+	protected void onResume(){
+		super.onResume();
 		String dateKey = DateFormat.format("yyyy.MMMM.dd", date).toString();
 		if(!db.contain(user.getUserName() + ORGANIZAR_T_PACKAGE_KEY + dateKey)){
 			showEmptyPanel();
 		}
-		tasks = loader.loadUnrepeatableTaskFromDay(date);
-		TaskListAdapter adapter = new TaskListAdapter(this, tasks);
+		Set<Task> set = new HashSet<Task>();
+		set.addAll(loader.loadUnrepeatableTaskFromDay(date));
+		set.addAll(loader.loadRepeatableTaskFromDay(date));
+		tasks = new ArrayList<Task>(set);
+		Collections.sort(tasks);
+		adapter = new TaskListAdapter(this, tasks);
 		list.setAdapter(adapter);
+		list.setOnItemClickListener(this);
+		timer = new Timer();
+		Calendar date = (Calendar) Calendar.getInstance().clone();
+		date.add(Calendar.MINUTE, 1);
+		date.set(Calendar.SECOND, 0);
+		UpdateTasks scheduler = new UpdateTasks(tasks, adapter);
+		scheduler.run();
+		timer.schedule(scheduler, date.getTime(), 60000);
+	}
+	
+	@Override
+	protected void onPause(){
+		super.onPause();
+		loader.saveUnrepeatableTasks(date, tasks);
+		timer.cancel();
 	}
 	
 	private void deleteOldTasks(){
@@ -96,6 +137,7 @@ public class OrganizarTListActivity extends RoboActivity{
 	
 	@Override
 	public void onDestroy(){
+		bus.removeEventListener(UpdateTaskEvent.class, this);
 		super.onDestroy();
 	}
 	
@@ -108,12 +150,34 @@ public class OrganizarTListActivity extends RoboActivity{
 	}
 	
 	@Override
+	public void onEvent(Event<Task> event) {
+		Task task = event.getData();
+		int index = tasks.indexOf(task);
+		tasks.remove(task);
+		tasks.add(index, task);
+		loader.saveUnrepeatableTasks(date, tasks);
+	}
+	
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item){
 		if(item.getItemId() == R.id.calendar){
 			bus.dispatch(new LaunchCalendarEvent(this));
 			return true;
 		}
 		return false;
+	}
+	
+	@Override
+	public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
+		Task task = (Task) adapter.getItemAtPosition(position);
+		currentTask = task;
+		showTaskView(currentTask);
+	}
+	
+	private void showTaskView(Task task){
+		Intent intent = new Intent(this, ShowTaskActivity.class);
+		loader.saveCurrentTask(task);
+		this.startActivity(intent);
 	}
 	
 	private void showEmptyPanel(){
@@ -133,9 +197,21 @@ public class OrganizarTListActivity extends RoboActivity{
 			this.font = Typeface.createFromAsset(getAssets(), "fonts/EraserRegular.ttf");
 		}
 		
+		public void update(){
+			for(int i = 0;i<views.length;i++){
+				if(views[i]!=null){
+					ImageView stateImage = (ImageView)views[i].findViewById(R.id.stateImage);
+					stateImage.setImageResource(tasks.get(i).getState().getImageId());
+					if(tasks.get(i).getState().isAnimated()){
+						AnimationDrawable anim = (AnimationDrawable) stateImage.getDrawable();
+						anim.start();
+					}
+				}
+			}
+		}
+		
 		@Override
 		public int getCount() {
-			// TODO Auto-generated method stub
 			return views.length;
 		}
 
@@ -166,9 +242,44 @@ public class OrganizarTListActivity extends RoboActivity{
 				nameText.setTypeface(font);
 				nameText.setText(task.getName());
 				
+				ImageView stateImage = (ImageView)view.findViewById(R.id.stateImage);
+				stateImage.setImageResource(task.getState().getImageId());
+				if(task.getState().isAnimated()){
+					AnimationDrawable anim = (AnimationDrawable) stateImage.getDrawable();
+					anim.start();
+				}
+				
 				views[position] = view;
 			}
 			return views[position];
+		}
+		
+	}
+	
+	private class UpdateTasks extends TimerTask{
+		private final List<Task> tasks;
+		private final TaskListAdapter adapter;
+		
+		public UpdateTasks(List<Task> tasks, TaskListAdapter adapter){
+			this.tasks = tasks;
+			this.adapter = adapter;
+		}
+		@Override
+		public void run() {
+			int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+			int minute = Calendar.getInstance().get(Calendar.MINUTE);
+			boolean repaint = false;
+			for(Task task : tasks){
+				if(task.changeState(hour, minute)) repaint = true;
+			}
+			if(repaint){
+				runOnUiThread(new Runnable() {	
+					@Override
+					public void run() {
+						adapter.update();
+					}
+				});				
+			}
 		}
 		
 	}
