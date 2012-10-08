@@ -19,6 +19,10 @@ public class ComoSeHaceCustomAndarObject extends ARObject {
 
     private static final String VIDEO = "video";
 	private ComoSeHaceAndarActivity activity;
+	private int XCordinate = 3;
+	private int YCordinate = 7;
+	private int ZCordinate = 11;
+    
 
     public ComoSeHaceCustomAndarObject(String name, String patternName,
 			double markerWidth, double[] markerCenter,ComoSeHaceAndarActivity comoSeHaceAndarActivity) {
@@ -84,19 +88,44 @@ public class ComoSeHaceCustomAndarObject extends ARObject {
 	    box.draw(gl);
 	    */
 	   
+	    double[] matrix = super.getTransMatrix();
 	    
-	    if (super.getPatternName().equals("patt.hiro")){
-	        //double width = super.getMarkerWidth();
-	        double[] matrix = super.getTransMatrix();
-	        int variableTochange = 22;
-	        
-	        
-	        if (matrix.length > variableTochange){
-	            executeReproductor("android.resource://" + activity.getPackageName() +"/"+R.raw.assasin);
-	        }
+	    if (markerIsClose(matrix))
+	    {
+    	    if (super.getPatternName().equals("patt.hiro")){
+    	        //double width = super.getMarkerWidth();
+    	        executeReproductor("android.resource://" + activity.getPackageName() +"/"+R.raw.assasin);
+    	    }
 	    }
 	}
 	
+    private boolean markerIsClose(double[] matrix) {
+        // TODO Auto-generated method stub
+        double x;
+        double y;
+        double z;
+        double minRadio = 200;
+        double maxRadio = 1500;
+        //distance from center to the point where is the marker.
+        double distance = 0;
+        
+        if (matrix!=null)
+        {
+            x = matrix[XCordinate];
+            y = matrix[YCordinate];
+            z = matrix[ZCordinate];
+            
+            distance = Math.sqrt(x*x+y*y+z*z);
+            
+        }
+        
+        if (distance >= minRadio && distance <= maxRadio)
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
     protected void executeReproductor(String path) {
         activity.executeReproductor(path);
     }
