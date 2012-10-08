@@ -258,6 +258,8 @@ public class CalendarDetailFragment extends Fragment implements OnSelectMinuteLi
 			public void onDismiss(DialogInterface dialog) {
 				edittingTask.setSize(((MinutesDialog)dialog).getValue());
 				updateCalendar();
+				loader.saveUnrepeatableTasks(date, tasks);
+				loader.saveRepeatableTasks(tasks);
 			}
 		});
 		dialog.show();

@@ -76,6 +76,23 @@ public class CalendarDataLoader {
 		return loadedTasks;
 	}
 	
+	public Task loadCurrentTask(){
+		TaskData data = db.get(user.getUserName() + OrganizarTListActivity.ORGANIZAR_T_CURRENT_TASK_KEY, TaskData.class);
+		for(TaskType type : taskTypes){
+			if(type.getName().equals(data.getType())){
+				Task task = new Task(type, data.buildCalendar(), data.getSize());
+				task.setState(data.getState());
+				return task;
+			}
+		}
+		return null;
+	}
+	
+	public void saveCurrentTask(Task task){
+		TaskData data = task.getData();
+		db.put(user.getUserName() + OrganizarTListActivity.ORGANIZAR_T_CURRENT_TASK_KEY, data);
+	}
+	
 	public List<Task> loadRepeatableTaskFromDayOfWeek(int dayOfWeek){
 		List<Task> tasks = new ArrayList<Task>();
 		if(db.contain(user.getUserName() + OrganizarTListActivity.ORGANIZAR_T_PACKAGE_WEEK_KEY + dayOfWeek)){
@@ -103,6 +120,7 @@ public class CalendarDataLoader {
 				for(TaskType type : taskTypes){
 					if(type.getName().equals(task.getType())){
 						Task _task = new Task(type, task.buildCalendar(), task.getSize());
+						_task.setState(task.getState());
 						for(int i=Calendar.SUNDAY;i<=Calendar.SATURDAY;i++){
 								List<Task> buffer = loadRepeatableTaskFromDayOfWeek(i);
 								if(buffer.contains(_task)) _task.addRepeatDay(i);
@@ -117,7 +135,7 @@ public class CalendarDataLoader {
 		return tasks;
 	}
 	
-	@SuppressWarnings({ "unchecked", "unused" })
+	@SuppressWarnings({ "unchecked" })
 	public void saveRepeatableTasks(List<Task> tasks){
 		for(int i=Calendar.SUNDAY;i<=Calendar.SATURDAY;i++){
 			final int dayOfWeek = i;

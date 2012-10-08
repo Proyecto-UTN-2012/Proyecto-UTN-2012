@@ -15,6 +15,7 @@ public class Task implements Comparable<Task>{
 	private final int minute;
 	private int size;
 	private Set<Integer> repeatDays = new HashSet<Integer>();
+	private TaskState state;
 	
 	public Task(TaskType type, Calendar date){
 		this(type, date, 5);
@@ -28,6 +29,7 @@ public class Task implements Comparable<Task>{
 		this.hour = date.get(Calendar.HOUR_OF_DAY);
 		this.minute = date.get(Calendar.MINUTE);
 		this.size = size;
+		this.state = TaskState.DEFAULT;
 	}
 	
 	public String getName(){
@@ -61,6 +63,24 @@ public class Task implements Comparable<Task>{
 		int myHour = this.hour;
 		int hours = (this.minute + size)/60;
 		return hour>=myHour && hour<=(myHour + hours);
+	}
+	
+	public boolean isInitialized(int hour, int minute){
+		return this.hour < hour || (this.hour==hour && this.minute <= minute); 
+	}
+	
+	public boolean isFinalized(int hour, int minute){
+		int myHour = this.hour + (this.minute + this.size)/60;
+		int myMinute = (this.minute + this.size)%60;
+		return isInitialized(hour, minute) && (myHour < hour || (myHour==hour && myMinute <= minute)); 
+	}
+	
+	public int getRemainingMinutes(int hour, int minute){
+		if(!isInitialized(hour, minute)) return size;
+		if(isFinalized(hour, minute)) return 0;
+		int myTime = this.hour*60 + this.minute + size;
+		int time = hour*60 + minute;
+		return myTime - time;
 	}
 
 	public int getSize() {
@@ -140,6 +160,69 @@ public class Task implements Comparable<Task>{
 				&& this.minute == t.minute;
 	}
 	
+	/**
+	 * Devuelve true si y solo si el estado cambió
+	 * @param hour
+	 * @param minute
+	 * @return
+	 */
+	public boolean changeState(int hour,int minute){
+		int time = hour*60 + minute;
+		int myTime = this.hour*60 + this.minute;
+		if(time == myTime){
+			return changeToInitState();
+		}
+		if(time == myTime+size){
+			return changeToEndState();
+		}
+		
+		if(time < myTime){
+			if(state != TaskState.DEFAULT){
+				state = TaskState.DEFAULT;
+				return true;
+			}
+			return false;
+		}
+		
+		if(time > myTime+this.size){
+			return changeToEndState();
+		}
+		
+		if(state == TaskState.READY || state == TaskState.ACTIVED || state== TaskState.BAD_COMPLETE || state==TaskState.COMPLETED) return false;
+		state = TaskState.READY;
+		
+		return true;
+	}
+	
+	private boolean changeToEndState(){
+		if(state==TaskState.EXCEEDED || state==TaskState.COMPLETED || state==TaskState.BAD_COMPLETE) return false;
+		state = TaskState.EXCEEDED;
+		return true;
+	}
+	
+	private boolean changeToInitState(){
+		if(state==TaskState.DEFAULT){
+			state = TaskState.READY;
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean active(){
+		if(this.state==TaskState.BAD_COMPLETE || this.state==TaskState.COMPLETED){
+			return false;
+		}
+		this.state = TaskState.ACTIVED;
+		return true;
+	}
+	
+	public boolean terminate(){
+		this.state = this.isFinalized(Calendar.getInstance().get(Calendar.HOUR_OF_DAY), Calendar.getInstance().get(Calendar.MINUTE))
+				? TaskState.COMPLETED
+				: TaskState.BAD_COMPLETE;
+		return true;
+	}
+	
 	public int hashCode(){
 		return this.type.hashCode() - this.hour + this.minute;
 	}
@@ -147,6 +230,31 @@ public class Task implements Comparable<Task>{
 	@Override
 	public String toString(){
 		return getName() + " at " + hour + "h " + minute + "m";
+	}
+	
+	@Override
+	public int compareTo(Task another) {
+		if(equals(another)){
+			if(another.getState()!=this.getState()){
+				if(this.getState()==TaskState.DEFAULT){
+					this.setState(another.getState());
+				}
+				if(another.getState()==TaskState.DEFAULT){
+					another.setState(this.getState());
+				}
+			}
+		}
+		if(this.hour != another.hour)
+			return this.hour - another.hour;
+		return this.minute - another.minute;
+	}
+
+	public TaskState getState() {
+		return state;
+	}
+
+	public void setState(TaskState state) {
+		this.state = state;
 	}
 	
 	public class TaskData{
@@ -158,6 +266,7 @@ public class Task implements Comparable<Task>{
 		private final int minute;
 		private final int size;
 		private final boolean repeatable;
+		private final TaskState state;
 		
 		private TaskData(Task task){
 			this.type = task.getName();
@@ -168,6 +277,7 @@ public class Task implements Comparable<Task>{
 			this.minute = task.getMinute();
 			this.size = task.getSize();
 			this.repeatable = task.isRepeatable();
+			this.state = task.getState();
 		}
 
 		public int getSize() {
@@ -202,6 +312,10 @@ public class Task implements Comparable<Task>{
 			return repeatable;
 		}
 		
+		public TaskState getState(){
+			return state;
+		}
+		
 		public Calendar buildCalendar(){
 			Calendar date = (Calendar) Calendar.getInstance().clone();
 			date.set(Calendar.YEAR, year);
@@ -211,12 +325,5 @@ public class Task implements Comparable<Task>{
 			date.set(Calendar.MINUTE, minute);
 			return date;
 		}
-	}
-
-	@Override
-	public int compareTo(Task another) {
-		if(this.hour != another.hour)
-			return this.hour - another.hour;
-		return this.minute - another.minute;
 	}
 }
