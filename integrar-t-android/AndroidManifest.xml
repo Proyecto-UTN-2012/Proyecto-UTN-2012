@@ -80,8 +80,9 @@
         
         <!-- Cuentos -->
         <activity android:name=".activities.cuentos.CuentosActivity"
-                  android:screenOrientation="landscape"></activity>
-        <activity android:name=".activities.cuentos.CurrentCuentoActivity"></activity>
+            android:screenOrientation="nosensor"></activity>
+        <activity android:name=".activities.cuentos.CurrentCuentoActivity"
+            android:screenOrientation="nosensor"></activity>
     </application>
 
 </manifest>

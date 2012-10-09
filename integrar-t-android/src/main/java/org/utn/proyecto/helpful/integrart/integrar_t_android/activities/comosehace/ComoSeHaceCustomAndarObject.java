@@ -19,6 +19,13 @@ public class ComoSeHaceCustomAndarObject extends ARObject {
 
     private static final String VIDEO = "video";
 	private ComoSeHaceAndarActivity activity;
+	
+	//Matrix positions which contains the X,Y,Z transformed.
+	//values in matrix[X or Y or Z] are the points from the center to the marker.
+	private int XCordinate = 3;
+	private int YCordinate = 7;
+	private int ZCordinate = 11;
+    
 
     public ComoSeHaceCustomAndarObject(String name, String patternName,
 			double markerWidth, double[] markerCenter,ComoSeHaceAndarActivity comoSeHaceAndarActivity) {
@@ -28,7 +35,7 @@ public class ComoSeHaceCustomAndarObject extends ARObject {
 		float   mat_diffusef[]       = {0f, 1.0f, 0f, 1.0f};
 		float   mat_flash_shinyf[] = {50.0f};
 		
-		//Customized
+		//activity is passed like parameter when it is instantiated so it can call the execute video 
 		activity = comoSeHaceAndarActivity;
 
 		mat_ambient = GraphicsUtil.makeFloatBuffer(mat_ambientf);
@@ -42,7 +49,7 @@ public class ComoSeHaceCustomAndarObject extends ARObject {
 		super(name, patternName, markerWidth, markerCenter);
 		float   mat_flash_shinyf[] = {50.0f};
 
-		//Customized
+		//activity is passed like parameter when it is instantiated so it can call the execute video
 		activity = act;
 		
 		mat_ambient = GraphicsUtil.makeFloatBuffer(customColor);
@@ -68,35 +75,76 @@ public class ComoSeHaceCustomAndarObject extends ARObject {
 	
 	@Override
 	public final void draw(GL10 gl) {
-		
-	    //super.draw(gl);
-		
-		/*gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_SPECULAR,mat_flash);
-		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_SHININESS, mat_flash_shiny);	
-		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_DIFFUSE, mat_diffuse);	
-		gl.glMaterialfv(GL10.GL_FRONT_AND_BACK, GL10.GL_AMBIENT, mat_ambient);
-
-	    //draw cube
-	    gl.glColor4f(0, 1.0f, 0, 1.0f);
-	    gl.glTranslatef( 0.0f, 0.0f, 12.5f );
 	    
-	    //draw the box
-	    box.draw(gl);
-	    */
-	   
+	    //get the matrix transformed matrix
+	    double[] matrix = super.getTransMatrix();
 	    
-	    if (super.getPatternName().equals("patt.hiro")){
-	        //double width = super.getMarkerWidth();
-	        double[] matrix = super.getTransMatrix();
-	        int variableTochange = 22;
+	    if (markerIsClose(matrix))
+	    {
 	        
-	        
-	        if (matrix.length > variableTochange){
-	            executeReproductor("android.resource://" + activity.getPackageName() +"/"+R.raw.assasin);
-	        }
+    	    if (isVisible() && super.getPatternName().equals("patt.hiro")){
+    	        executeReproductor("android.resource://" + activity.getPackageName() +"/"+R.raw.assasin);
+    	    }
+    	    
+    	    if (isVisible() && super.getPatternName().equals("android.patt")){
+                executeReproductor("android.resource://" + activity.getPackageName() +"/"+R.raw.lallama);
+            }
+    	    
+    	    if (isVisible() && super.getPatternName().equals("barcode.patt")){
+                executeReproductor("android.resource://" + activity.getPackageName() +"/"+R.raw.llama_caroso);
+            }
+    	    
 	    }
 	}
 	
+	/**
+	 * This function calculates if the marker is close enough to the center of the display and a distance set on preferences
+	 * @param matrix is the transform matrix [3][4]  (0 = orientation X; 1 = orientation Y; 2 = Orientation Z; 3 = Transformed value in X and so on)
+	 * @return  if marker should be analyzed or not.
+	 */
+    private boolean markerIsClose(double[] matrix) {
+        
+        double x;
+        double y;
+        double z;
+        //TODO: parameters should be taken from preference  
+        double minRadio = 500;
+        double maxRadio = 1500;
+        
+      //TODO: parameters should be taken from preference
+        double distanceFromCenterX = 50;
+        double distanceFromCenterY = 50;
+        
+        //distance from center to the point where is the marker.
+        double distance = 0;
+        
+        if (matrix!=null)
+        {
+            x = matrix[XCordinate];
+            y = matrix[YCordinate];
+            z = matrix[ZCordinate];
+            
+            //Pitagoras law
+            distance = Math.sqrt(x*x+y*y+z*z);
+           
+            if (Math.abs(x) > distanceFromCenterX && Math.abs(y) > distanceFromCenterY)
+            {
+                return false;
+            }
+        }
+        
+        if (distance >= minRadio && distance <= maxRadio)
+        {
+            return true;
+       }else{
+            return false;
+        }
+    }
+    
+    /**
+     * Reproduce the video from the parameter assigned.
+     * @param path to the video
+     */
     protected void executeReproductor(String path) {
         activity.executeReproductor(path);
     }

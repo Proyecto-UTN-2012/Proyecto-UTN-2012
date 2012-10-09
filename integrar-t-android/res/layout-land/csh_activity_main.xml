@@ -3,19 +3,25 @@
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:background="@drawable/wood_background"
+    android:orientation="vertical"
+    >
 
     <Button
         android:id="@+id/btn_csh_setting"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Configuración" />
-
-    <Button
-        android:id="@+id/btn_csh_application"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="executeCustomActivity"
-        android:text="Comenzar Aplicación" />
+             
+	<Button
+	    android:id="@+id/btn_csh_application"
+	    android:layout_width="match_parent"
+	    android:layout_height="408dp"
+	    android:layout_gravity="center_vertical|center_horizontal"
+	    android:background="@drawable/camerapicture"
+	    android:onClick="executeCustomActivity"
+	    android:text="Comienza a divertirte"
+	    android:textStyle="normal|bold|italic"
+	    android:typeface="serif" />
 
 </LinearLayout>

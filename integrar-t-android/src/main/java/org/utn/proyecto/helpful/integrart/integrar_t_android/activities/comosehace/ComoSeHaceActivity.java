@@ -59,7 +59,6 @@ public class ComoSeHaceActivity extends RoboActivity implements EventListener<Vo
 
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
-        // TODO Auto-generated method stub
         return super.onMenuItemSelected(featureId, item);
     }
     
