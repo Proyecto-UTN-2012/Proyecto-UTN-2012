@@ -38,7 +38,6 @@
 		        android:layout_alignParentTop="true"
 		        android:layout_marginRight="5dp"
 		        android:layout_marginTop="35dp"
-		        android:text="Large Text"
 		        android:textSize="15dp"
 		        android:textColor="#444499" />
 
@@ -81,7 +80,6 @@
 		        android:layout_alignParentTop="true"
 		        android:layout_marginRight="5dp"
 		        android:layout_marginTop="35dp"
-		        android:text="Large Text"
 		        android:textSize="15dp"
 		        android:textColor="#449944" />
 

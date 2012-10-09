@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@drawable/wood_background"
+    android:orientation="vertical"
+    android:padding="30dp" >
+
+    <FrameLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/black_image_background" >
+
+		<RelativeLayout
+		    android:id="@+id/nextLayout"
+		    android:layout_width="match_parent"
+		    android:layout_height="85dp"
+		    android:layout_gravity="bottom"
+		    android:background="@drawable/blue_pastel_image_background"
+		    android:paddingBottom="10dp"
+		    android:paddingLeft="10dp"
+		    android:paddingRight="10dp"
+		    android:paddingTop="10dp" >
+
+		    <ImageView
+		        android:id="@+id/nextImage"
+		        android:layout_alignParentLeft="true"
+		        android:layout_centerVertical="true"
+		        android:background="@drawable/blue_image_background"
+		        android:layout_height="match_parent"
+		        android:layout_width="wrap_content"/>
+		    <TextView
+		        android:id="@+id/nextText"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_alignParentRight="true"
+		        android:layout_alignParentTop="true"
+		        android:layout_marginRight="5dp"
+		        android:layout_marginTop="35dp"
+		        android:textSize="15dp"
+		        android:textColor="#444499" />
+
+		    <TextView
+		        android:id="@+id/then"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_alignParentRight="true"
+		        android:layout_alignParentBottom="true"
+		        android:layout_marginRight="5dp"
+		        android:layout_marginBottom="35dp"
+		        android:text="@string/thenTask"
+		        android:textSize="15dp"
+		        android:textColor="#444499" />
+		</RelativeLayout>
+
+		<RelativeLayout
+		    android:id="@+id/currentLayout"
+		    android:layout_width="match_parent"
+		    android:layout_height="85dp"
+		    android:background="@drawable/green_pastel_image_background"
+		    android:paddingBottom="10dp"
+		    android:paddingLeft="10dp"
+		    android:paddingRight="10dp"
+		    android:paddingTop="10dp" >
+
+		    <ImageView
+		        android:id="@+id/currentImage"
+		        android:layout_width="wrap_content"
+		        android:layout_height="match_parent"
+		        android:layout_alignParentLeft="true"
+		        android:layout_centerVertical="true"
+		        android:background="@drawable/green_image_background" />
+
+		    <TextView
+		        android:id="@+id/currentText"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_alignParentRight="true"
+		        android:layout_alignParentTop="true"
+		        android:layout_marginRight="5dp"
+		        android:layout_marginTop="35dp"
+		        android:textSize="15dp"
+		        android:textColor="#449944" />
+
+		    <TextView
+		        android:id="@+id/now"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_alignParentRight="true"
+		        android:layout_alignParentBottom="true"
+		        android:layout_marginRight="5dp"
+		        android:layout_marginBottom="35dp"
+		        android:text="@string/nowTask"
+		        android:textSize="15dp"
+		        android:textColor="#449944" />
+		</RelativeLayout>
+
+		<ImageView
+		    android:id="@+id/transition"
+		    android:layout_width="60dp"
+		    android:layout_height="60dp"
+		    android:layout_gravity="center"
+		    android:src="@drawable/transition_arrow" />
+
+    </FrameLayout>
+
+</FrameLayout>
