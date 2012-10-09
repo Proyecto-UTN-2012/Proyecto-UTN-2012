@@ -151,6 +151,10 @@ public class Task implements Comparable<Task>{
 		return sb.toString();
 	}
 	
+	public boolean isCompleted(){
+		return this.state == TaskState.BAD_COMPLETE || this.state == TaskState.COMPLETED;
+	}
+	
 	@Override
 	public boolean equals(Object o){
 		if(!(o instanceof Task)) return false;

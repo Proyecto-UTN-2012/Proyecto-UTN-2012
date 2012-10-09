@@ -14,7 +14,7 @@
 
     <uses-sdk
 
-        android:minSdkVersion="10"
+        android:minSdkVersion="11"
         android:targetSdkVersion="13" />
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -52,6 +52,8 @@
             android:screenOrientation="landscape"></activity>
         <activity android:name=".activities.calendar.OrganizarTListActivity"></activity>
         <activity android:name=".activities.calendar.ShowTaskActivity"
+             android:theme="@android:style/Theme.Holo.Light"></activity>
+        <activity android:name=".activities.calendar.TaskTransitionActivity"
              android:theme="@android:style/Theme.Holo.Light"></activity>
         
         <!-- Habla con Cali -->

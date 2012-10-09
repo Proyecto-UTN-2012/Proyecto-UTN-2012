@@ -21,7 +21,6 @@ import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
@@ -175,9 +174,8 @@ public class OrganizarTListActivity extends RoboActivity implements OnItemClickL
 	}
 	
 	private void showTaskView(Task task){
-		Intent intent = new Intent(this, ShowTaskActivity.class);
 		loader.saveCurrentTask(task);
-		this.startActivity(intent);
+		bus.dispatch(new LaunchShowCalendarTaskEvent(this));
 	}
 	
 	private void showEmptyPanel(){

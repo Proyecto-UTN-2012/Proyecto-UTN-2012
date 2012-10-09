@@ -54,19 +54,29 @@ public class ShowTaskActivity extends RoboActivity {
 		font = Typeface.createFromAsset(getAssets(), "fonts/WC_RoughTrad.ttf");
 		task = loader.loadCurrentTask();
 		nameText.setTypeface(font);
-		nameText.setText(Html.fromHtml("<u>"+task.getName()+"</u>"));
 		
 		listButton.setTypeface(font);
-		nextButton.setTypeface(font);
-		
+		listButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
+	}
+	
+	@Override
+	protected void onResume(){
+		task = loader.loadCurrentTask();
+		nameText.setText(Html.fromHtml("<u>"+task.getName()+"</u>"));
 		image.setImageDrawable(task.getLargeImage());
-		
 		update();
+		super.onResume();
 	}
 	
 	private void update(){
 		settingProgress();
 		settingActionButton();
+		settingNextButton();
 	}
 	
 	private void settingProgress(){
@@ -80,8 +90,25 @@ public class ShowTaskActivity extends RoboActivity {
 		}
 	}
 	
+	private void settingNextButton(){
+		nextButton.setTypeface(font);
+		if(task.isCompleted()){
+			nextButton.setVisibility(View.VISIBLE);
+			nextButton.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					bus.dispatch(new LaunchTaskTransitionEvent(v.getContext()));
+				}
+			});			
+		}
+		else{
+			nextButton.setVisibility(View.INVISIBLE);
+		}
+	}
+	
 	private void settingActionButton(){
 		actionButton.setTypeface(font);
+		actionButton.setVisibility(View.VISIBLE);
 		if(task.getState()==TaskState.DEFAULT || task.getState()==TaskState.READY){
 			actionButton.setText(R.string.activateTask);
 			actionButton.setOnClickListener(new View.OnClickListener() {

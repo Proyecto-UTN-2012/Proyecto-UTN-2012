@@ -19,4 +19,6 @@
     <string name="finalizeTask">Terminar</string>
     <string name="listTasks">Lista</string>
     <string name="nextTasks">Proxima</string>
+    <string name="nowTask">Ahora</string>
+    <string name="thenTask">Despues</string>
 </resources>

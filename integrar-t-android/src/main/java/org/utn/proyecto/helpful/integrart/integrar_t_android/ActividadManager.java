@@ -2,6 +2,8 @@ package org.utn.proyecto.helpful.integrart.integrar_t_android;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar.LaunchCalendarEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar.LaunchOrganizarEvent;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar.LaunchShowCalendarTaskEvent;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar.LaunchTaskTransitionEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.cantaconcali.LaunchCantaConCaliEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.comosehace.LaunchComoSeHaceEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.cuentos.LaunchCuentosEvent;
@@ -35,6 +37,8 @@ public class ActividadManager implements EventListener<Class<Activity>>{
 		bus.addEventListener(LaunchCantaConCaliEvent.class, this);
 		bus.addEventListener(LaunchTestActivityEvent.class, this);
 		bus.addEventListener(LaunchCuentosEvent.class, this);
+		bus.addEventListener(LaunchShowCalendarTaskEvent.class, this);
+		bus.addEventListener(LaunchTaskTransitionEvent.class, this);
 	}
 	
     @Override
