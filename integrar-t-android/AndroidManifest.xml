@@ -55,6 +55,8 @@
              android:theme="@android:style/Theme.Holo.Light"></activity>
         <activity android:name=".activities.calendar.TaskTransitionActivity"
              android:theme="@android:style/Theme.Holo.Light"></activity>
+        <service android:name=".activities.calendar.TaskNotificationService"
+            android:exported="false"></service>
         
         <!-- Habla con Cali -->
         <activity android:name=".activities.hablaconcali.HablaConCaliActivity"

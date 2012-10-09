@@ -1,11 +1,7 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 
@@ -68,11 +64,7 @@ public class TaskTransitionActivity extends RoboActivity {
 		super.onCreate(savedInstanceState);
 		font = Typeface.createFromAsset(getAssets(), "fonts/WC_RoughTrad.ttf");
 		Calendar date = (Calendar) Calendar.getInstance().clone();
-		Set<Task> set = new HashSet<Task>();
-		set.addAll(loader.loadUnrepeatableTaskFromDay(date));
-		set.addAll(loader.loadRepeatableTaskFromDay(date));
-		List<Task> tasks = new ArrayList<Task>(set);
-		Collections.sort(tasks);
+		List<Task> tasks = loader.loadTodayTasks(date);
 		currentTask = loader.loadCurrentTask();
 		try{
 			nextTask = tasks.get(tasks.indexOf(currentTask)+1);

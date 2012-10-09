@@ -1,26 +1,21 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
-import org.utn.proyecto.helpful.integrart.integrar_t_android.events.Event;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
-import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventListener;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
@@ -42,7 +37,7 @@ import android.widget.TextView;
 import com.google.inject.Inject;
 
 @ContentView(R.layout.organizar_t)
-public class OrganizarTListActivity extends RoboActivity implements OnItemClickListener, EventListener<Task>{
+public class OrganizarTListActivity extends RoboActivity implements OnItemClickListener{
 	public final static String ORGANIZAR_T_PACKAGE_KEY = ".calendar.tasks.";
 	public final static String ORGANIZAR_T_PACKAGE_WEEK_KEY = ".calendar.tasks.week.";
 	public final static String ORGANIZAR_T_CURRENT_TASK_KEY = ".calendar.curretTask";
@@ -88,7 +83,11 @@ public class OrganizarTListActivity extends RoboActivity implements OnItemClickL
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		bus.addEventListener(UpdateTaskEvent.class, this);
+		//if(!db.contain(user.getUserName() + TaskNotificationService.TASK_NOTIFICATION_STARTED)){
+			Intent intent = new Intent(this, TaskNotificationService.class);
+			startService(intent);
+			//taskNotificationService.startService(new Intent());
+		//}
 		if(db.contain(user.getUserName() + LAST_UPDATE_KEY)){
 			deleteOldTasks();
 		}
@@ -103,11 +102,7 @@ public class OrganizarTListActivity extends RoboActivity implements OnItemClickL
 		if(!db.contain(user.getUserName() + ORGANIZAR_T_PACKAGE_KEY + dateKey)){
 			showEmptyPanel();
 		}
-		Set<Task> set = new HashSet<Task>();
-		set.addAll(loader.loadUnrepeatableTaskFromDay(date));
-		set.addAll(loader.loadRepeatableTaskFromDay(date));
-		tasks = new ArrayList<Task>(set);
-		Collections.sort(tasks);
+		tasks = loader.loadTodayTasks(date);
 		adapter = new TaskListAdapter(this, tasks);
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(this);
@@ -135,26 +130,11 @@ public class OrganizarTListActivity extends RoboActivity implements OnItemClickL
 	}
 	
 	@Override
-	public void onDestroy(){
-		bus.removeEventListener(UpdateTaskEvent.class, this);
-		super.onDestroy();
-	}
-	
-	@Override
 	public boolean onCreateOptionsMenu(Menu menu){
 		super.onCreateOptionsMenu(menu);
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.organizar_t_menu, menu);
 		return true;			
-	}
-	
-	@Override
-	public void onEvent(Event<Task> event) {
-		Task task = event.getData();
-		int index = tasks.indexOf(task);
-		tasks.remove(task);
-		tasks.add(index, task);
-		loader.saveUnrepeatableTasks(date, tasks);
 	}
 	
 	@Override
@@ -176,6 +156,7 @@ public class OrganizarTListActivity extends RoboActivity implements OnItemClickL
 	private void showTaskView(Task task){
 		loader.saveCurrentTask(task);
 		bus.dispatch(new LaunchShowCalendarTaskEvent(this));
+		//finish();
 	}
 	
 	private void showEmptyPanel(){
