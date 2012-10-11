@@ -68,6 +68,7 @@ public class TaskNotificationService extends RoboIntentService {
 			@Override
 			public void run() {
 				alarm.stop();
+				alarm.release();
 			}
 		}, 11000);
 		Intent newIntent = new Intent(this, ShowTaskActivity.class);
