@@ -58,6 +58,10 @@
         <service android:name=".activities.calendar.TaskNotificationService"
             android:exported="false"></service>
         
+        <!-- Jugando con las Manos -->
+        <activity android:name=".activities.handplay.HandPlayActivity"
+             android:theme="@android:style/Theme.Holo.Light"></activity>
+        
         <!-- Habla con Cali -->
         <activity android:name=".activities.hablaconcali.HablaConCaliActivity"
             android:screenOrientation="nosensor"></activity>
