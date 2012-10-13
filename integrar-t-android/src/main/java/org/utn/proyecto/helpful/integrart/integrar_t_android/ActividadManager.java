@@ -8,6 +8,7 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.cantacon
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.comosehace.LaunchComoSeHaceEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.cuentos.LaunchCuentosEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.hablaconcali.LaunchHablaConCaliEvent;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.handplay.LaunchHandPlayEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.pictogramas.LaunchPictogramEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.testactivity.LaunchTestActivityEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.Event;
@@ -39,6 +40,7 @@ public class ActividadManager implements EventListener<Class<Activity>>{
 		bus.addEventListener(LaunchCuentosEvent.class, this);
 		bus.addEventListener(LaunchShowCalendarTaskEvent.class, this);
 		bus.addEventListener(LaunchTaskTransitionEvent.class, this);
+		bus.addEventListener(LaunchHandPlayEvent.class, this);
 	}
 	
     @Override

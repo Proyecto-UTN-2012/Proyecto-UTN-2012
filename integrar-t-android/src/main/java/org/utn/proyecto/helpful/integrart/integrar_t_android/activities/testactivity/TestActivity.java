@@ -20,7 +20,6 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 
@@ -49,7 +48,7 @@ public class TestActivity extends RoboFragmentActivity{
 		 layout.addView(view);
 		 paint = new Paint();
 		 paint.setDither(true);
-		 paint.setColor(0xFFFFFF00);
+		 paint.setColor(0x55FFFF00);
 		 paint.setStyle(Paint.Style.STROKE);
 		 paint.setStrokeJoin(Paint.Join.ROUND);
 		 paint.setStrokeCap(Paint.Cap.ROUND);
@@ -150,6 +149,8 @@ public class TestActivity extends RoboFragmentActivity{
 		@Override
 		public void onDraw(Canvas canvas){
 			super.onDraw(canvas);
+			if(canvas==null) return;
+			canvas.drawColor(0x00000000);
 			for(Path path : paths){
 				canvas.drawPath(path, paint);
 			}

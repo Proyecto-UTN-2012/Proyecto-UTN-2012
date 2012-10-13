@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/notebook_background"
+    android:orientation="vertical"
+    android:paddingRight="35dp"
+    android:paddingBottom="10dp"
+    android:paddingLeft="35dp"
+    android:paddingTop="45dp" >
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="#303338"
+        android:textSize="28sp" 
+        android:textStyle="italic"/>
+
+	<FrameLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content" >
+	
+	    <ImageView
+	        android:id="@+id/image"
+	        android:layout_width="wrap_content"
+	        android:layout_height="500dp"
+	        android:layout_gravity="center_horizontal"
+	        android:background="@drawable/grey_image_background"
+	         />
+
+	   	<ImageView
+	   	    android:id="@+id/progress"
+	   	    android:layout_width="400dp"
+	   	    android:layout_height="40dp"
+	   	    android:layout_gravity="bottom|center_horizontal"
+	   	    android:layout_marginBottom="20dp"
+	   	    android:background="@drawable/progress_bar_empty"
+	   	    android:padding="0px"
+	   	    android:scaleType="fitXY"
+	   	    android:src="@drawable/progress_bar"
+	   	     />
+
+	</FrameLayout>		
+	
+	<FrameLayout android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="10dp"
+	    android:padding="0dp">
+	    <Button 
+	        android:id="@+id/list"
+	        android:textColor="#303338"
+	        android:layout_width="150dp"
+	        android:layout_gravity="bottom|left"
+	        android:layout_height="wrap_content"
+	        android:background="@drawable/paper_button"
+	        android:text="@string/listTasks"/>
+	    <Button 
+	        android:id="@+id/next"
+	        android:textColor="#303338"
+	        android:layout_width="150dp"
+	        android:layout_gravity="bottom|center_horizontal"
+	        android:layout_height="wrap_content"
+	        android:background="@drawable/paper_button"
+	        android:text="@string/nextTasks"/>
+	    <Button 
+	        android:id="@+id/action"
+	        android:textColor="#303338"
+	        android:layout_width="150dp"
+	        android:layout_gravity="bottom|right"
+	        android:layout_height="wrap_content"
+	        android:background="@drawable/paper_button"/>
+	</FrameLayout>	
+
+</LinearLayout>

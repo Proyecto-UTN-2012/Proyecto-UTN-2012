@@ -3,7 +3,10 @@ package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calenda
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -39,6 +42,15 @@ public class CalendarDataLoader {
 		this.user = user;
 		this.fileService = fileService;
 		taskTypes = loadTaskTypes();
+	}
+	
+	public List<Task> loadTodayTasks(Calendar date){
+		Set<Task> set = new HashSet<Task>();
+		set.addAll(loadUnrepeatableTaskFromDay(date));
+		set.addAll(loadRepeatableTaskFromDay(date));
+		List<Task> tasks = new ArrayList<Task>(set);
+		Collections.sort(tasks);
+		return tasks;
 	}
 	
 	private List<TaskType> loadTaskTypes(){

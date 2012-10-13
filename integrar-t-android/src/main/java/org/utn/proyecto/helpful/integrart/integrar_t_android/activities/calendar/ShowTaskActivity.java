@@ -1,6 +1,7 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar;
 
 import java.util.Calendar;
+import java.util.List;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
@@ -52,13 +53,13 @@ public class ShowTaskActivity extends RoboActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		font = Typeface.createFromAsset(getAssets(), "fonts/WC_RoughTrad.ttf");
-		task = loader.loadCurrentTask();
 		nameText.setTypeface(font);
 		
 		listButton.setTypeface(font);
 		listButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				bus.dispatch(new LaunchOrganizarEvent(v.getContext()));
 				finish();
 			}
 		});
@@ -115,7 +116,7 @@ public class ShowTaskActivity extends RoboActivity {
 				@Override
 				public void onClick(View v) {
 					task.active();
-					bus.dispatch(new UpdateTaskEvent(v.getContext(), task));
+					updateTask();
 					update();
 				}
 			});
@@ -126,7 +127,7 @@ public class ShowTaskActivity extends RoboActivity {
 				@Override
 				public void onClick(View v) {
 					task.terminate();
-					bus.dispatch(new UpdateTaskEvent(v.getContext(), task));
+					updateTask();
 					update();
 				}
 			});
@@ -134,5 +135,14 @@ public class ShowTaskActivity extends RoboActivity {
 		else{
 			actionButton.setVisibility(View.INVISIBLE);
 		}
+	}
+	
+	private void updateTask(){
+		Calendar date = (Calendar)Calendar.getInstance().clone();
+		List<Task> tasks = loader.loadTodayTasks(date);
+		int index = tasks.indexOf(task);
+		tasks.remove(task);
+		tasks.add(index, task);
+		loader.saveUnrepeatableTasks(date, tasks);
 	}
 }
