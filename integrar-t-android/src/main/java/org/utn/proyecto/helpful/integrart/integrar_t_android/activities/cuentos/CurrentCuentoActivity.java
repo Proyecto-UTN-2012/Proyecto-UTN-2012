@@ -6,9 +6,13 @@ import java.util.List;
 import java.util.concurrent.Semaphore;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.hablaconcali.HablaConCaliActivity.Ear;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -19,8 +23,12 @@ import android.text.TextPaint;
 import android.text.style.CharacterStyle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +41,7 @@ import roboguice.inject.InjectView;
 public class CurrentCuentoActivity extends RoboActivity {
 	@InjectView(R.id.cuentosViewPager)
 	private ViewPager cuentosPager;
+
 	private String str;
 	private String word;
 
@@ -50,7 +59,7 @@ public class CurrentCuentoActivity extends RoboActivity {
 	private Editable span;
 
 	private MediaPlayer pageSound;
-
+	private int cuento;
 	private CuentoThread currentThread;
 
 	@Override
@@ -58,41 +67,42 @@ public class CurrentCuentoActivity extends RoboActivity {
 
 		super.onCreate(savedInstanceState);
 		Bundle arguments = getIntent().getExtras();
-		int cuento = arguments.getInt("cuento");
-//		Toast.makeText(this, "cuento elegido " + cuento, Toast.LENGTH_LONG)
-//				.show();
+		cuento = arguments.getInt("cuento");
+		// Toast.makeText(this, "cuento elegido " + cuento, Toast.LENGTH_LONG)
+		// .show();
 
 		paginas = new ArrayList<Pagina>();
-	
+
 		switch (cuento) {
 		case 1: {
-		Pagina pagina = new Pagina(getString(R.string.pinocho_pag1),
-				getResources().getDrawable(R.drawable.pinocho_pg1),
-				MediaPlayer.create(this, R.raw.pinocho_pag1));
-		paginas.add(pagina);
-		pagina = new Pagina(getString(R.string.pinocho_pag2), getResources()
-				.getDrawable(R.drawable.pinocho_pg2), MediaPlayer.create(this,
-				R.raw.pinocho_pag2));
-		paginas.add(pagina);
-        break;
+			Pagina pagina = new Pagina(getString(R.string.pinocho_pag1),
+					getResources().getDrawable(R.drawable.pinocho_pg1),
+					MediaPlayer.create(this, R.raw.pinocho_pag1));
+			paginas.add(pagina);
+			pagina = new Pagina(getString(R.string.pinocho_pag2),
+					getResources().getDrawable(R.drawable.pinocho_pg2),
+					MediaPlayer.create(this, R.raw.pinocho_pag2));
+			paginas.add(pagina);
+			break;
 		}
-		case 2:{
+		case 2: {
 			Pagina pagina = new Pagina(getString(R.string.ricitos_pag1),
 					getResources().getDrawable(R.drawable.ricitos_pg1),
 					MediaPlayer.create(this, R.raw.ricitos_pag1));
 			paginas.add(pagina);
-			pagina = new Pagina(getString(R.string.ricitos_pag2), getResources()
-					.getDrawable(R.drawable.ricitos_pg2), MediaPlayer.create(this,
-					R.raw.ricitos_pag2));
+			pagina = new Pagina(getString(R.string.ricitos_pag2),
+					getResources().getDrawable(R.drawable.ricitos_pg2),
+					MediaPlayer.create(this, R.raw.ricitos_pag2));
 			paginas.add(pagina);
-	        break;
-				
+			break;
+
 		}
-		
+
 		}
-		
+
 		cuentosAdapter = new CuentosAdapter(paginas, this);
 		cuentosPager.setAdapter(cuentosAdapter);
+
 		listener = new ViewPager.SimpleOnPageChangeListener() {
 
 			@Override
@@ -101,13 +111,13 @@ public class CurrentCuentoActivity extends RoboActivity {
 				if (cuentosAdapter.getTextView(position) != null) {
 					play(paginas.get(position));
 					showText(paginas.get(position),
-							cuentosAdapter.getTextView(position));
+							cuentosAdapter.getTextView(position), position);
+
 				}
 			}
 
 		};
 		cuentosPager.setOnPageChangeListener(listener);
-
 		listener.onPageSelected(0);
 
 	} // termina el onCreate
@@ -119,16 +129,12 @@ public class CurrentCuentoActivity extends RoboActivity {
 
 		if (hasFocus) {
 			listener.onPageSelected(0);
+
 		}
 	}
 
-	
-	
-	
-	
-	
-	
 	public void play(Pagina pagina) {
+
 		if (pageSound != null && pageSound.isPlaying()) {
 			pageSound.stop();
 			try {
@@ -144,7 +150,8 @@ public class CurrentCuentoActivity extends RoboActivity {
 		pageSound.start();
 	}
 
-	public void showText(Pagina pag, final TextView text) {
+	public void showText(Pagina pag, final TextView text, int pos) {
+
 		if (currentThread != null)
 			currentThread.end();
 
@@ -182,7 +189,8 @@ public class CurrentCuentoActivity extends RoboActivity {
 
 	}
 
-	private class CuentosAdapter extends PagerAdapter {
+	private class CuentosAdapter extends PagerAdapter implements
+			OnClickListener {
 		private final List<Pagina> paginas;
 
 		private final ViewGroup[] paginasView;
@@ -216,6 +224,8 @@ public class CurrentCuentoActivity extends RoboActivity {
 				ImageView iView = (ImageView) view
 						.findViewById(R.id.cuentos_Img);
 
+				iView.setOnClickListener(this);
+
 				tView.setText(" " + paginas.get(position).getText() + "   ");
 				iView.setBackgroundDrawable(paginas.get(position).getImage());
 				paginasView[position] = view;
@@ -247,6 +257,23 @@ public class CurrentCuentoActivity extends RoboActivity {
 		public void destroyItem(ViewGroup collection, int position, Object view) {
 			collection.removeView((View) view);
 		}
+
+		@Override
+		public void onClick(View v) {
+			stopCuento();
+
+			Intent intent = new Intent(context, PintarActivity.class);
+			intent.putExtra("cuento", cuento);
+
+			context.startActivity(intent);
+			((Activity)context).finish();
+		}
+
+	}
+
+	public void stopCuento() {
+		pageSound.stop();
+		currentThread.end();
 
 	}
 
@@ -287,6 +314,7 @@ public class CurrentCuentoActivity extends RoboActivity {
 				if (index2 == index1) {
 					word = "";
 					semaphore.release();
+
 					continue;
 
 				}
@@ -351,18 +379,23 @@ public class CurrentCuentoActivity extends RoboActivity {
 
 			} // termino el while
 			Log.d("While", "aHH RE LOCO SALIO DEL WAIL");
+
 			word = null;
+
 			semaphore.release();
+
 			runOnUiThread(new Runnable() {
 
 				@Override
 				public void run() {
 
 					texto.setText(str);
+
 				}
 			});
 
 		}
 
 	}
+
 }

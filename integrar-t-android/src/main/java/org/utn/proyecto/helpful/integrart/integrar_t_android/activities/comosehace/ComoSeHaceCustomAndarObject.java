@@ -83,15 +83,15 @@ public class ComoSeHaceCustomAndarObject extends ARObject {
 	    {
 	        
     	    if (isVisible() && super.getPatternName().equals("patt.hiro")){
-    	        executeReproductor("android.resource://" + activity.getPackageName() +"/"+R.raw.assasin);
+//    	        executeReproductor("android.resource://" + activity.getPackageName() +"/"+R.raw.assasin);
     	    }
     	    
     	    if (isVisible() && super.getPatternName().equals("android.patt")){
-                executeReproductor("android.resource://" + activity.getPackageName() +"/"+R.raw.lallama);
+//                executeReproductor("android.resource://" + activity.getPackageName() +"/"+R.raw.lallama);
             }
     	    
     	    if (isVisible() && super.getPatternName().equals("barcode.patt")){
-                executeReproductor("android.resource://" + activity.getPackageName() +"/"+R.raw.llama_caroso);
+//                executeReproductor("android.resource://" + activity.getPackageName() +"/"+R.raw.llama_caroso);
             }
     	    
 	    }
