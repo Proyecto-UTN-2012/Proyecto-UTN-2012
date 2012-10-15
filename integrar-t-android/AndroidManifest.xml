@@ -89,6 +89,11 @@
             android:screenOrientation="nosensor"></activity>
         <activity android:name=".activities.cuentos.CurrentCuentoActivity"
             android:screenOrientation="nosensor"></activity>
+        
+                <activity android:name=".activities.cuentos.PintarActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@android:style/Theme.Holo.Light"></activity>
+        
     </application>
 
 </manifest>
