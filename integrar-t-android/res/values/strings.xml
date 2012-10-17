@@ -40,5 +40,6 @@
     <string name="thursday">Jueves</string>
     <string name="friday">Viernes</string>
     <string name="saturday">Sabado</string>
-    
+    <string name="drawingTitle">Dibujito guardado</string>
+    <string name="drawingMessage">El dibujito se guardó en </string>
 </resources>

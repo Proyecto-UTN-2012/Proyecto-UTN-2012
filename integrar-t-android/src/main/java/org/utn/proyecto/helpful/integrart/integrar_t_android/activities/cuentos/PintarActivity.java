@@ -9,6 +9,7 @@ import java.util.List;
 import org.apache.commons.collections.BufferUtils;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R.drawable;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.hablaconcali.HablaConCaliActivity.Ear;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
 
@@ -17,6 +18,7 @@ import com.google.inject.Inject;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -28,6 +30,7 @@ import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -40,15 +43,16 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 
 @ContentView(R.layout.pintar)
-public class PintarActivity extends RoboActivity {
-private final static String FOTO_COUNT = ".pintar";
-	
+public class PintarActivity extends RoboActivity implements
+		OnCompletionListener {
+	private final static String FOTO_COUNT = ".pintar";
+
 	@Inject
 	private DataStorageService db;
-	
+
 	@Inject
 	private User user;
-		
+
 	@InjectView(R.id.dibujo)
 	private FrameLayout dibujo;
 
@@ -96,7 +100,7 @@ private final static String FOTO_COUNT = ".pintar";
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-		if(!db.contain(user.getUserName() + FOTO_COUNT))
+		if (!db.contain(user.getUserName() + FOTO_COUNT))
 			db.put(user.getUserName() + FOTO_COUNT, 0);
 		Bundle arguments = getIntent().getExtras();
 		int cuento = arguments.getInt("cuento");
@@ -148,7 +152,10 @@ private final static String FOTO_COUNT = ".pintar";
 			public void onClick(View v) {
 				paint = copyPaint(paint);
 				paint.setColor(0xffff00ff);
-
+				MediaPlayer mp = MediaPlayer.create(v.getContext(),
+						R.raw.violeta);
+				mp.start();
+				completion(mp);
 			}
 		});
 
@@ -158,7 +165,9 @@ private final static String FOTO_COUNT = ".pintar";
 			public void onClick(View v) {
 				paint = copyPaint(paint);
 				paint.setColor(0xff00ff00);
-
+				MediaPlayer mp = MediaPlayer.create(v.getContext(), R.raw.verde);
+				mp.start();
+				completion(mp);
 			}
 		});
 
@@ -209,7 +218,9 @@ private final static String FOTO_COUNT = ".pintar";
 			public void onClick(View v) {
 				paint = copyPaint(paint);
 				paint.setColor(0xffff0000);
-
+				MediaPlayer mp = MediaPlayer.create(v.getContext(), R.raw.rojo);
+				mp.start();
+				completion(mp);
 			}
 		});
 
@@ -219,7 +230,9 @@ private final static String FOTO_COUNT = ".pintar";
 			public void onClick(View v) {
 				paint = copyPaint(paint);
 				paint.setColor(0xff0000ff);
-
+				MediaPlayer mp = MediaPlayer.create(v.getContext(), R.raw.azul);
+				mp.start();
+				completion(mp);
 			}
 		});
 
@@ -229,7 +242,10 @@ private final static String FOTO_COUNT = ".pintar";
 			public void onClick(View v) {
 				paint = copyPaint(paint);
 				paint.setColor(0xffff5500);
-
+				MediaPlayer mp = MediaPlayer.create(v.getContext(),
+						R.raw.naranja);
+				mp.start();
+				completion(mp);
 			}
 		});
 
@@ -239,7 +255,10 @@ private final static String FOTO_COUNT = ".pintar";
 			public void onClick(View v) {
 				paint = copyPaint(paint);
 				paint.setColor(0xffffff00);
-
+				MediaPlayer mp = MediaPlayer.create(v.getContext(),
+						R.raw.amarillo);
+				mp.start();
+				completion(mp);
 			}
 		});
 
@@ -257,21 +276,20 @@ private final static String FOTO_COUNT = ".pintar";
 
 			@Override
 			public void onClick(View v) {
-				int fotos = db.get(user.getUserName() + FOTO_COUNT, Integer.class);
+				int fotos = db.get(user.getUserName() + FOTO_COUNT,
+						Integer.class);
 				db.put(user.getUserName() + FOTO_COUNT, ++fotos);
-				MediaPlayer mp = MediaPlayer.create(v.getContext(), R.raw.camera_shutter);
+				MediaPlayer mp = MediaPlayer.create(v.getContext(),
+						R.raw.camera_shutter);
 				mp.start();
-				
+				completion(mp);
 				Bitmap bitmap = dibujo.getDrawingCache();
 				File file = new File("/sdcard/integrarT/" + user.getUserName());
 				file.mkdirs();
-				file = new File(file,"foto" + fotos + ".png");
-				
-				
+				file = new File(file, "foto" + fotos + ".png");
 
 				Canvas canvas = new Canvas(bitmap);
-				
-				
+
 				Rect src = new Rect(0, 0, view.getWidth(), view.getHeight());
 				canvas.drawBitmap(that.bitmap, src, src, null);
 				try {
@@ -281,8 +299,37 @@ private final static String FOTO_COUNT = ".pintar";
 				} catch (Exception e) {
 					throw new RuntimeException(e);
 				}
+				showMessage("/integrarT/" + user.getUserName());
+			}
+
+			
+		});
+	}
+
+	private void showMessage(String str) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle(R.string.drawingTitle);
+		builder.setMessage(getString(R.string.drawingMessage)+ str);
+		builder.create().show();
+
+	}
+
+	public void completion(MediaPlayer mp) {
+		mp.setOnCompletionListener(new OnCompletionListener() {
+
+			@Override
+			public void onCompletion(MediaPlayer mp) {
+
+				if (mp != null) {
+					mp.stop();
+					mp.release();
+					mp = null;
+
+				}
+
 			}
 		});
+
 	}
 
 	public Paint createPaint(int color, int grosor) {
@@ -417,6 +464,12 @@ private final static String FOTO_COUNT = ".pintar";
 			this.path = path;
 
 		}
+
+	}
+
+	@Override
+	public void onCompletion(MediaPlayer arg0) {
+		// TODO Auto-generated method stub
 
 	}
 
