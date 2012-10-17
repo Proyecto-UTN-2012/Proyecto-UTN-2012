@@ -41,6 +41,7 @@ public class ActividadManager implements EventListener<Class<Activity>>{
 		bus.addEventListener(LaunchShowCalendarTaskEvent.class, this);
 		bus.addEventListener(LaunchTaskTransitionEvent.class, this);
 		bus.addEventListener(LaunchHandPlayEvent.class, this);
+		
 	}
 	
     @Override
