@@ -1,9 +1,13 @@
 package org.utn.proyecto.helpful.integrart.web.settings.domain;
 
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.utn.proyecto.helpful.integrart.core.percistence.Entity;
 
 @Entity("pictogram")
 public class PictogramData extends ActivityData{
+	@JsonProperty("_id")
+	private String id;
+	
 	private  int[] levels;
 	
 	public PictogramData(){

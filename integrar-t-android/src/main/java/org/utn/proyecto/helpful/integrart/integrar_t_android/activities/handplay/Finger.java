@@ -1,36 +1,44 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.handplay;
 
-public class Finger{
-	private final float x;
-	private final float y;
+public class Finger {
+	private final FingerNames name;
+	private final FingerPoint points;
 	
-	public Finger(float x, float y){
-		this.x = x;
-		this.y = y;
+	public Finger(FingerNames name, FingerPoint points){
+		this.name = name;
+		this.points = points;
 	}
 
-	public float getX() {
-		return x;
+	public FingerNames getName() {
+		return name;
 	}
-
-	public float getY() {
-		return y;
+	
+	public FingerPoint getPoints(){
+		return points;
+	}
+	
+	public float getX(){
+		return points.getX();
+	}
+	
+	public float getY(){
+		return points.getY();
 	}
 	
 	@Override
 	public boolean equals(Object o){
 		if(!(o instanceof Finger)) return false;
-		Finger f = (Finger)o;
-		return f.x == x && f.y == y;
+		Finger finger = (Finger)o;
+		return name == finger.name && points.equals(finger.points);
 	}
 	
 	@Override
 	public int hashCode(){
-		return ((Float)x).intValue() + ((Float)y).intValue();
+		return name.ordinal() + (int)getX() - (int)getY();
 	}
 	
 	@Override
 	public String toString(){
-		return "Finger{" + x + "," + y + "}";
+		return "Finger{ name: " + name.toString() + ", x: " + getX() + ", y: " + getY() + "}";
 	}
 }
