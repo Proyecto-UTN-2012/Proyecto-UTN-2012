@@ -88,11 +88,11 @@ public class HandPlayActivity extends RoboActivity implements OnTouchListener{
 		dialog.show();
 	}
 	
-	public void putFingers(Finger[] fingers){
+	public void putFingers(FingerPoint[] fingers){
 		putFingers(fingers, null);
 	}
 
-	public void putFingers(Finger[] fingers, ObjectAnimator animator){
+	public void putFingers(FingerPoint[] fingers, ObjectAnimator[] animators){
 		view.removeAllViews();
 		for(int i=0;i<fingers.length;i++){
 			ImageView image = new ImageView(this);
@@ -102,9 +102,9 @@ public class HandPlayActivity extends RoboActivity implements OnTouchListener{
 			image.setY(fingers[i].getY());
 			view.addView(image);
 			
-			if(animator!=null){
-				animator.setTarget(image);
-				animator.start();
+			if(animators[i]!=null){
+				animators[i].setTarget(image);
+				animators[i].start();
 			}
 		}
 	}

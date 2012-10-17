@@ -3,11 +3,7 @@ package org.utn.proyecto.helpful.integrart.web.settings.domain;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.codehaus.jackson.annotate.JsonProperty;
-
 public class ActivityData {
-	@JsonProperty("_id")
-	protected String id;
 	protected  String user;
 	protected  String name;
 	protected  Collection<String> devices;

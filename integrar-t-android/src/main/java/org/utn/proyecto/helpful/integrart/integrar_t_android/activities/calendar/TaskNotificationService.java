@@ -1,5 +1,6 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Timer;
@@ -18,7 +19,7 @@ import com.google.inject.Inject;
 
 public class TaskNotificationService extends RoboIntentService {
 	public static final String TASK_NOTIFICATION_STARTED = ".taskNotificationsStartedv6";
-
+	
 	@Inject
 	private DataStorageService db;
 	@Inject
@@ -60,7 +61,7 @@ public class TaskNotificationService extends RoboIntentService {
 	
 	private void processTask(Task task){
 		loader.saveCurrentTask(task);
-		alarm = MediaPlayer.create(this, R.raw.hangout_ringtone);
+		if(alarm==null)	alarm = MediaPlayer.create(this, R.raw.hangout_ringtone);
 		alarm.setLooping(false);
 		alarm.start();
 		Timer timer = new Timer();
@@ -68,7 +69,11 @@ public class TaskNotificationService extends RoboIntentService {
 			@Override
 			public void run() {
 				alarm.stop();
-				//alarm.release();
+				try {
+					alarm.prepare();
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				} 
 			}
 		}, 11000);
 		Intent newIntent = new Intent(this, ShowTaskActivity.class);
