@@ -5,5 +5,13 @@
     android:layout_height="match_parent"
     android:background="@drawable/sand_background"
     android:orientation="vertical" >
+    
+    <ImageView 
+        android:id="@+id/ok"
+        android:layout_gravity="center"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:src="@drawable/ok1"
+        android:visibility="invisible"/>
 
 </FrameLayout>

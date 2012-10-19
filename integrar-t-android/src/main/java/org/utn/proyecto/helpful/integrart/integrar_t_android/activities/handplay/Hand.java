@@ -38,29 +38,18 @@ public class Hand {
 		FingerPoint rangeX = getRange(fingerPoints[maxXIndex], maxXIndex, maxYIndex, fingerPoints);
 		FingerPoint rangeY = getRange(fingerPoints[maxYIndex], maxXIndex, maxYIndex, fingerPoints);
 		int maxIndex = getMaxIndex(maxXIndex, maxYIndex, rangeX, rangeY);
-		boolean changeAxis = isChangeAxis(getRange(fingerPoints[maxIndex], maxXIndex, maxYIndex, fingerPoints));
-		return createFingers(maxIndex, fingerPoints, changeAxis);
+		return createFingers(maxIndex, fingerPoints);
 	}
 	
 	private Map<FingerNames, Finger> createFingers(final int maxIndex,
-			final FingerPoint[] fingerPoints, final boolean changeAxis) {
+			final FingerPoint[] fingerPoints) {
 		List<FingerPoint> points = Arrays.asList(fingerPoints);
 		Collections.sort(points, new Comparator<FingerPoint>() {
 			@Override
 			public int compare(FingerPoint object1, FingerPoint object2) {
-				float o1;
-				float o2;
-				if(changeAxis){
-					o1 = object1.getY();
-					o2 = object2.getY();
-				}
-				else{
-					o1 = object1.getX();
-					o2 = object2.getX();
-				}
-				if(o1 - o2 > 0) return 1;
-				else if(o1 - o2 < 0) return -1;
-				return 0;
+				float d1 = fingerPoints[maxIndex].range(object1);
+				float d2 = fingerPoints[maxIndex].range(object2);
+				return (int)(d1 - d2);
 			}
 		});
 		Map<FingerNames, Finger> map = new HashMap<FingerNames, Finger>();
@@ -72,10 +61,6 @@ public class Hand {
 		return map;
 	}
 
-	private boolean isChangeAxis(FingerPoint range) {
-		return range.getX() > range.getY();
-	}
-
 	private int getMaxIndex(int maxXIndex, int maxYIndex, FingerPoint rangeX,
 			FingerPoint rangeY) {
 		return (rangeX.getX() > rangeY.getY())? maxXIndex : maxYIndex; 
@@ -85,14 +70,16 @@ public class Hand {
 			int maxYIndex, FingerPoint[] fingerPoints) {
 		float x = 0;
 		float y = 0;
+		int count = 0;
 		for(int i=0;i<fingerPoints.length;i++){
 			if(i!= maxXIndex && i!= maxYIndex){
+				count++;
 				x+= Math.abs(fingerPoint.getX() - fingerPoints[i].getX());
 				y+= Math.abs(fingerPoint.getY() - fingerPoints[i].getY());
 			}
 		}
-		x/=3;
-		y/=3;
+		x/=count;
+		y/=count;
 		return new FingerPoint(x, y);
 	}
 

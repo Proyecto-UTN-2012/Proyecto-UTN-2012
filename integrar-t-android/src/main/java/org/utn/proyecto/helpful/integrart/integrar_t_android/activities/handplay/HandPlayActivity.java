@@ -17,6 +17,8 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -29,6 +31,9 @@ public class HandPlayActivity extends RoboActivity implements OnTouchListener{
 	
 	@InjectView(R.id.view)
 	private FrameLayout view;
+	
+	@InjectView(R.id.ok)
+	private ImageView ok;
 	
 	@Inject
 	private DataStorageService db;
@@ -88,25 +93,60 @@ public class HandPlayActivity extends RoboActivity implements OnTouchListener{
 		dialog.show();
 	}
 	
-	public void putFingers(FingerPoint[] fingers){
-		putFingers(fingers, null);
+	public ImageView[] putMarks(FingerPoint[] fingers){
+		return putMarks(fingers, null);
 	}
 
-	public void putFingers(FingerPoint[] fingers, ObjectAnimator[] animators){
-		view.removeAllViews();
+	public ImageView[] putMarks(FingerPoint[] fingers, ObjectAnimator[] animators){
+		ImageView[] images = new ImageView[fingers.length];
 		for(int i=0;i<fingers.length;i++){
 			ImageView image = new ImageView(this);
 			image.setLayoutParams(new FrameLayout.LayoutParams(100,100));
-			image.setImageResource(R.drawable.dedo);
-			image.setX(fingers[i].getX());
-			image.setY(fingers[i].getY());
+			image.setImageResource(R.drawable.green_circle);
+			image.setX(fingers[i].getX() - 50);
+			image.setY(fingers[i].getY() - 50);
 			view.addView(image);
-			
-			if(animators[i]!=null){
+			images[i] = image;
+			if(animators!=null && animators[i]!=null){
 				animators[i].setTarget(image);
 				animators[i].start();
 			}
 		}
+		return images;
+	}
+	
+	public void putFingers(FingerPoint[] fingers){
+		putFingers(fingers, null);
+	}
+	
+	public void clean(){
+		view.removeAllViews();
+		ok.setVisibility(View.INVISIBLE);
+		view.addView(ok);
+	}
+
+	public void putFingers(FingerPoint[] fingers, ObjectAnimator[] animators){
+		//view.removeAllViews();
+		for(int i=0;i<fingers.length;i++){
+			ImageView image = new ImageView(this);
+			image.setLayoutParams(new FrameLayout.LayoutParams(100,100));
+			image.setImageResource(R.drawable.dedo);
+			image.setX(fingers[i].getX() - 50);
+			image.setY(fingers[i].getY() - 50);
+			view.addView(image);
+			
+			if(animators!=null && animators[i]!=null){
+				animators[i].setTarget(image);
+				animators[i].start();
+			}
+		}
+	}
+	
+	public void success(){
+		clean();
+		Animation anim = AnimationUtils.loadAnimation(this, R.anim.success_animarion);
+		ok.startAnimation(anim);
+		ok.setVisibility(View.VISIBLE);
 	}
 
 	@Override
