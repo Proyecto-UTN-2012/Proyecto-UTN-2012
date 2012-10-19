@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/blue_background"
+    android:background="@drawable/fondo_libro"
     android:gravity="center_vertical"
     android:orientation="horizontal" >
 
@@ -12,7 +12,7 @@
         android:gravity="center"
         android:minWidth="100dp"
         android:orientation="vertical" >
-
+
         <TextView
             android:id="@+id/cuentos_TxtV"
             android:layout_width="match_parent"
@@ -23,7 +23,9 @@
             android:minWidth="600dp"
             android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColorLink="#00000000"
             android:textSize="35dp" />
+
     </LinearLayout>
 
     <LinearLayout

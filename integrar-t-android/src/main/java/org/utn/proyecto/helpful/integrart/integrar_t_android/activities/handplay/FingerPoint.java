@@ -17,6 +17,10 @@ public class FingerPoint{
 		return y;
 	}
 	
+	public float range(FingerPoint point){
+		return (float)Math.sqrt((double)((x - point.x)*(x - point.x) + (y - point.y)*(y - point.y))); 
+	}
+	
 	@Override
 	public boolean equals(Object o){
 		if(!(o instanceof FingerPoint)) return false;
