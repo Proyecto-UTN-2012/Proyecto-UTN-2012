@@ -11,14 +11,16 @@
         android:id="@+id/btn_csh_setting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Configuración" />
+        android:text="Configuración"
+        android:background="@drawable/csh_configuration"
+     />
              
 	<Button
 	    android:id="@+id/btn_csh_application"
 	    android:layout_width="match_parent"
 	    android:layout_height="408dp"
 	    android:layout_gravity="center_vertical|center_horizontal"
-	    android:background="@drawable/camerapicture"
+	    android:background="@drawable/csh_button_camera"
 	    android:onClick="executeCustomActivity"
 	    android:text="Comienza a divertirte"
 	    android:textStyle="normal|bold|italic"

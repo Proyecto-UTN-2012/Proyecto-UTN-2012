@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen  xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory 
+        android:summary="Configuración distancia a capturar la etiqueta"
+        android:title="Como se hace configuración">
+        <ListPreference 
+            android:key="@string/csh_distacia_cercana"
+            android:title="Valor más cercano del marcador en Centímetros"
+            android:persistent="true"
+            android:order="1"
+            android:defaultValue="50"
+            >
+        </ListPreference>
+        <ListPreference 
+            android:key="@string/csh_distacia_lejana"
+            android:title="Valor más lejano del marcador en Centímetros"
+            android:persistent="true"
+            android:order="1"
+            android:defaultValue="150"
+            >
+        </ListPreference>
+    </PreferenceCategory> 
+</PreferenceScreen>
