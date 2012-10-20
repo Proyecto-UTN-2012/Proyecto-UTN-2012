@@ -266,7 +266,7 @@ public class CurrentCuentoActivity extends RoboActivity {
 			intent.putExtra("cuento", cuento);
 
 			context.startActivity(intent);
-			((Activity)context).finish();
+			((Activity) context).finish();
 		}
 
 	}
@@ -296,6 +296,15 @@ public class CurrentCuentoActivity extends RoboActivity {
 			end = true;
 		}
 
+		private int getWait(String str){
+		int	time= str.length()*90;
+				if (str.indexOf(",")>=0)
+					time+=100;
+				if (str.indexOf(".")>=0)
+					time+=100;
+				return time;
+		}
+		
 		@Override
 		public void run() {
 
@@ -323,7 +332,8 @@ public class CurrentCuentoActivity extends RoboActivity {
 				word = str.substring(index1, index2);
 				aida = new Date().getTime();
 				Log.d("word:", word);
-				time = word.length() * 90;
+				time = getWait(word);
+				
 				try {
 					// currentThread.sleep(time);
 					synchronized (this) {
