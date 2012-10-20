@@ -106,6 +106,7 @@
             android:name=".activities.comosehace.ComoSeHaceReproductor"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
+        <activity android:name=".activities.comosehace.ComoSeHaceActivityPreference"></activity>
 
         <!-- Cuentos -->
         <activity
@@ -126,7 +127,5 @@
         <activity android:name=".activities.dibujaconcali.DibujoActivity"
             android:theme="@android:style/Theme.Holo.Light" >
         </activity>
-<!-- Como se hace -->        
-        <activity android:name=".activities.comosehace.ComoSeHaceActivityPreference"></activity>
     </application>
 </manifest>
