@@ -44,8 +44,15 @@ public class ComoSeHaceActivity extends RoboActivity implements EventListener<Vo
             @Override
             public void onClick(View v) {
                 // TODO instanciar configuracion general.
+                executeCSHPreferenceActivity();
             }
        });
+    }
+    
+    private void executeCSHPreferenceActivity() {
+        // TODO Auto-generated method stub
+        Intent intent =  new Intent(this,ComoSeHaceActivityPreference.class);
+        this.startActivity(intent);
     }
 
     @Override

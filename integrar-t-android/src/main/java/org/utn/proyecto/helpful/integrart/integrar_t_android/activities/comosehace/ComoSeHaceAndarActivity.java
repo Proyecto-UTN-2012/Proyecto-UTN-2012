@@ -3,6 +3,7 @@ package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.comoseh
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -18,22 +19,20 @@ import edu.dhbw.andar.exceptions.AndARException;
 
 
 public class ComoSeHaceAndarActivity extends AndARActivity {
-
 	private static final String VIDEO = "video";
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
             ContextMenuInfo menuInfo) {
         // TODO Auto-generated method stub
 	    
-	    MenuInflater inflater = getMenuInflater();
-	      inflater.inflate(R.menu.csh_activity_main_menu, menu);
+//	    MenuInflater inflater = getMenuInflater();
+//	      inflater.inflate(R.menu.csh_activity_main_menu, menu);
 
          AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
          long itemID = info.position;
          menu.setHeaderTitle("lior" + itemID);
-	    
-         
-        super.onCreateContextMenu(menu, v, menuInfo);
+	     
+        super.onCreateContextMenu(menu, v, menuInfo);        
     }
 
     @Override
