@@ -107,6 +107,11 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
         <activity android:name=".activities.comosehace.ComoSeHaceActivityPreference"></activity>
+        
+        <!-- Conociendo a Cali -->
+        <activity android:name =".activities.conociendoacali.ConociendoACaliActivity"
+            android:screenOrientation="landscape">
+        </activity>
 
         <!-- Cuentos -->
         <activity

@@ -9,6 +9,7 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar.LaunchOrganizarEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.cantaconcali.LaunchCantaConCaliEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.comosehace.LaunchComoSeHaceEvent;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.conociendoacali.LaunchConociendoACaliEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.cuentos.LaunchCuentosEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.dibujaconcali.LaunchDibujaConCaliEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.hablaconcali.LaunchHablaConCaliEvent;
@@ -75,7 +76,7 @@ public class MainMenuItem {
     public static void InitializeMenu(){
         
         if (ITEM_MAP.size() == 0){
-        addItem(new MenuItem("1", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_cac),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_cac), new LaunchPictogramEvent(ACTIVITY_REFERENCE) ));
+        addItem(new MenuItem("1", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_cac),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_cac), new LaunchConociendoACaliEvent(ACTIVITY_REFERENCE) ));
         addItem(new MenuItem("2", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_hcc),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_hcc), new LaunchHablaConCaliEvent(ACTIVITY_REFERENCE) ));
         addItem(new MenuItem("3", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_dcc),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_dcc), new LaunchDibujaConCaliEvent(ACTIVITY_REFERENCE) ));
         addItem(new MenuItem("4", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_ccc),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_ccc), new LaunchCantaConCaliEvent(ACTIVITY_REFERENCE) ));
