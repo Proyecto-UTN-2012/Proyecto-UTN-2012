@@ -109,10 +109,8 @@
         <activity android:name=".activities.comosehace.ComoSeHaceActivityPreference"></activity>
         
         <!-- Conociendo a Cali -->
-        <activity android:name =".activities.conociendoacali.ConociendoACaliActivity"
-            android:screenOrientation="landscape">
-        </activity>
-
+        <activity android:name=".activities.conociendoacali.ConociendoACaliActivity"></activity>
+        
         <!-- Cuentos -->
         <activity
             android:name=".activities.cuentos.CuentosActivity"
@@ -132,5 +130,6 @@
         <activity android:name=".activities.dibujaconcali.DibujoActivity"
             android:theme="@android:style/Theme.Holo.Light" >
         </activity>
+        
     </application>
 </manifest>
