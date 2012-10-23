@@ -58,7 +58,7 @@ public class HablaConCaliActivity extends RoboActivity implements
 
 		listening = false;
 		frases.clear();
-		grito = false;
+		
 
 		if (mRecorder != null) {
 			mRecorder.stop();
@@ -188,7 +188,7 @@ public class HablaConCaliActivity extends RoboActivity implements
 	// Para la escucha
 	public void stop() {
 
-		if (grito == false) {
+		if (!grito) {
 
 			if ((amplitude1 > 0.0) && (frases.size() > 0)) {
 
@@ -206,7 +206,38 @@ public class HablaConCaliActivity extends RoboActivity implements
 			}
 
 		} else {
-			//TODO melany this.finish();
+
+			MediaPlayer mp = MediaPlayer.create(getApplicationContext(),
+					R.raw.chau);
+
+			mp.start();
+
+			mp.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+
+				@Override
+				public boolean onError(MediaPlayer mp, int what, int extra) {
+					Log.d("hola frase error", "hola error");
+					mp.release();
+					mp = null;
+					return false;
+				}
+			});
+
+			mp.setOnCompletionListener(new OnCompletionListener() {
+
+				@Override
+				public void onCompletion(MediaPlayer mp) {
+
+					if (mp != null) {
+						mp.stop();
+						mp.release();
+						mp = null;
+
+					}
+					finish();
+				}
+			});
+
 			Log.d("si gritó", "gritó");
 		}
 	}
@@ -288,7 +319,7 @@ public class HablaConCaliActivity extends RoboActivity implements
 
 			while (listening) {
 
-				Log.d("en background ", "listening es true");
+				Log.d("en background ", "grito es " + grito);
 				if (amplitude1 == 0.0) {
 					SystemClock.sleep(50);
 					amplitude = getAmplitude();
@@ -305,7 +336,7 @@ public class HablaConCaliActivity extends RoboActivity implements
 
 				Log.d("HablaConCali", "Amplitud: " + amplitude);
 
-				if (amplitude > amplitude1 + 2000) {
+				if (amplitude > amplitude1 + 2000 || amplitude==32767d) {
 					publishProgress(amplitude);
 					contesto = true;
 				}
@@ -324,45 +355,9 @@ public class HablaConCaliActivity extends RoboActivity implements
 		@Override
 		protected void onProgressUpdate(Double... values) {
 			Double value = values[0];
-			if (value > 24000) {
+			if (value==32767d) {
 				grito = true;
-
-				
-				frase = MediaPlayer.create(getApplicationContext(), R.raw.melani);
-
-				frase.start();
-
-				frase.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-
-					@Override
-					public boolean onError(MediaPlayer mp, int what, int extra) {
-						Log.d("melani frase error", "melani error");
-						mp.release();
-						frase = null;
-						return false;
-					}
-				});
-
-				frase.setOnCompletionListener(new OnCompletionListener() {
-
-					@Override
-					public void onCompletion(MediaPlayer mp) {
-
-						if (mp != null) {
-							mp.stop();
-							mp.release();
-							frase = null;
-
-						}
-
-					}
-				});
-
-				
-				
-				
-				
-				
+				listening = false;
 				stop();
 
 			}

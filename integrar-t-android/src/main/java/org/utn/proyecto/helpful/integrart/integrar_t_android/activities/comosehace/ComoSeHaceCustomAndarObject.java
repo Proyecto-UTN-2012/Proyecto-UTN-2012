@@ -9,6 +9,7 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
+import android.content.SharedPreferences;
 
 import edu.dhbw.andar.ARObject;
 import edu.dhbw.andar.ARToolkit;
@@ -19,7 +20,8 @@ public class ComoSeHaceCustomAndarObject extends ARObject {
 
     private static final String VIDEO = "video";
 	private ComoSeHaceAndarActivity activity;
-	
+    private final static String CSH_PREFERENCE = "integrar-t-csh";
+    
 	//Matrix positions which contains the X,Y,Z transformed.
 	//values in matrix[X or Y or Z] are the points from the center to the marker.
 	private int XCordinate = 3;
@@ -108,8 +110,8 @@ public class ComoSeHaceCustomAndarObject extends ARObject {
         double y;
         double z;
         //TODO: parameters should be taken from preference  
-        double minRadio = 500;
-        double maxRadio = 1500;
+        double minRadio = 5;
+        double maxRadio = 150;
         
       //TODO: parameters should be taken from preference
         double distanceFromCenterX = 50;
@@ -117,6 +119,15 @@ public class ComoSeHaceCustomAndarObject extends ARObject {
         
         //distance from center to the point where is the marker.
         double distance = 0;
+        
+        //get preference
+        SharedPreferences pref = activity.getSharedPreferences(CSH_PREFERENCE,activity.MODE_PRIVATE);
+        minRadio = pref.getFloat(activity.getResources().getString(R.string.csh_distacia_cercana),5);
+        maxRadio = pref.getFloat(activity.getResources().getString(R.string.csh_distacia_lejana),150);
+        
+        //transform CM to MM
+        minRadio = minRadio * 10;
+        maxRadio = maxRadio * 10;
         
         if (matrix!=null)
         {

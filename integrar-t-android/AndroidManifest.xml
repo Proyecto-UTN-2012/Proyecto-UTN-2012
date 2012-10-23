@@ -8,16 +8,14 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
-    
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    
 
     <uses-sdk
-
         android:minSdkVersion="11"
         android:targetSdkVersion="13" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:icon="@drawable/icon_trans_icon"
@@ -32,69 +30,105 @@
         <!-- Login -->
         <activity android:name=".login.LoginActivity" >
         </activity>
-        
+
         <!-- Menú -->
-        <activity android:name=".menu.ItemDetailActivity">
-	<meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".menu.ItemListActivity"/>
+        <activity android:name=".menu.ItemDetailActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".menu.ItemListActivity" />
         </activity>
-        <activity android:name=".menu.ItemListActivity"></activity>
-        
+        <activity android:name=".menu.ItemListActivity" >
+        </activity>
+
         <!-- Pictogramas -->
-        <activity android:name=".activities.pictogramas.PictogramActivity"
-            android:screenOrientation="nosensor"></activity>
-        
+        <activity
+            android:name=".activities.pictogramas.PictogramActivity"
+            android:screenOrientation="nosensor" >
+        </activity>
+
         <!-- OrganiazarT -->
-        <activity android:name=".activities.calendar.CalendarActivity" 
-            android:theme="@android:style/Theme.Holo.Light"
-            android:screenOrientation="landscape"></activity>
-        <activity android:name=".activities.calendar.CalendarDetailActivity" 
-            android:theme="@android:style/Theme.Holo.Light"
-            android:screenOrientation="landscape"></activity>
-        <activity android:name=".activities.calendar.OrganizarTListActivity"></activity>
-        <activity android:name=".activities.calendar.ShowTaskActivity"
-             android:theme="@android:style/Theme.Holo.Light"></activity>
-        <activity android:name=".activities.calendar.TaskTransitionActivity"
-             android:theme="@android:style/Theme.Holo.Light"></activity>
-        <service android:name=".activities.calendar.TaskNotificationService"
-            android:exported="false"></service>
-        
+        <activity
+            android:name=".activities.calendar.CalendarActivity"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Holo.Light" >
+        </activity>
+        <activity
+            android:name=".activities.calendar.CalendarDetailActivity"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Holo.Light" >
+        </activity>
+        <activity android:name=".activities.calendar.OrganizarTListActivity" >
+        </activity>
+        <activity
+            android:name=".activities.calendar.ShowTaskActivity"
+            android:theme="@android:style/Theme.Holo.Light" >
+        </activity>
+        <activity
+            android:name=".activities.calendar.TaskTransitionActivity"
+            android:theme="@android:style/Theme.Holo.Light" >
+        </activity>
+
+        <service
+            android:name=".activities.calendar.TaskNotificationService"
+            android:exported="false" >
+        </service>
+
         <!-- Jugando con las Manos -->
         <activity android:name=".activities.handplay.HandPlayActivity"
              android:theme="@android:style/Theme.Holo.Light"
              android:screenOrientation="landscape"></activity>
         
         <!-- Habla con Cali -->
-        <activity android:name=".activities.hablaconcali.HablaConCaliActivity"
-            android:screenOrientation="nosensor"></activity>
-        
+        <activity
+            android:name=".activities.hablaconcali.HablaConCaliActivity"
+            android:screenOrientation="nosensor" >
+        </activity>
+
         <!-- Canta con Cali -->
-		<activity android:name=".activities.cantaconcali.CantaConCaliActivity"></activity>
-        
-        
+        <activity android:name=".activities.cantaconcali.CantaConCaliActivity" >
+        </activity>
+
         <!-- Test Activity Usada para hacer pruebas //TODO Eliminar cuando no se necesite -->
         <activity android:name=".activities.testactivity.TestActivity" >
         </activity>
-        
+
         <!-- Como se Hace -->
-        <activity android:name=".activities.comosehace.ComoSeHaceActivity"></activity>
-        <activity android:name=".activities.comosehace.ComoSeHaceAndarActivity"
-            	android:screenOrientation="landscape"
-            ></activity>
-        <activity android:name=".preferencias.PreferenceActivity"></activity>
-        <activity android:name=".activities.comosehace.ComoSeHaceReproductor" 
-            	android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            	></activity>
+        <activity android:name=".activities.comosehace.ComoSeHaceActivity" >
+        </activity>
+        <activity
+            android:name=".activities.comosehace.ComoSeHaceAndarActivity"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity android:name=".preferencias.PreferenceActivity" >
+        </activity>
+        <activity
+            android:name=".activities.comosehace.ComoSeHaceReproductor"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity android:name=".activities.comosehace.ComoSeHaceActivityPreference"></activity>
+        
+        <!-- Conociendo a Cali -->
+        <activity android:name=".activities.conociendoacali.ConociendoACaliActivity"></activity>
         
         <!-- Cuentos -->
-        <activity android:name=".activities.cuentos.CuentosActivity"
-            android:screenOrientation="nosensor"></activity>
-        <activity android:name=".activities.cuentos.CurrentCuentoActivity"
-            android:screenOrientation="nosensor"></activity>
-        
-                <activity android:name=".activities.cuentos.PintarActivity"
+        <activity
+            android:name=".activities.cuentos.CuentosActivity"
+            android:screenOrientation="nosensor" >
+        </activity>
+        <activity
+            android:name=".activities.cuentos.CurrentCuentoActivity"
+            android:screenOrientation="nosensor" >
+        </activity>
+        <activity
+            android:name=".activities.cuentos.PintarActivity"
             android:screenOrientation="nosensor"
-            android:theme="@android:style/Theme.Holo.Light"></activity>
+            android:theme="@android:style/Theme.Holo.Light" >
+        </activity>
+        <activity android:name=".activities.dibujaconcali.DibujaConCaliActivity" >
+        </activity>
+        <activity android:name=".activities.dibujaconcali.DibujoActivity"
+            android:theme="@android:style/Theme.Holo.Light" >
+        </activity>
         
     </application>
-
 </manifest>

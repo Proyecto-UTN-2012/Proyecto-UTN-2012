@@ -36,8 +36,7 @@ public class CantaConCaliActivity extends RoboActivity {
 			sonidoCali.start();
 			context.finish();
 			
-			// TODO Auto-generated method stub
-			
+			// TODO Auto-generated method stub		
 		}
 	});
 		
@@ -51,4 +50,6 @@ public class CantaConCaliActivity extends RoboActivity {
 			caliAnimation.start();
 	}
 
+	
+	
 }
