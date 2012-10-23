@@ -12,10 +12,10 @@
         android:text="Seleccione un personaje"
         android:textStyle="bold" />
 
-    <!-- 
+ 
     <Gallery
         android:id="@+id/cac_gallery"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
- -->
+
 </LinearLayout>
