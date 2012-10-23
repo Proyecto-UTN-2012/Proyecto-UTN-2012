@@ -63,5 +63,33 @@ public class HandTest {
 			assertTrue(expected[i]==area[i]);			
 		}
 	}
+	
+	@Test
+	public void testHand(){
+		assertEquals(Hand.RIGHT_HAND, hand.getHand());
+	}
+	
+	@Test
+	public void testPosition(){
+		assertEquals(Hand.BOTTOM_TOP_POSITION, hand.getPosition());
+	}
+	
+	@Test
+	public void testRangeIndice(){
+		float[] res = new float[]{239f, 54f, 447f, 524.58f};
+		float[] handRes = hand.getArea(hand.getFinger(FingerNames.INDICE), hand.getFinger(FingerNames.PULGAR));
+		for(int i=0;i<4;i++){
+			assertEquals(""+res[i], ""+handRes[i]);
+		}
+	}
+
+	@Test
+	public void testRangeMayor(){
+		float[] res = new float[]{239f, 54f, 503f, 560f};
+		float[] handRes = hand.getArea(hand.getFinger(FingerNames.MAYOR), hand.getFinger(FingerNames.PULGAR));
+		for(int i=0;i<4;i++){
+			assertEquals(""+res[i], ""+handRes[i]);
+		}
+	}
 
 }

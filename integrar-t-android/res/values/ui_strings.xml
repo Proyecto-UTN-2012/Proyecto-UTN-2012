@@ -21,5 +21,6 @@
     <string name="nextTasks">Proxima</string>
     <string name="nowTask">Ahora</string>
     <string name="thenTask">Despues</string>
+    <string name="ok">Ok</string>
     
 </resources>

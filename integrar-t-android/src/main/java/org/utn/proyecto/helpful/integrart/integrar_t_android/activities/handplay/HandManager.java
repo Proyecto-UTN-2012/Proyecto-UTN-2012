@@ -4,4 +4,5 @@ import android.view.View.OnTouchListener;
 
 public interface HandManager extends OnTouchListener {
 	public HandManager getManager();
+	public void setLevel(int level);
 }

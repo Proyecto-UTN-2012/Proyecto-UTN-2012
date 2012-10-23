@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+ xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/paint"
-    android:orientation="vertical" 
-    android:id="@+id/view">
-<!-- 
-    <SurfaceView
-        android:id="@+id/surface"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
- -->
-</FrameLayout>
+    android:orientation="vertical">
+	<!-- <ListView android:id="@+id/list"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"></ListView> -->
+	<org.utn.proyecto.helpful.integrart.integrar_t_android.utils.BookPager
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:id="@+id/dcgpagecurlPageCurlView1"
+		android:background="@drawable/page1">
+				<TextView
+		    android:id="@+id/textView1"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:background="@drawable/azul"
+		    android:text="Texto1"
+		    android:textAppearance="?android:attr/textAppearanceLarge" />
+				<TextView
+		    android:id="@+id/textView2"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:background="@drawable/azul"
+		    android:text="Texto2"
+		    android:textAppearance="?android:attr/textAppearanceLarge" />
+				<TextView
+		    android:id="@+id/textView3"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:background="@drawable/azul"
+		    android:text="Texto3"
+		    android:textAppearance="?android:attr/textAppearanceLarge" />
+	</org.utn.proyecto.helpful.integrart.integrar_t_android.utils.BookPager>
+</LinearLayout>

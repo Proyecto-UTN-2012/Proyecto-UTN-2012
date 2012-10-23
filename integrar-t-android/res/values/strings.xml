@@ -22,6 +22,10 @@
 	<string name="handPlayHideHelp">Dejar de mostrar este mensaje</string>
 	<string name="handPlayShowHelp">Mostrar mensaje inicial</string>
 	<string name="handPlayHelpTitle">Como comenzar</string>
+	<string name="handPlaySetLevel">Elegir Nivel</string>
+	<string name="handPlayLevel">Nivel</string>
+	<string name="handPlayUnsupportTitle">¡Lo sentimos!</string>
+	<string name="handPlayUnsupportMessage">Lo sentimos, esta actividad está diseñada para Tablets.</string>
     
     <string name="selectLevel">Seleccione un Nivel</string>
     <string name="selectColor">Seleccione el Color</string>
@@ -42,4 +46,10 @@
     <string name="saturday">Sabado</string>
     <string name="drawingTitle">Dibujito guardado</string>
     <string name="drawingMessage">El dibujito se guardó en </string>
+    
+    <string name="pulgar">Pulgar</string>
+    <string name="indice">Indice</string>
+    <string name="mayor">Mayor</string>
+    <string name="anular">Anular</string>
+    <string name="menique">Meñique</string>
 </resources>

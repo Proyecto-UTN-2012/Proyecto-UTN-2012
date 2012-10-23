@@ -16,11 +16,13 @@ public class InitialHandManager implements HandManager {
 	private FingerPoint[] fingers = new FingerPoint[5];
 	private int currentFingers;
 	private boolean ready;
+	private int level;
 	
-	public InitialHandManager(HandPlayActivity activity){
+	public InitialHandManager(HandPlayActivity activity, int level){
 		this.activity = activity;
 		this.next = this;
 		this.ready = true;
+		this.level = level;
 	}
 	@Override
 	public boolean onTouch(View view, MotionEvent event) {
@@ -51,7 +53,9 @@ public class InitialHandManager implements HandManager {
 					activity.runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
-							next = new LevelOneHandManager(fingers, activity);
+							next = level == 1 
+									? new LevelOneHandManager(fingers, activity)
+									: new LevelXHandManager(fingers, activity, level);
 							activity.setManager(next);
 						}
 					});
@@ -64,5 +68,11 @@ public class InitialHandManager implements HandManager {
 	@Override
 	public HandManager getManager() {
 		return next;
+	}
+	public int getLevel() {
+		return level;
+	}
+	public void setLevel(int level) {
+		this.level = level;
 	}
 }
