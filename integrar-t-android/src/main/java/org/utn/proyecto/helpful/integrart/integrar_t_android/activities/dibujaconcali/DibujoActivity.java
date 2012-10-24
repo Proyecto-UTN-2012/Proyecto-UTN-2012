@@ -65,9 +65,15 @@ public class DibujoActivity extends RoboActivity {
 
 		});
 
-		map.put(R.drawable.gato, new Point[] { new Point(410, 30),
-				new Point(280, 1), new Point(350, 125), new Point(225, 180),
-				new Point(270, 190) });
+		map.put(R.drawable.auto, new Point[] { new Point(555, 50),
+				new Point(235, 260), new Point(85, 490), new Point(85, 585),
+				new Point(135, 585), new Point(193, 585), new Point(320, 660),
+				new Point(475, 585), new Point(545, 585), new Point(745, 585),
+				new Point(800, 585), new Point(955, 660), new Point(1095, 585),
+				new Point(1150, 580), new Point(1220, 575),
+				new Point(1195, 480), new Point(905, 260)
+
+		});
 
 	}
 

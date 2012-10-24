@@ -22,8 +22,8 @@ public class DibujaConCaliActivity extends RoboActivity {
 
 	private static final Random random = new Random();
 
-	@InjectView(R.id.gato)
-	ImageView gato;
+	@InjectView(R.id.auto)
+	ImageView auto;
 
 	@InjectView(R.id.perro)
 	ImageView perro;
@@ -51,12 +51,12 @@ public class DibujaConCaliActivity extends RoboActivity {
 			}
 		});
 
-		gato.setOnClickListener(new View.OnClickListener() {
+		auto.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 
-				startDibujo(R.drawable.gato);
+				startDibujo(R.drawable.auto);
 			}
 		});
 
@@ -82,7 +82,7 @@ public class DibujaConCaliActivity extends RoboActivity {
 
 			@Override
 			public void onClick(View v) {
-				int[] dibujos = new int[] { R.drawable.perro, R.drawable.gato,
+				int[] dibujos = new int[] { R.drawable.perro, R.drawable.auto,
 						R.drawable.corazon, R.drawable.avion };
 				startDibujo(dibujos[random.nextInt(4)]);
 			}

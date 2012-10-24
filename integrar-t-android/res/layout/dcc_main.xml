@@ -11,14 +11,14 @@
             android:layout_gravity="left|top"
             android:scaleType="fitXY"
             android:src="@drawable/avion" />
-
+
         <ImageView
-            android:id="@+id/gato"
+            android:id="@+id/auto"
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:layout_gravity="top|right"
             android:scaleType="fitXY"
-            android:src="@drawable/gato" />
+            android:src="@drawable/auto" />
 
         <ImageView
             android:id="@+id/corazon"
