@@ -8,8 +8,10 @@ import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 import android.animation.ObjectAnimator;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,6 +30,7 @@ import com.google.inject.Inject;
 @ContentView(R.layout.hand_play)
 public class HandPlayActivity extends RoboActivity implements OnTouchListener{
 	private static final String HELP_MESSAGE_KEY = ".handPlay.helpMessage"; 
+	private static final String LEVEL_KEY = ".handPlay.level"; 
 	
 	@InjectView(R.id.view)
 	private FrameLayout view;
@@ -43,20 +46,57 @@ public class HandPlayActivity extends RoboActivity implements OnTouchListener{
 	
 	private HandManager manager;
 	
+	private int level;
+	
+	private MediaPlayer successSound;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		if(ok==null){
+			showUnsupportMessage();
+			return;
+		}
 		if(!db.contain(user.getUserName() + HELP_MESSAGE_KEY)){
 			db.put(user.getUserName() + HELP_MESSAGE_KEY, true);
 		}
+		if(!db.contain(user.getUserName() + LEVEL_KEY)){
+			db.put(user.getUserName() + LEVEL_KEY, 1);
+		}
 		boolean showHelpMessage = db.get(user.getUserName() + HELP_MESSAGE_KEY, Boolean.class);
+		level = db.get(user.getUserName() + LEVEL_KEY, Integer.class);
 		if(showHelpMessage){
 			showHelpMessage();
 		}
-		manager = new InitialHandManager(this);
+		manager = new InitialHandManager(this, level);
 		view.setOnTouchListener(this);
+		
+		successSound = MediaPlayer.create(this, R.raw.tada);
 	}
 	
+	private void showUnsupportMessage() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle(R.string.handPlayUnsupportTitle);
+		builder.setMessage(R.string.handPlayUnsupportMessage);
+		builder.setNeutralButton(R.string.ok, new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				finish();
+			}
+		});
+		Dialog dialog = builder.create();
+		dialog.setOnDismissListener(new DialogInterface.OnDismissListener(){
+			@Override
+			public void onDismiss(DialogInterface dialog) {
+				finish();			
+			}
+			
+		});
+		dialog.show();
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu){
 		super.onCreateOptionsMenu(menu);
@@ -72,6 +112,10 @@ public class HandPlayActivity extends RoboActivity implements OnTouchListener{
 			showHelpMessage();
 			return true;
 		}
+		if(item.getItemId() == R.id.setLevel){
+			showLevel();
+			return true;
+		}
 		return false;
 	}
 	
@@ -79,6 +123,25 @@ public class HandPlayActivity extends RoboActivity implements OnTouchListener{
 		this.manager = manager;
 	}
 	
+	private void showLevel(){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle(R.string.handPlaySetLevel);
+		builder.setItems(new CharSequence[]{
+				getString(R.string.handPlayLevel) + " 1",
+				getString(R.string.handPlayLevel) + " 2",
+				getString(R.string.handPlayLevel) + " 3",
+				getString(R.string.handPlayLevel) + " 4"
+				}, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						level = which + 1;
+						db.put(user.getUserName() + LEVEL_KEY, level);
+						manager.setLevel(level);
+					}
+				});
+		builder.create().show();
+	}
+
 	private void showHelpMessage(){
 		Dialog dialog = new Dialog(this);
 		dialog.setTitle(R.string.handPlayHelpTitle);
@@ -144,6 +207,7 @@ public class HandPlayActivity extends RoboActivity implements OnTouchListener{
 	
 	public void success(){
 		clean();
+		successSound.start();
 		Animation anim = AnimationUtils.loadAnimation(this, R.anim.success_animarion);
 		ok.startAnimation(anim);
 		ok.setVisibility(View.VISIBLE);

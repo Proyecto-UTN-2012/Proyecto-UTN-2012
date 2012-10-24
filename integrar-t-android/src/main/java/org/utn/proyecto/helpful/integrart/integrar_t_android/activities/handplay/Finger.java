@@ -1,6 +1,6 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.handplay;
 
-public class Finger {
+public class Finger implements Comparable<Finger>{
 	private final FingerNames name;
 	private final FingerPoint points;
 	
@@ -40,5 +40,10 @@ public class Finger {
 	@Override
 	public String toString(){
 		return "Finger{ name: " + name.toString() + ", x: " + getX() + ", y: " + getY() + "}";
+	}
+
+	@Override
+	public int compareTo(Finger another) {
+		return this.name.ordinal() - another.name.ordinal();
 	}
 }

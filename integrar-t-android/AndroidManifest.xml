@@ -74,11 +74,10 @@
         </service>
 
         <!-- Jugando con las Manos -->
-        <activity
-            android:name=".activities.handplay.HandPlayActivity"
-            android:theme="@android:style/Theme.Holo.Light" >
-        </activity>
-
+        <activity android:name=".activities.handplay.HandPlayActivity"
+             android:theme="@android:style/Theme.Holo.Light"
+             android:screenOrientation="landscape"></activity>
+        
         <!-- Habla con Cali -->
         <activity
             android:name=".activities.hablaconcali.HablaConCaliActivity"
