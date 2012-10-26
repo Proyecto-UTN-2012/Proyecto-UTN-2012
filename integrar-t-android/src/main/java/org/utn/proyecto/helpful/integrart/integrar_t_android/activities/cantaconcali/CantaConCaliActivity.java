@@ -32,7 +32,7 @@ public class CantaConCaliActivity extends RoboActivity {
 		@Override
 		public void onClick(View v) {
 			CantaConCaliActivity context= (CantaConCaliActivity) v.getContext();
-			MediaPlayer sonidoCali = MediaPlayer.create(context, R.raw.chau);
+			MediaPlayer sonidoCali = MediaPlayer.create(context, R.raw.chaunosvemospronto);
 			sonidoCali.start();
 			context.finish();
 			
