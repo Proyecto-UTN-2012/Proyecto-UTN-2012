@@ -24,7 +24,7 @@ public class CantaConCaliActivity extends RoboActivity {
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-	MediaPlayer sonidoCali = MediaPlayer.create(this, R.raw.canta_con_cali_1);
+	MediaPlayer sonidoCali = MediaPlayer.create(this, R.raw.hola_canta_con_cali);
 	sonidoCali.start();
 	caliAnimation = (AnimationDrawable) cali.getBackground();
 	no.setOnClickListener(new View.OnClickListener() {
@@ -32,7 +32,7 @@ public class CantaConCaliActivity extends RoboActivity {
 		@Override
 		public void onClick(View v) {
 			CantaConCaliActivity context= (CantaConCaliActivity) v.getContext();
-			MediaPlayer sonidoCali = MediaPlayer.create(context, R.raw.chaunosvemospronto);
+			MediaPlayer sonidoCali = MediaPlayer.create(context, R.raw.despedida_canta_con_cali);
 			sonidoCali.start();
 			context.finish();
 			
