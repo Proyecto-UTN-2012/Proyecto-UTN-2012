@@ -4,21 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+
     <FrameLayout
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
-
     </FrameLayout>
 
     <ImageView
         android:id="@+id/miniature"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:layout_gravity="right|top"
         android:background="@drawable/miniature_borde"
-         android:scaleType="fitXY"
-        android:layout_gravity="right|top" />
+        android:scaleType="fitXY" />
 
-    
 </FrameLayout>
