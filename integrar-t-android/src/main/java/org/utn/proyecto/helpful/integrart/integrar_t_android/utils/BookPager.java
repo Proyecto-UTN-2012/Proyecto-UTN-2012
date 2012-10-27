@@ -22,6 +22,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 /**
@@ -29,7 +30,7 @@ import android.widget.LinearLayout;
  * @author Moritz 'Moss' Wundke (b.thax.dcg@gmail.com)
  *
  */
-public class BookPager extends LinearLayout {
+public class BookPager extends FrameLayout {
 	
 	/** Our Log tag */
 	private final static String TAG = "PageCurlView";
@@ -313,6 +314,26 @@ public class BookPager extends LinearLayout {
 		mForeground = mPages.get(0);
 		mBackground = mPages.get(1);
 		
+	}
+	
+	@Override
+	protected void onLayout(boolean changed, int left, int top, int right, int bottom){
+		super.onLayout(changed, left, top, right, bottom);
+		mPages.clear();
+		int count  = getChildCount();
+		for(int i=0;i<count;i++){
+			addPage(getChildAt(i));
+		}
+	}
+	
+	private void addPage(View view){
+		view.setDrawingCacheEnabled(true);
+		if(this.getMeasuredWidth()<=0) return;
+		Bitmap b = Bitmap.createBitmap(this.getMeasuredWidth(), this.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+		Canvas c = new Canvas(b);
+	    view.layout(0, 0, this.getMeasuredWidth(), this.getMeasuredHeight());
+	    view.draw(c);
+		mPages.add(b);
 	}
 	
 	@Override
@@ -863,13 +884,6 @@ public class BookPager extends LinearLayout {
 	 * Swap to next view
 	 */
 	private void nextView() {
-		int count = getChildCount();
-		mPages.clear();
-		for(int i=0;i<count;i++){
-			View view = getChildAt(i);
-			view.setDrawingCacheEnabled(true);
-			mPages.add(view.getDrawingCache());
-		}
 		int foreIndex = mIndex + 1;
 		if(foreIndex >= mPages.size()) {
 			foreIndex = 0;
@@ -886,13 +900,6 @@ public class BookPager extends LinearLayout {
 	 * Swap to previous view
 	 */
 	private void previousView() {
-		int count = getChildCount();
-		mPages.clear();
-		for(int i=0;i<count;i++){
-			View view = getChildAt(i);
-			view.setDrawingCacheEnabled(true);
-			mPages.add(view.getDrawingCache());
-		}
 		int backIndex = mIndex;
 		int foreIndex = backIndex - 1;
 		if(foreIndex < 0) {
@@ -918,6 +925,7 @@ public class BookPager extends LinearLayout {
 
 	@Override
 	protected void onDraw(Canvas canvas) {
+		//updatePages();
 		// Always refresh offsets
 		mCurrentLeft = getLeft();
 		mCurrentTop = getTop();
@@ -975,7 +983,6 @@ public class BookPager extends LinearLayout {
 	 * @param canvas
 	 */
 	protected void onFirstDrawEvent(Canvas canvas) {
-		
 		mFlipRadius = getWidth();
 		
 		ResetClipEdge();
