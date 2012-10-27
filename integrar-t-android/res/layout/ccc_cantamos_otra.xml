@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo_hcc_tablet"
+    android:gravity="bottom"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/cali"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/si"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="36dp"
+        android:background="@drawable/cali_hcc"
+        android:visibility="visible" />
+    
+    <Button
+        android:id="@+id/si"
+        android:layout_width="620dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="15dp"
+        android:text="@string/yes"
+        android:textSize="30sp"
+        android:background="@drawable/canta_con_cali_button"  />
+
+    <Button
+        android:id="@+id/no"
+        android:layout_width="610dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/si"
+        android:layout_alignBottom="@+id/si"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@+id/si"
+        android:text="@string/no" 
+        android:textSize="30sp"
+        android:background="@drawable/canta_con_cali_button"/>
+
+    
+    
+</RelativeLayout>
