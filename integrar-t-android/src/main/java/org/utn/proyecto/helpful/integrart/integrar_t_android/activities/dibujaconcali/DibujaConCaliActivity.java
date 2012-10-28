@@ -5,6 +5,9 @@ import java.util.Random;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.cuentos.CurrentCuentoActivity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,6 +45,11 @@ public class DibujaConCaliActivity extends RoboActivity {
 
 		super.onCreate(savedInstanceState);
 
+		if (corazon==null){
+			showUnsupportMessage();
+			return;
+			
+		}
 		perro.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -90,6 +98,29 @@ public class DibujaConCaliActivity extends RoboActivity {
 
 	}
 
+	private void showUnsupportMessage() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle(R.string.handPlayUnsupportTitle);
+		builder.setMessage(R.string.handPlayUnsupportMessage);
+		builder.setNeutralButton(R.string.ok, new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				finish();
+			}
+		});
+		Dialog dialog = builder.create();
+		dialog.setOnDismissListener(new DialogInterface.OnDismissListener(){
+			@Override
+			public void onDismiss(DialogInterface dialog) {
+				finish();			
+			}
+			
+		});
+		dialog.show();
+	}
+
+	
 	private void startDibujo(int dibujo) {
 		Intent intent = new Intent(this, DibujoActivity.class);
 

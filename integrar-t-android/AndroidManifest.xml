@@ -117,7 +117,7 @@
         </activity>
         <activity
             android:name=".activities.cuentos.CurrentCuentoActivity"
-            android:screenOrientation="nosensor" >
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name=".activities.cuentos.PintarActivity"

@@ -3,44 +3,5 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:padding="15dp" >
-
-        <ImageView
-            android:id="@+id/avion"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:layout_gravity="left|top"
-            android:scaleType="fitXY"
-            android:src="@drawable/avion" />
-
-        <ImageView
-            android:id="@+id/auto"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:layout_gravity="top|right"
-            android:scaleType="fitXY"
-            android:src="@drawable/auto" />
-
-        <ImageView
-            android:id="@+id/corazon"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:layout_gravity="right|bottom"
-            android:scaleType="fitXY"
-            android:src="@drawable/corazon" />
-
-        <ImageView
-            android:id="@+id/perro"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:layout_gravity="left|bottom"
-            android:scaleType="fitXY"
-            android:src="@drawable/perro" />
-
-        <ImageView
-            android:id="@+id/azar"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:layout_gravity="center"
-            android:src="@drawable/azar" />
 
     </FrameLayout>
