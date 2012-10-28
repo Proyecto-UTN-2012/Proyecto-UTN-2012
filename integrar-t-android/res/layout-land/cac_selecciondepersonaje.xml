@@ -2,20 +2,33 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
-        <TextView
+    android:orientation="vertical" > 
+	<TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="5dp"
+        android:padding="20dp"
         android:text="Seleccione un personaje"
         android:textStyle="bold" />
-
  
     <Gallery
         android:id="@+id/cac_gallery"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
+     
+    <TextView android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:padding="15dp"
+    android:textStyle="italic"
+    android:text="Para elejir al personaje debes mantener apretado un momento con tu dedo al personaje de la galeria." />    
+     
+    <ImageView
+    android:id="@+id/cac_picture"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:contentDescription="Personaje"
+    />
 
+    
 </LinearLayout>
