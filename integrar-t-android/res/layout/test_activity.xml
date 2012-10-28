@@ -11,7 +11,7 @@
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent"
 		android:id="@+id/dcgpagecurlPageCurlView1"
-		android:background="@drawable/page1">
+		android:background="#FFFFFF">
 				<TextView
 		    android:id="@+id/textView1"
 		    android:layout_width="match_parent"

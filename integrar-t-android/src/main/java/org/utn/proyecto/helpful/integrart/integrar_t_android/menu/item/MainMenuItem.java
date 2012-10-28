@@ -82,13 +82,12 @@ public class MainMenuItem {
         addItem(new MenuItem("4", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_ccc),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_ccc), new LaunchCantaConCaliEvent(ACTIVITY_REFERENCE) ));
         addItem(new MenuItem("5", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_ort),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_ort), new LaunchOrganizarEvent(ACTIVITY_REFERENCE) ));
         addItem(new MenuItem("6", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_csh),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_csh), new LaunchComoSeHaceEvent(ACTIVITY_REFERENCE) ));
-        addItem(new MenuItem("7", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_pap),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_pap), new LaunchPictogramEvent(ACTIVITY_REFERENCE) ));
-        addItem(new MenuItem("8", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_jcc),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_jcc), new LaunchPictogramEvent(ACTIVITY_REFERENCE) ));
-        addItem(new MenuItem("9", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_cue),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_cue), new LaunchCuentosEvent(ACTIVITY_REFERENCE) ));
-        addItem(new MenuItem("10", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_hcd),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_hcd), new LaunchPictogramEvent(ACTIVITY_REFERENCE)));
-        addItem(new MenuItem("11", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_jcm),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_jcm), new LaunchHandPlayEvent(ACTIVITY_REFERENCE) ));
-        addItem(new MenuItem("12", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_test),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_test), new LaunchTestActivityEvent(ACTIVITY_REFERENCE) ));
-
+        addItem(new MenuItem("7", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_cue),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_cue), new LaunchCuentosEvent(ACTIVITY_REFERENCE) ));
+        addItem(new MenuItem("8", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_hcd),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_hcd), new LaunchPictogramEvent(ACTIVITY_REFERENCE)));
+        addItem(new MenuItem("9", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_jcm),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_jcm), new LaunchHandPlayEvent(ACTIVITY_REFERENCE) ));
+        addItem(new MenuItem("10", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_test),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_test), new LaunchTestActivityEvent(ACTIVITY_REFERENCE) ));
+        //addItem(new MenuItem("11", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_pap),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_pap), new LaunchPictogramEvent(ACTIVITY_REFERENCE) ));
+        //addItem(new MenuItem("12", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_jcc),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_jcc), new LaunchPictogramEvent(ACTIVITY_REFERENCE) ));
         }
     }
 

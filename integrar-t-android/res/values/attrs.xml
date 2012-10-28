@@ -26,4 +26,9 @@
 	    <attr name="titleColor" format="color"/>
 	    <attr name="titleSize" format="dimension"/>
     </declare-styleable>
+    
+    
+    <declare-styleable name="PicGallery">
+        <attr name="android:galleryItemBackground" />
+    </declare-styleable>
 </resources>

@@ -2,6 +2,9 @@ package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.handpla
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.ActivityMetric;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.Metric;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.MetricsService;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
 
 import roboguice.activity.RoboActivity;
@@ -30,7 +33,8 @@ import com.google.inject.Inject;
 @ContentView(R.layout.hand_play)
 public class HandPlayActivity extends RoboActivity implements OnTouchListener{
 	private static final String HELP_MESSAGE_KEY = ".handPlay.helpMessage"; 
-	private static final String LEVEL_KEY = ".handPlay.level"; 
+	private static final String LEVEL_KEY = ".handPlay.level";
+	private static final String METRIC_CATEGORY = "category";
 	
 	@InjectView(R.id.view)
 	private FrameLayout view;
@@ -43,6 +47,9 @@ public class HandPlayActivity extends RoboActivity implements OnTouchListener{
 	
 	@Inject
 	private User user;
+	
+	@Inject
+	private MetricsService metricService;
 	
 	private HandManager manager;
 	
@@ -211,6 +218,7 @@ public class HandPlayActivity extends RoboActivity implements OnTouchListener{
 		Animation anim = AnimationUtils.loadAnimation(this, R.anim.success_animarion);
 		ok.startAnimation(anim);
 		ok.setVisibility(View.VISIBLE);
+		metricService.sendMetric(new Metric(user, ActivityMetric.JUGANDO_CON_LA_MANO, METRIC_CATEGORY, level));
 	}
 
 	@Override
