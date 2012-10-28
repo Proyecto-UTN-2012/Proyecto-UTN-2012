@@ -195,7 +195,7 @@ public class ComunicationService {
 		if(type == ExternalResourceType.SETTINGS)
 			return settingsUrl + "/rest";
 		if(type == ExternalResourceType.METRICS)
-			return metricsUrl + "rest";
+			return metricsUrl + "/rest";
 		return staticUrl;
 	}
 	
