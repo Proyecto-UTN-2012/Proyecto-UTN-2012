@@ -6,7 +6,9 @@ import java.util.Properties;
 
 import org.utn.proyecto.helpful.integrart.core.percistence.PersisterService;
 import org.utn.proyecto.helpful.integrart.web.metrics.providers.MongoDBProvider;
+import org.utn.proyecto.helpful.integrart.web.metrics.resources.ExcelExportResource;
 import org.utn.proyecto.helpful.integrart.web.metrics.resources.MetricsResource;
+import org.utn.proyecto.helpful.integrart.web.metrics.utils.ExcelDocumentHelper;
 
 import com.google.inject.name.Names;
 import com.google.inject.servlet.ServletModule;
@@ -18,11 +20,13 @@ public class MetricsWebModule extends ServletModule {
 		Names.bindProperties(binder(), properties);
 		install(new ServletModule());
 		
-		//PersisterService
+		//Services
 		this.bind(PersisterService.class).toProvider(MongoDBProvider.class);
+		this.bind(ExcelDocumentHelper.class);
 		
 		//Resources
 		this.bind(MetricsResource.class);
+		this.bind(ExcelExportResource.class);
 	}
 	
 	private static Properties loadProperties(String name){
