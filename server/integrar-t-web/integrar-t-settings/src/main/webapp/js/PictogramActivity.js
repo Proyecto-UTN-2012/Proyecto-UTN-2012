@@ -39,10 +39,10 @@ function sendPictogramForms(){
 
 function sendSound(){
 	document.getElementById("formSoundPictogram").submit();
-	setTimeout(sendData,100);
+	setTimeout(sendPictogramData,100);
 };
 
-function sendData(){
+function sendPictogramData(){
 	var pictogramName = $('#pictogramName').val();
 	var data = new Object();
 	data.user =  $('#userId').val();

@@ -1,5 +1,6 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.pictogramas;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,9 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.events.ChangeColors
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.Event;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventListener;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.ActivityMetric;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.Metric;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.MetricsService;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
 
 import roboguice.activity.RoboFragmentActivity;
@@ -42,6 +46,8 @@ import com.google.inject.Inject;
 public class PictogramActivity extends RoboFragmentActivity implements EventListener<Void>, OnItemClickListener{
 	private static final String START_COLOR = ".pictogramActivity.startColor";
 	private static final String END_COLOR = ".pictogramActivity.endColor";
+	private static final String METRIC_CATEGORY = "pictograms";
+	private static final String METRIC_LEVEL_CATEGORY = "Level ";
 	
 	@Inject
 	private PictogramLoader loader;
@@ -55,6 +61,9 @@ public class PictogramActivity extends RoboFragmentActivity implements EventList
 	
 	@Inject
 	private DataStorageService db;
+	
+	@Inject
+	private MetricsService metricsService;
 	
 	@InjectView(R.id.pictogramViewPager)
 	private ViewPager pager;
@@ -79,6 +88,8 @@ public class PictogramActivity extends RoboFragmentActivity implements EventList
 	
 	private int startColor = 0xfff0f6fb;
 	private int endColor = 0xffb7dcf4;
+	
+	private long initTime;
 	
 	private static SparseArray<Class<? extends MenuActionProvider>> menuMap = new SparseArray<Class<? extends MenuActionProvider>>();
 	
@@ -116,6 +127,7 @@ public class PictogramActivity extends RoboFragmentActivity implements EventList
 		
 		deleteButton.setOnClickListener(new DeletePictogramListener());
 		talkButton.setOnClickListener(new TalkListener());
+		initTime = new Date().getTime();
 	}
 	
 	private void changeBackground(int[] colors){
@@ -180,6 +192,13 @@ public class PictogramActivity extends RoboFragmentActivity implements EventList
 		Queue<Pictogram> queue = new ArrayBlockingQueue<Pictogram>(currentPictogrmas.capacity());
 		queue.addAll(currentPictogrmas);
 		talkNext(queue);
+		metricsService.sendMetric(new Metric(
+				user, 
+				ActivityMetric.HABLA_CON_DIBUJO, 
+				METRIC_CATEGORY, 
+				METRIC_LEVEL_CATEGORY + currentLevel,
+				(int)(new Date().getTime() - initTime)));
+		initTime = new Date().getTime();
 	}
 	
 	private void talkNext(final Queue<Pictogram> queue){

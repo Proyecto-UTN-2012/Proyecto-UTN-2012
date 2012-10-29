@@ -39,10 +39,10 @@ function sendLarge(){
 
 function sendSmall(){
 	document.getElementById("formSmallImage").submit();
-	setTimeout(sendData,100);
+	setTimeout(sendCalendarData,100);
 };
 
-function sendData(){
+function sendCalendarData(){
 	var taskName = $('#taskName').val();
 	var data = new Object();
 	data.user =  $('#userId').val();
