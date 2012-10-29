@@ -11,6 +11,7 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.hablacon
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
@@ -57,7 +58,7 @@ public class CurrentCuentoActivity extends RoboActivity {
 
 	private CuentosAdapter cuentosAdapter;
 	private Editable span;
-
+	private Typeface font;
 	private MediaPlayer pageSound;
 	private int cuento;
 	private CuentoThread currentThread;
@@ -66,6 +67,8 @@ public class CurrentCuentoActivity extends RoboActivity {
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
+
+		font = Typeface.createFromAsset(getAssets(), "fonts/WC_RoughTrad.ttf");
 		Bundle arguments = getIntent().getExtras();
 		cuento = arguments.getInt("cuento");
 		// Toast.makeText(this, "cuento elegido " + cuento, Toast.LENGTH_LONG)
@@ -177,7 +180,7 @@ public class CurrentCuentoActivity extends RoboActivity {
 
 	@Override
 	protected void onDestroy() {
-		if (currentThread.isAlive())
+		if (currentThread!= null && currentThread.isAlive() )
 			currentThread.end();
 		if (pageSound != null) {
 
@@ -229,7 +232,7 @@ public class CurrentCuentoActivity extends RoboActivity {
 				tView.setText(" " + paginas.get(position).getText() + "   ");
 				iView.setBackgroundDrawable(paginas.get(position).getImage());
 				paginasView[position] = view;
-
+				tView.setTypeface(font);
 				container.addView(view, position);
 
 			}
@@ -296,15 +299,15 @@ public class CurrentCuentoActivity extends RoboActivity {
 			end = true;
 		}
 
-		private int getWait(String str){
-		int	time= str.length()*90;
-				if (str.indexOf(",")>=0)
-					time+=100;
-				if (str.indexOf(".")>=0)
-					time+=100;
-				return time;
+		private int getWait(String str) {
+			int time = str.length() * 90;
+			if (str.indexOf(",") >= 0)
+				time += 100;
+			if (str.indexOf(".") >= 0)
+				time += 100;
+			return time;
 		}
-		
+
 		@Override
 		public void run() {
 
@@ -333,7 +336,7 @@ public class CurrentCuentoActivity extends RoboActivity {
 				aida = new Date().getTime();
 				Log.d("word:", word);
 				time = getWait(word);
-				
+
 				try {
 					// currentThread.sleep(time);
 					synchronized (this) {

@@ -12,19 +12,21 @@
         android:gravity="center"
         android:minWidth="100dp"
         android:orientation="vertical" >
-
+
         <TextView
             android:id="@+id/cuentos_TxtV"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:editable="true"
             android:gravity="center"
-            android:maxWidth="600sp"
+            android:maxWidth="600dp"
             android:minWidth="600dp"
+            android:paddingLeft="50dp"
             android:text="Large Text"
             android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#333333"
             android:textColorLink="#00000000"
-            android:textSize="35dp" />
+            android:textSize="35sp" />
 
     </LinearLayout>
 
@@ -36,8 +38,8 @@
 
             <ImageView
                 android:id="@+id/cuentos_Img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="500dp"
+                android:layout_height="500dp"
                 android:layout_gravity="center"
                 android:clickable="false" />
 
