@@ -1,25 +1,43 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.conociendoacali;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
+import org.w3c.dom.Notation;
+
+import com.google.inject.Inject;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
+import roboguice.util.Ln.Config;
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.CheckBox;
 import android.widget.Gallery;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
 @ContentView(R.layout.cac_selecciondepersonaje)
 public class ConociendoACaliActivity extends RoboActivity {
 
+    @Inject
+    private DataStorageService db;
+    
+    @Inject
+    private User user;
+    
     @InjectView(R.id.cac_picture)
     private ImageView imagen;
     
@@ -30,7 +48,9 @@ public class ConociendoACaliActivity extends RoboActivity {
     
     private PictureAdapter adaptadorDeImagen;
     
-    private AlertDialog dialog;
+    private ConociendoCaliMessage message;
+    
+   // private AlertDialog dialog;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +58,12 @@ public class ConociendoACaliActivity extends RoboActivity {
         super.onCreate(savedInstanceState);
         
         adaptadorDeImagen = new PictureAdapter(this);
+        
         galeria.setAdapter(adaptadorDeImagen);
-       
+        
+        SetCarrusel();
+        
+       // dialog = new AlertDialog.Builder(this).create();
         
       //set long click listener for each gallery thumbnail item
              galeria.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -58,11 +82,15 @@ public class ConociendoACaliActivity extends RoboActivity {
                 startActivityForResult(Intent.createChooser(pickIntent, "Select Picture"), PICKER);
                 */
                 
-                //dialog.set
+               message = new ConociendoCaliMessage((ConociendoACaliActivity)v.getContext(),position);
+               message.show();
+                //WriteOnPreferenceCharacter(position);
+                
                 
                 return true;
             }
         });
+             
         galeria.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
@@ -75,6 +103,27 @@ public class ConociendoACaliActivity extends RoboActivity {
         
     }
     
+    public void SetCarrusel(){
+        //TODO double check how to move the carrousel to the selected character;
+        int id;
+        //SharedPreferences prefs = this.getSharedPreferences("cac_personaje", Context.MODE_PRIVATE);
+        
+       if(db.contain(user.getUserName()+".cac_personaje_seleccionado"))
+       {
+           id = db.get(user.getUserName()+ ".cac_personaje_seleccionado",int.class);
+           adaptadorDeImagen.moveCarruselPosition(id);
+       }
+    }
+    
+    public void WriteOnPreferenceCharacter(int position)
+    {
+        //Write on preferences
+        
+        //SharedPreferences prefs = this.getSharedPreferences("cac_personaje", Context.MODE_PRIVATE);
+        //prefs.edit().putInt("cac_personaje_seleccionado", adaptadorDeImagen.getDrawbleResourceSelected()).commit();
+        
+        db.put(user.getUserName() + ".cac_personaje_seleccionado" , adaptadorDeImagen.getDrawbleResourceSelected());
+    }
     
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

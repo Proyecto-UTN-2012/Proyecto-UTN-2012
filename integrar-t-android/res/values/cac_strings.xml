@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cac_titulo">Seleccionando</string>
+    <string name="cac_si">Si</string>
+    <string name="cac_no">No</string>
+    <string name="cac_mensaje">¿Estás seguro de seleccionar este personaje?</string>
+    
+</resources>

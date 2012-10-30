@@ -25,11 +25,15 @@ public class PictureAdapter extends BaseAdapter {
     private Bitmap[] imageBitmaps;
     //placeholder bitmap for empty spaces in gallery
     Bitmap placeholder;
+    
+    private int[] drawableResource;
+    private int currentSelection;
 
     public PictureAdapter (Context contexto)
     {
         galleryContext = contexto;
         imageBitmaps = new Bitmap[10];
+        drawableResource = new int[10];
         placeholder = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.icon_trans);
         
         InitializeGallerySmallImages();
@@ -59,6 +63,18 @@ public class PictureAdapter extends BaseAdapter {
         imageBitmaps[8] = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.notebook_background);
         imageBitmaps[9] = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.dedo);
         
+        drawableResource[0] = R.drawable.icon_trans;
+        drawableResource[1] = R.drawable.cachorros;
+        drawableResource[2] = R.drawable.rubber;
+        drawableResource[3] = R.drawable.avion;
+        drawableResource[4] = R.drawable.cuentos_camara;
+        drawableResource[5] = R.drawable.green_led;
+        drawableResource[6] = R.drawable.trash_can_medium;
+        drawableResource[7] = R.drawable.ricitos_pg1;
+        drawableResource[8] = R.drawable.notebook_background;
+        drawableResource[9] = R.drawable.dedo;
+        
+        currentSelection = 0;
     }
 
     @Override
@@ -78,6 +94,9 @@ public class PictureAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        //specify the current selection.
+        currentSelection = drawableResource[position];
+        
         //create the view
         ImageView imageView = new ImageView(galleryContext);
         //specify the bitmap at this position in the array
@@ -90,6 +109,20 @@ public class PictureAdapter extends BaseAdapter {
         imageView.setBackgroundResource(defaultItemBackground);
         //return the view
         return imageView;
+    }
+    
+    public int getDrawbleResourceSelected(){
+        return currentSelection;
+    }
+    
+    public void moveCarruselPosition(int id)
+    {
+        for (int i=0; i< drawableResource.length;i++){
+            if (drawableResource[i]==id)
+            {
+                getView(i, null, null);
+            }
+        }
     }
 
     public Bitmap getPic(int position) {
