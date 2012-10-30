@@ -45,7 +45,7 @@ function sendSmall(){
 function sendCalendarData(){
 	var taskName = $('#taskName').val();
 	var data = new Object();
-	data.user =  $('#userId').val();
+	data.user =  userName;
 	data.name = taskName;
 	sendUpdateData('calendarActivity', data);
 }

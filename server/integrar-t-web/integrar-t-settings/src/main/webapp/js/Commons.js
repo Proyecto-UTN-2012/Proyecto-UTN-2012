@@ -1,4 +1,12 @@
 function loadTags(){
+	if (auth.isTokenPresent()) {
+	    // apparently we got back control after authentication
+	    var accessToken = auth.extractTokenInfo();
+	    onLogin(accessToken); // fire event
+	}
+	else{
+		$("#accordion").css("visibility", "hidden");
+	}
 	var accordion = $("#accordion");
 	tags = 	[{title:"Test Image", bodyFunction: "buildTestImageSection"},
 			 {title:"Test Sound", bodyFunction: "buildTestSoundSection"},
@@ -18,13 +26,13 @@ function loadTags(){
 function setParams(formName, resourceType, activity, section, resourceName){
 	section = (section == undefined)? "main" : section;
 	resourceName = (resourceName == undefined)? "" : resourceName;
-	var userId = $('#userId').val();
+	var userId = userName;
 	var form = $("#" + formName);
 	form.prop('action','rest/' + resourceType + '/' + userId + '/' + activity + '/' + section + "/" + resourceName);
 };
 
 function getResources(){
-	var userId = $('#userId').val();
+	var userId = userName;
 	var device = $('#device').val();
 	$.ajax({
 		type : 'GET',
@@ -44,8 +52,8 @@ function onSubmitFile(){
 
 function sendSignIn(){
 	var user = new Object();
-	user.userName = "pasutmarcelo@gmail.com";
-	user.email = "pasutmarcelo@gmail.com";
+	user.userName = userName;
+	user.email = userName;
 	user.accountType = "google";
 	user.token = "";
 	alert(JSON.stringify(user));

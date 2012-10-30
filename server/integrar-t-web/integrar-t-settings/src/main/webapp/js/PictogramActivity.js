@@ -45,7 +45,7 @@ function sendSound(){
 function sendPictogramData(){
 	var pictogramName = $('#pictogramName').val();
 	var data = new Object();
-	data.user =  $('#userId').val();
+	data.user =  userName;
 	var levels = [];
 	if($('#level1')[0].checked) levels.push(1);
 	if($('#level2')[0].checked) levels.push(2);
