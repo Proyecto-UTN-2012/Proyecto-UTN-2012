@@ -107,6 +107,7 @@ public class ConociendoACaliActivity extends RoboActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     // TODO Auto-generated method stub
                     WriteOnPreferenceCharacter(pos);
+                    finish();
                 }
             });
         builder.setTitle(R.string.cac_titulo);

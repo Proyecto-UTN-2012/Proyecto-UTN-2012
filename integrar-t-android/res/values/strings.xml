@@ -52,4 +52,8 @@
     <string name="mayor">Mayor</string>
     <string name="anular">Anular</string>
     <string name="menique">Meñique</string>
+    <string name="dcc_no_esta_cali_titulo">Personaje</string>
+    <string name="dcc_no_esta_cali_mensaje">No seleccionaste a Cali. Ahora te redirigiremos cuando aprietes "Ir a seleccionar a Cali".</string>
+    <string name="dcc_no_esta_cali_si">Ir a seleccionar a Cali</string>
+    <string name="dcc_no_esta_cali_no">Salir</string>
 </resources>
