@@ -48,13 +48,8 @@ public class ConociendoACaliActivity extends RoboActivity {
     
     private PictureAdapter adaptadorDeImagen;
     
-    private ConociendoCaliMessage message;
-    
-   // private AlertDialog dialog;
-    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         
         adaptadorDeImagen = new PictureAdapter(this);
@@ -62,8 +57,6 @@ public class ConociendoACaliActivity extends RoboActivity {
         galeria.setAdapter(adaptadorDeImagen);
         
         SetCarrusel();
-        
-       // dialog = new AlertDialog.Builder(this).create();
         
       //set long click listener for each gallery thumbnail item
              galeria.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -82,10 +75,7 @@ public class ConociendoACaliActivity extends RoboActivity {
                 startActivityForResult(Intent.createChooser(pickIntent, "Select Picture"), PICKER);
                 */
                 
-               message = new ConociendoCaliMessage((ConociendoACaliActivity)v.getContext(),position);
-               message.show();
-                //WriteOnPreferenceCharacter(position);
-                
+                showDialog(position);
                 
                 return true;
             }
@@ -101,6 +91,36 @@ public class ConociendoACaliActivity extends RoboActivity {
         });
         
         
+    }
+    
+    @Override
+    protected Dialog onCreateDialog(final int pos){
+        Dialog dialog;
+        AlertDialog.Builder builder;
+        
+        builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.cac_mensaje)
+            .setCancelable(false)
+            .setPositiveButton(R.string.cac_si, new DialogInterface.OnClickListener() {
+                
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // TODO Auto-generated method stub
+                    WriteOnPreferenceCharacter(pos);
+                }
+            });
+        builder.setTitle(R.string.cac_titulo);
+        builder.setNegativeButton(R.string.cac_no, new DialogInterface.OnClickListener() {
+            
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // TODO Auto-generated method stub
+                
+            }
+        });
+        
+        dialog = builder.create();
+        return dialog;
     }
     
     public void SetCarrusel(){
