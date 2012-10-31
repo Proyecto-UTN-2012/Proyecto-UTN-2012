@@ -4,9 +4,25 @@
 <meta charset="ISO-8859-1">
 
 <title>Integrar-T Metrics</title>
-
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="js/libs/oauth.js" ></script>
+<script type="text/javascript" src="js/Login.js" ></script>
 </head>
-<body>
-	<h1>Hola Integrar-T Metrics</h1>
+<body style="width: 100%" onload="load()">
+	<div id="loginPanel" style="margin: auto; width: 10%">
+		<button style="float: inherit;" onclick="login()">Ingresar con Google</button>
+	</div>
+	<div id="bodyPanel" hidden="true">
+		<h1 align="center">Integrar-T Metrics</h1>
+		<h2 id="userTitle" align="center"></h2>
+		
+		<div style="width: 100%">
+			<div style="width: 100%; border-color: #2a00ff; border-width: 1px">
+				<span>Habla Con Cali</span>
+				<span><img alt="Habla con Cali" src="images/excel.png"></span>
+			</div>
+		</div>
+	</div>
+	
 </body>
 </html>
