@@ -1,8 +1,14 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.cantaconcali;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.conociendoacali.ConociendoACaliActivity;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.cuentos.CurrentCuentoActivity;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.hablaconcali.HablaConCaliActivity.Ear;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.interfaces.VerifyCharacter;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
+
+import com.google.inject.Inject;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,7 +25,14 @@ import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 @ContentView(R.layout.ccc_main)
 public class CantaConCaliActivity extends RoboActivity implements
-OnCompletionListener  {
+OnCompletionListener, VerifyCharacter  {
+    
+    @Inject
+    private DataStorageService db;
+    
+    @Inject
+    private User user;
+    
 	@InjectView(R.id.cali)
 	private ImageView cali;
 	@InjectView(R.id.no)
@@ -31,6 +44,13 @@ OnCompletionListener  {
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
+		
+	if (!isCaliSelected())
+	{
+	    executeConociendoCali();
+	    return;
+	}
+		
 	MediaPlayer sonidoCali = MediaPlayer.create(this, R.raw.hola_canta_con_cali);
 	sonidoCali.start();
 	caliAnimation = (AnimationDrawable) cali.getBackground();
@@ -95,6 +115,28 @@ OnCompletionListener  {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+    public boolean isCaliSelected() {
+           return db.contain(user.getUserName()+".cac_personaje_seleccionado");
+    }
+    
+    private void executeConociendoCali()
+    {
+        Intent intent =  new Intent(this,ConociendoACaliActivity.class);
+        this.startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        
+        if (!isCaliSelected())
+        {
+            finish();
+            return;
+        }
+    }
 
 	
 	
