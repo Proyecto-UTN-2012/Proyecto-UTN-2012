@@ -1,5 +1,7 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.handplay;
 
+import java.util.Date;
+
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.ActivityMetric;
@@ -57,6 +59,8 @@ public class HandPlayActivity extends RoboActivity implements OnTouchListener{
 	
 	private MediaPlayer successSound;
 	
+	private long initTime;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -80,6 +84,8 @@ public class HandPlayActivity extends RoboActivity implements OnTouchListener{
 		view.setOnTouchListener(this);
 		
 		successSound = MediaPlayer.create(this, R.raw.tada);
+		
+		initTime = new Date().getTime();
 	}
 	
 	private void showUnsupportMessage() {
@@ -214,11 +220,13 @@ public class HandPlayActivity extends RoboActivity implements OnTouchListener{
 	
 	public void success(){
 		clean();
+		long endTime = new Date().getTime();
 		successSound.start();
 		Animation anim = AnimationUtils.loadAnimation(this, R.anim.success_animarion);
 		ok.startAnimation(anim);
 		ok.setVisibility(View.VISIBLE);
-		metricService.sendMetric(new Metric(user, ActivityMetric.JUGANDO_CON_LA_MANO, METRIC_CATEGORY, level));
+		metricService.sendMetric(new Metric(user, ActivityMetric.JUGANDO_CON_LA_MANO, METRIC_CATEGORY, "level " + level, (int)(endTime - initTime)));
+		initTime = endTime;
 	}
 
 	@Override

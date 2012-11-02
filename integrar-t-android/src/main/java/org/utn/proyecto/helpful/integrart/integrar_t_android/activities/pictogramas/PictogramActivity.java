@@ -192,11 +192,15 @@ public class PictogramActivity extends RoboFragmentActivity implements EventList
 		Queue<Pictogram> queue = new ArrayBlockingQueue<Pictogram>(currentPictogrmas.capacity());
 		queue.addAll(currentPictogrmas);
 		talkNext(queue);
+		String phrase = new String();
+		for(Pictogram pictogram : currentPictogrmas){
+			phrase+= pictogram.getName() + " ";
+		}
 		metricsService.sendMetric(new Metric(
 				user, 
 				ActivityMetric.HABLA_CON_DIBUJO, 
 				METRIC_CATEGORY, 
-				METRIC_LEVEL_CATEGORY + currentLevel,
+				new String[]{METRIC_LEVEL_CATEGORY + currentLevel, phrase},
 				(int)(new Date().getTime() - initTime)));
 		initTime = new Date().getTime();
 	}

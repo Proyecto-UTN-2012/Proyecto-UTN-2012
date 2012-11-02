@@ -21,6 +21,7 @@ import org.utn.proyecto.helpful.integrart.core.percistence.PersisterService;
 import org.utn.proyecto.helpful.integrart.web.metrics.ActivityMetric;
 import org.utn.proyecto.helpful.integrart.web.metrics.Metric;
 import org.utn.proyecto.helpful.integrart.web.metrics.strategies.ActivityReportStrategy;
+import org.utn.proyecto.helpful.integrart.web.metrics.strategies.HandPlayReportStrategy;
 import org.utn.proyecto.helpful.integrart.web.metrics.strategies.PictogramReportStrategy;
 
 import com.google.inject.Inject;
@@ -32,8 +33,10 @@ public class ExcelExportResource {
 	private static final Map<String, ActivityMetric> types = new HashMap<String, ActivityMetric>();
 	{
 		strategies.put("hcd", new PictogramReportStrategy());
+		strategies.put("jcm", new HandPlayReportStrategy());
 		
 		types.put("hcd", ActivityMetric.HABLA_CON_DIBUJO);
+		types.put("jcm", ActivityMetric.JUGANDO_CON_LA_MANO);
 	}
 	
 	@Inject
