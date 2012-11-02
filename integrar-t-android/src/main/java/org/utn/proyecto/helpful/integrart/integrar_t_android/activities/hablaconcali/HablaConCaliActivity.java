@@ -8,10 +8,17 @@ import java.util.List;
 import java.util.Random;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.conociendoacali.ConociendoACaliActivity;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.interfaces.VerifyCharacter;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
+
+import com.google.inject.Inject;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
@@ -27,10 +34,16 @@ import android.widget.ImageView;
 
 @ContentView(R.layout.hcc_main)
 public class HablaConCaliActivity extends RoboActivity implements
-		OnCompletionListener {
+		OnCompletionListener, VerifyCharacter {
 
-	@InjectView(R.id.caliHcc)
+    @InjectView(R.id.caliHcc)
 	private ImageView cali;
+	
+    @Inject
+    private DataStorageService db;
+    
+    @Inject
+    private User user;
 
 	private AnimationDrawable caliAnimation;
 
@@ -53,6 +66,17 @@ public class HablaConCaliActivity extends RoboActivity implements
 			R.raw.como_te_llamas, R.raw.queres_jugar_conmigo,
 			R.raw.cuantos_anios_tenes, R.raw.vos_sos_dios, R.raw.chau));
 
+	@Override
+    protected void onResume() {
+        super.onResume();
+        
+        if (!isCaliSelected())
+        {
+            finish();
+            return;
+        }
+    }
+	
 	@Override
 	protected void onStop() {
 
@@ -98,6 +122,12 @@ public class HablaConCaliActivity extends RoboActivity implements
 
 		super.onCreate(savedInstanceState);
 
+		if (!isCaliSelected())
+		{
+		    executeConociendoCali();
+		    return;
+		}
+		
 		Log.d("Habla con aida", "ahora si estoy logiando el onCreate");
 
 		cali.setBackgroundResource(R.drawable.cali_hcc);
@@ -376,6 +406,17 @@ public class HablaConCaliActivity extends RoboActivity implements
 	public void onCompletion(MediaPlayer mp) {
 		// mp.release();
 	}
+
+    @Override
+    public boolean isCaliSelected() {
+           return db.contain(user.getUserName()+".cac_personaje_seleccionado");
+    }
+    
+    private void executeConociendoCali()
+    {
+        Intent intent =  new Intent(this,ConociendoACaliActivity.class);
+        this.startActivity(intent);
+    }
 
 	// @Override
 	// public boolean onCreateOptionsMenu(Menu menu)

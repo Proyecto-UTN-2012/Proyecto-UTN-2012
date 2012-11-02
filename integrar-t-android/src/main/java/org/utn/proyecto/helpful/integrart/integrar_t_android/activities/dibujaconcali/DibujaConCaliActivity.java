@@ -8,6 +8,7 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.comoseha
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.conociendoacali.ConociendoACaliActivity;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.cuentos.CurrentCuentoActivity;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.interfaces.VerifyCharacter;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
 
 import android.app.AlertDialog;
@@ -26,7 +27,7 @@ import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 
 @ContentView(R.layout.dcc_main)
-public class DibujaConCaliActivity extends RoboActivity {
+public class DibujaConCaliActivity extends RoboActivity implements VerifyCharacter {
     
     private static final Random random = new Random();
 
@@ -160,7 +161,7 @@ public class DibujaConCaliActivity extends RoboActivity {
         this.startActivity(intent);
 	}
 
-    private boolean isCaliSelected() {
+    public boolean isCaliSelected() {
        return db.contain(user.getUserName()+".cac_personaje_seleccionado");
     }
 
