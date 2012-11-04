@@ -9,6 +9,8 @@
             android:persistent="true"
             android:order="1"
             android:defaultValue="50"
+            android:entries="@array/csh_distances_entries"
+            android:entryValues="@array/csh_distances_values"
             >
         </ListPreference>
         <ListPreference 
@@ -17,6 +19,8 @@
             android:persistent="true"
             android:order="1"
             android:defaultValue="150"
+            android:entries="@array/csh_distances_entries"
+            android:entryValues="@array/csh_distances_values"
             >
         </ListPreference>
     </PreferenceCategory> 
