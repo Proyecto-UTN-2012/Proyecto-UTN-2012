@@ -2,15 +2,13 @@ package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.cantaco
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.conociendoacali.ConociendoACaliActivity;
-import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.cuentos.CurrentCuentoActivity;
-import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.hablaconcali.HablaConCaliActivity.Ear;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.interfaces.VerifyCharacter;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
 
-import com.google.inject.Inject;
-
-import android.content.Context;
+import roboguice.activity.RoboActivity;
+import roboguice.inject.ContentView;
+import roboguice.inject.InjectView;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
@@ -20,9 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import roboguice.activity.RoboActivity;
-import roboguice.inject.ContentView;
-import roboguice.inject.InjectView;
+import com.google.inject.Inject;
 @ContentView(R.layout.ccc_main)
 public class CantaConCaliActivity extends RoboActivity implements
 OnCompletionListener, VerifyCharacter  {
