@@ -6,7 +6,7 @@
     <string name="large">LARGE</string>
     <string name="googleLogin">Google</string>
     <string name="otherLogin">Otra Cuenta</string>
-    <string name="customLogin">Nuevo</string>
+    <string name="customLogin">Usuario por Omisión</string>
     <string name="yes">Si</string>
     <string name="no">No</string>
     <string name="level">Nivel</string>
