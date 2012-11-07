@@ -28,7 +28,7 @@ public abstract class AbstractActivityResource<T extends ActivityData> {
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void updatePictogramActivity(T data){
+	public void updateActivity(T data){
 		service.insert(data);
 	}
 	

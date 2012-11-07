@@ -13,6 +13,7 @@ import org.utn.proyecto.helpful.integrart.web.settings.providers.MongoDBProvider
 import org.utn.proyecto.helpful.integrart.web.settings.providers.UpdateImageResourceServiceProvider;
 import org.utn.proyecto.helpful.integrart.web.settings.providers.UpdateSoundResourceServiceProvider;
 import org.utn.proyecto.helpful.integrart.web.settings.rest.CalendarResource;
+import org.utn.proyecto.helpful.integrart.web.settings.rest.CantaActivityResource;
 import org.utn.proyecto.helpful.integrart.web.settings.rest.ImageFileUploadResource;
 import org.utn.proyecto.helpful.integrart.web.settings.rest.PictogramResource;
 import org.utn.proyecto.helpful.integrart.web.settings.rest.SignInResource;
@@ -54,6 +55,7 @@ public class SettingsWebModule extends ServletModule {
 		this.bind(SignInResource.class);
 		this.bind(PictogramResource.class);
 		this.bind(CalendarResource.class);
+		this.bind(CantaActivityResource.class);
 		//this.bind(FileUploadResource.class);
 		//filter(SERVICE_ROOT).through(PerformanceFilter.class);
 	}

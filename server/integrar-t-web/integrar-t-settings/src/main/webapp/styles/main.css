@@ -1,5 +1,23 @@
 @CHARSET "ISO-8859-1";
 
+.google-button{
+	background-color: #4d90fe;
+	background-image: -moz-linear-gradient(center top, #4d90fe, #4787ed);
+	border: 1px solid #3079ed;
+	color: #ffffff;
+	border-radius: 2px 2px 2px 2px;
+	cursor: default;
+    font-size: 11px;
+    font-weight: bold;
+    height: 29px;
+    line-height: 27px;
+    margin-top: 16px;
+    margin-right: auto;
+    margin-left: auto;
+    min-width: 72px;
+    outline: 0 none;
+    padding: 0 8px;
+}
 .accordion {
     background-color: #F4FAFF;
     border: 1px solid #DDF0FF;

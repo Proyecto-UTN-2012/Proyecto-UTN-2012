@@ -21,7 +21,7 @@ function buildPictogramSection(){
 					"</form>" +
 					"<form id='formSoundPictogram' action='' method='post' enctype='multipart/form-data' accept-charset='utf-8'>"+
 					"<p>"+
-					"Buscar un sonido para subir: <input type='file' name='uploadedFile' size='50' accept='audio/*.mp3'/>"+
+					"Buscar un sonido para subir: <input type='file' name='uploadedFile' size='50' accept='audio/*'/>"+
 					"</p>"+
 					"</form>"+
 					"<input type='button' value='Enviar' onclick='sendPictogramForms()'/>";
