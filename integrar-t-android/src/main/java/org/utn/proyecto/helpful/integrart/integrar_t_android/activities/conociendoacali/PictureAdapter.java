@@ -32,8 +32,8 @@ public class PictureAdapter extends BaseAdapter {
     public PictureAdapter (Context contexto)
     {
         galleryContext = contexto;
-        imageBitmaps = new Bitmap[10];
-        drawableResource = new int[10];
+        imageBitmaps = new Bitmap[6];
+        drawableResource = new int[6];
         placeholder = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.icon_trans);
         
         InitializeGallerySmallImages();
@@ -52,16 +52,13 @@ public class PictureAdapter extends BaseAdapter {
 
     private void InitializeGallerySmallImages() {
         
-        imageBitmaps[0] = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.icon_trans);
-        imageBitmaps[1] = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.cachorros);
-        imageBitmaps[2] = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.rubber);
-        imageBitmaps[3] = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.avion);
-        imageBitmaps[4] = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.cuentos_camara);
-        imageBitmaps[5] = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.green_led);
-        imageBitmaps[6] = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.trash_can_medium);
-        imageBitmaps[7] = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.ricitos_pg1);
-        imageBitmaps[8] = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.notebook_background);
-        imageBitmaps[9] = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.dedo);
+        imageBitmaps[0] = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.cali1);
+        imageBitmaps[1] = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.cali2);
+        imageBitmaps[2] = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.cali3);
+        imageBitmaps[3] = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.cali4);
+        imageBitmaps[4] = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.cali5);
+        imageBitmaps[5] = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.cali6);
+        
         
         drawableResource[0] = R.drawable.icon_trans;
         drawableResource[1] = R.drawable.cachorros;
@@ -69,10 +66,6 @@ public class PictureAdapter extends BaseAdapter {
         drawableResource[3] = R.drawable.avion;
         drawableResource[4] = R.drawable.cuentos_camara;
         drawableResource[5] = R.drawable.green_led;
-        drawableResource[6] = R.drawable.trash_can_medium;
-        drawableResource[7] = R.drawable.ricitos_pg1;
-        drawableResource[8] = R.drawable.notebook_background;
-        drawableResource[9] = R.drawable.dedo;
         
         currentSelection = 0;
     }
