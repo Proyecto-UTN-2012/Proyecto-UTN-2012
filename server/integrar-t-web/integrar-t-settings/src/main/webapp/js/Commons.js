@@ -8,11 +8,11 @@ function loadTags(){
 		$("#accordion").css("visibility", "hidden");
 	}
 	var accordion = $("#accordion");
-	tags = 	[{title:"Test Image", bodyFunction: "buildTestImageSection"},
-			 {title:"Test Sound", bodyFunction: "buildTestSoundSection"},
-			 {title:"Test Get Resources", bodyFunction: "buildTestConsumeResourceSection"},
-			 {title:"Agregar Pictograma", bodyFunction: "buildPictogramSection"},
-			 {title:"Agregar Tarea", bodyFunction: "buildOrganizarTSection"}
+	tags = 	[/*{title:"Test Image", bodyFunction: "buildTestImageSection"},
+			 {title:"Test Sound", bodyFunction: "buildTestSoundSection"},*/
+			 {title:"Hablando con dibujos", bodyFunction: "buildPictogramSection"},
+			 {title:"OrganizarT", bodyFunction: "buildOrganizarTSection"},
+			 {title:"Canta Con Cali", bodyFunction: "buildCantaConCaliSection"}
 			];
 	for(var i in tags){
 		accordion.append(

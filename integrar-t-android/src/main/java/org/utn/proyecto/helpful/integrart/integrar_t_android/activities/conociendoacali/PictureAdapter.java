@@ -52,27 +52,27 @@ public class PictureAdapter extends BaseAdapter {
 
     private void InitializeGallerySmallImages() {
         
-        imageBitmaps[0] = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.cali1);
-        imageBitmaps[1] = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.cali2);
-        imageBitmaps[2] = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.cali3);
-        imageBitmaps[3] = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.cali4);
-        imageBitmaps[4] = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.cali5);
-        imageBitmaps[5] = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.cali6);
+//        imageBitmaps[0] = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.cali1);
+//        imageBitmaps[1] = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.cali2);
+//        imageBitmaps[2] = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.cali3);
+//        imageBitmaps[3] = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.cali4);
+//        imageBitmaps[4] = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.cali5);
+//        imageBitmaps[5] = BitmapFactory.decodeResource(galleryContext.getResources(), R.drawable.cali6);
         
         
-        drawableResource[0] = R.drawable.icon_trans;
-        drawableResource[1] = R.drawable.cachorros;
-        drawableResource[2] = R.drawable.rubber;
-        drawableResource[3] = R.drawable.avion;
-        drawableResource[4] = R.drawable.cuentos_camara;
-        drawableResource[5] = R.drawable.green_led;
+        drawableResource[0] = R.drawable.cali1;
+        drawableResource[1] = R.drawable.cali2;
+        drawableResource[2] = R.drawable.cali3;
+        drawableResource[3] = R.drawable.cali4;
+        drawableResource[4] = R.drawable.cali5;
+        drawableResource[5] = R.drawable.cali6;
         
         currentSelection = 0;
     }
 
     @Override
     public int getCount() {
-        return imageBitmaps.length;
+        return drawableResource.length;
     }
 
     @Override
@@ -93,7 +93,7 @@ public class PictureAdapter extends BaseAdapter {
         //create the view
         ImageView imageView = new ImageView(galleryContext);
         //specify the bitmap at this position in the array
-        imageView.setImageBitmap(imageBitmaps[position]);
+        imageView.setImageResource(drawableResource[position]);
         //set layout options
         imageView.setLayoutParams(new Gallery.LayoutParams(300, 200));
         //scale type within view area
@@ -118,9 +118,9 @@ public class PictureAdapter extends BaseAdapter {
         }
     }
 
-    public Bitmap getPic(int position) {
+    public int getPic(int position) {
       //return bitmap at position index
-        return imageBitmaps[position];
+        return drawableResource[position];
     }
 
 }
