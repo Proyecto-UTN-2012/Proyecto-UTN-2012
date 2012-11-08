@@ -86,7 +86,7 @@ public class ConociendoACaliActivity extends RoboActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
               //set the larger image view to display the chosen bitmap calling method of adapter class
-                imagen.setImageBitmap(adaptadorDeImagen.getPic(position));
+                imagen.setImageResource(adaptadorDeImagen.getPic(position));
             }
         });
         
