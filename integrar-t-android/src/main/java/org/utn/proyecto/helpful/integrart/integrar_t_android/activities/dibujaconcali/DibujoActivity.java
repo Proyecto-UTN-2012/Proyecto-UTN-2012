@@ -225,7 +225,7 @@ public class DibujoActivity extends RoboActivity {
 				Point[] points = map.get(dibujo);
 				for (Point point : points) {
 					ImageView image = new ImageView(context);
-					image.setLayoutParams(new ViewGroup.LayoutParams(20, 20));
+					image.setLayoutParams(new ViewGroup.LayoutParams(30, 30));
 					image.setBackgroundResource(R.drawable.circle_grey);
 					image.setX((float) point.x);
 					image.setY((float) point.y);
@@ -234,7 +234,7 @@ public class DibujoActivity extends RoboActivity {
 					offLights.add(image);
 
 					ImageView imageOn = new ImageView(context);
-					imageOn.setLayoutParams(new ViewGroup.LayoutParams(20, 20));
+					imageOn.setLayoutParams(new ViewGroup.LayoutParams(30, 30));
 					imageOn.setBackgroundResource(R.drawable.circle_yellow);
 					imageOn.setX((float) point.x);
 					imageOn.setY((float) point.y);
