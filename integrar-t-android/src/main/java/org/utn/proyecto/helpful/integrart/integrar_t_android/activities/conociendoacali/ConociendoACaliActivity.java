@@ -3,31 +3,23 @@ package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.conocie
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
-import org.w3c.dom.Notation;
-
-import com.google.inject.Inject;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
-import roboguice.util.Ln.Config;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.CheckBox;
 import android.widget.Gallery;
 import android.widget.ImageView;
+
+import com.google.inject.Inject;
 
 @ContentView(R.layout.cac_selecciondepersonaje)
 public class ConociendoACaliActivity extends RoboActivity {
@@ -44,8 +36,6 @@ public class ConociendoACaliActivity extends RoboActivity {
     @InjectView(R.id.cac_gallery)
     private Gallery galeria;
     
-    private int currentPic;
-    
     private PictureAdapter adaptadorDeImagen;
     
     @Override
@@ -56,7 +46,7 @@ public class ConociendoACaliActivity extends RoboActivity {
         
         galeria.setAdapter(adaptadorDeImagen);
         
-        SetCarrusel();
+        setCarrusel();
         
       //set long click listener for each gallery thumbnail item
              galeria.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -106,7 +96,7 @@ public class ConociendoACaliActivity extends RoboActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     // TODO Auto-generated method stub
-                    WriteOnPreferenceCharacter(pos);
+                    writeOnPreferenceCharacter(pos);
                     finish();
                 }
             });
@@ -124,7 +114,7 @@ public class ConociendoACaliActivity extends RoboActivity {
         return dialog;
     }
     
-    public void SetCarrusel(){
+    public void setCarrusel(){
         //TODO double check how to move the carrousel to the selected character;
         int id;
         //SharedPreferences prefs = this.getSharedPreferences("cac_personaje", Context.MODE_PRIVATE);
@@ -136,7 +126,7 @@ public class ConociendoACaliActivity extends RoboActivity {
        }
     }
     
-    public void WriteOnPreferenceCharacter(int position)
+    public void writeOnPreferenceCharacter(int position)
     {
         //Write on preferences
         
