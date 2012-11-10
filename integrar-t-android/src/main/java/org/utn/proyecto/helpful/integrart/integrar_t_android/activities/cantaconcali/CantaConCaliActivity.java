@@ -22,10 +22,13 @@ import android.speech.RecognitionService;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.inject.Inject;
 @ContentView(R.layout.ccc_main)
@@ -47,11 +50,13 @@ VerifyCharacter, RecognitionListener  {
     @Inject
     private User user;
     
+    @InjectView(R.id.container)
+    private FrameLayout container;
+    
 	@InjectView(R.id.cali)
 	private ImageView cali;
 	private AnimationDrawable caliAnimation;
 	
-	private MediaPlayer hello;
 	private MediaPlayer understand;
 	
 	private SpeechRecognizer voiceService;
@@ -63,6 +68,12 @@ VerifyCharacter, RecognitionListener  {
 	
 	@InjectView(R.id.songName)
 	private TextView soundName;
+	
+	private StateManager stateManager;
+	
+	private MediaPlayer questionSound;
+	
+	private Cancion currentSong;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -78,26 +89,27 @@ VerifyCharacter, RecognitionListener  {
 	voiceService = SpeechRecognizer.createSpeechRecognizer(this);	
 	initVoiceSettings();
 	understand = MediaPlayer.create(this, R.raw.understand);
-	hello = MediaPlayer.create(this, R.raw.hola_canta_con_cali);
-	hello.setOnCompletionListener(new MediaPlayer.OnCompletionListener(){
-
+	stateManager = new FirstStateManager(this);
+	caliAnimation = (AnimationDrawable) cali.getBackground();
+	questionSound = MediaPlayer.create(this, R.raw.song);
+	questionSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 		@Override
 		public void onCompletion(MediaPlayer mp) {
-			startVoiceRecognitionActivity();
 			mp.stop();
-			mp.release();
+			mp.prepareAsync();
+			startVoiceRecognitionActivity();
 		}
-		
 	});
-	hello.start();
-	caliAnimation = (AnimationDrawable) cali.getBackground();
-	
 	} //termina oncreate
 
 	@Override
 	protected void onDestroy(){
 		super.onDestroy();
 		understand.release();
+		questionSound.release();
+		if(currentSong!=null){
+			currentSong.getSonido().release();
+		}
 	}
 	
 	private void initVoiceSettings() {
@@ -107,7 +119,7 @@ VerifyCharacter, RecognitionListener  {
     /**
      * Fire an intent to start the speech recognition activity.
      */
-    private void startVoiceRecognitionActivity() {
+    public void startVoiceRecognitionActivity() {
         Intent intent = new Intent(RecognitionService.SERVICE_INTERFACE);
 
         // Specify the calling package to identify your application
@@ -140,7 +152,7 @@ VerifyCharacter, RecognitionListener  {
 		super.onWindowFocusChanged(hasFocus);
 
 		if (hasFocus){
-			caliAnimation.start();
+			animateHello();
 		}
 	}
 
@@ -181,7 +193,7 @@ VerifyCharacter, RecognitionListener  {
 	@Override
 	public void onEndOfSpeech() {
 		Log.i(TAG, "End Speech");
-		voiceService.stopListening();
+		startVoiceRecognitionActivity();
 		
 	}
 
@@ -210,53 +222,101 @@ VerifyCharacter, RecognitionListener  {
 	public void onResults(Bundle results) {
 		List<String> list = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
 		Log.i(TAG, "On Result: " + list.toString());
+		voiceService.stopListening();
 		if(list.size()<1){
 			notUnderstand();
 			return;
 		}
+		
 		String text = list.get(0);
+		if("chau".equals(text) || "chaau".equals(text) || "chao".equals(text) || "chaao".equals(text)){
+			end();
+			return;
+		}
+		
 		if("no".equals(text)){
-			processNo();
+			stateManager.processNo();
 		}
 		else if("si".equals(text)){
-			processYes();
+			stateManager.processYes();
 		}
 		else{
 			notUnderstand();
 		}
 	}
 	
+	public void setManager(StateManager manager){
+		stateManager = manager;
+	}
+	
 	@Override
 	public void onRmsChanged(float rmsdB) {}
-
-	private void processYes() {
-		Toast.makeText(this, "SI", Toast.LENGTH_LONG).show();
-		songs = loader.getSongs();
-		selectSong();
-		Log.i(TAG, songs.toString());
+	
+	public void selectSong(){
+		currentSong = randomSong();
+		initSongQuestion(currentSong);
 	}
 	
-	private void selectSong(){
-		Cancion song = randomSong();
-		initSongQuestion(song);
+	private void initSongQuestion(final Cancion song) {
+		Animation leftAnim = AnimationUtils.loadAnimation(this, R.animator.left_song_animation);
+		final Animation rightAnim = AnimationUtils.loadAnimation(this, R.animator.right_song_animation);
+		leftAnim.setAnimationListener(new Animation.AnimationListener() {
+			@Override
+			public void onAnimationStart(Animation animation) {}
+			@Override
+			public void onAnimationRepeat(Animation animation) {}
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				soundName.setText(song.getNombre());
+				soundView.startAnimation(rightAnim);
+				soundView.setVisibility(View.VISIBLE);
+				animateTalk();
+				questionSound.start();
+			}
+		});
+		if(soundView.getVisibility()==View.INVISIBLE){
+			soundName.setText(song.getNombre());
+			soundView.startAnimation(rightAnim);
+			soundView.setVisibility(View.VISIBLE);
+			animateTalk();
+			questionSound.start();
+		}
+		else{
+			soundView.startAnimation(leftAnim);
+		}
 	}
 	
-	private void initSongQuestion(Cancion song) {
-		// TODO Auto-generated method stub
-		
+	public void playCurrentSong(){
+		soundView.setVisibility(View.INVISIBLE);
+		MediaPlayer song = currentSong.getSonido();
+		try {
+			song.prepare();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} 
+		song.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+			
+			@Override
+			public void onCompletion(MediaPlayer mp) {
+				mp.stop();
+				mp.prepareAsync();
+				selectSong();
+			}
+		});
+		animateDance();
+		song.start();
 	}
 
 	private Cancion randomSong(){
-		if(songs.isEmpty()) songs = loader.getSongs();
+		if(songs==null || songs.isEmpty()) songs = loader.getSongs();
 		int index = rnd.nextInt(songs.size());
 		Cancion song = songs.remove(index);
 		return song;
 	}
-
-
-	private void processNo() {
+	
+	public void end(){
 		MediaPlayer sonidoCali = MediaPlayer.create(this, R.raw.despedida_canta_con_cali);
-		caliAnimation.start();
+		animateTalk();
 		sonidoCali.setOnCompletionListener(new OnCompletionListener() {
 			
 			@Override
@@ -275,9 +335,8 @@ VerifyCharacter, RecognitionListener  {
 		sonidoCali.start();
 	}
 
-
 	private void notUnderstand() {
-		caliAnimation.start();
+		animateTalk();
 		understand.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 			
 			@Override
@@ -288,5 +347,20 @@ VerifyCharacter, RecognitionListener  {
 			}
 		});
 		understand.start();
+	}
+	
+	public void animateHello(){
+		caliAnimation.stop();
+		caliAnimation.start();
+	}
+	
+	public void animateTalk(){
+		caliAnimation.stop();
+		caliAnimation.start();
+	}
+	
+	public void animateDance(){
+		caliAnimation.stop();
+		caliAnimation.start();
 	}
 }
