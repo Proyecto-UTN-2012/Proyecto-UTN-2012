@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_categoria_hablaconcali">habla_con_cali</string>
+    <string name="metric_categoria_dibujaconcali">dibuja_con_cali</string>
+    <string name="metric_categoria_dibujaconcali_avion">completo_avion</string>
+    <string name="metric_categoria_dibujaconcali_corazon">completo_corazon</string>
+    <string name="metric_categoria_dibujaconcali_perro">completo_perro</string>
+    <string name="metric_categoria_dibujaconcali_auto">completo_auto</string>
+    <string name="metric_categoria_cantaconcali">canta_con_cali</string>
+    <string name="metric_categoria_comolouso">como_lo_uso</string>
+    <string name="metric_categoria_cantaconcali_si">canta_con_cali_si</string>
+    <string name="metric_categoria_cantaconcali_no">canta_con_cali_no</string>
+</resources>
