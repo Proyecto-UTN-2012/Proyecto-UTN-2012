@@ -6,26 +6,26 @@
     <!-- Messages -->
     <string name="registerUserMessage">Debes registrate como usuario, si no lo haces no puedes acceder a Integrar-T.\n ¿Quieres Registrarte?</string>
     <string name="registerUserTitle">Registración</string>
-    <string name="notUserExceptionMessage">No tienes asociada una cuenta al dispositivo.\nPor favor presiona el boton "Nuevo" para asociar una nueva cuenta.</string>
+    <string name="notUserExceptionMessage">No tienes asociada una cuenta al dispositivo.\nPor favor presiona el botón "Nuevo" para asociar una nueva cuenta.</string>
     <string name="notUserExceptionTitle">No tienes una cuenta</string>
     <string name="showZoomText">Mostrar los controles de Zoom</string>
     <string name="selectTestTitle">Seleccione una Tarea</string>
     <string name="selectTaskSize">Minutos que dura la tarea</string>
-    <string name="selectTaskInit">¿A que hora comienza la tarea?</string>
-    <string name="emptyTaskTypes">Todabia no existen tareas creadas, por favor accede al centro de administración y agrega una tarea</string>
+    <string name="selectTaskInit">¿A qué hora comienza la tarea?</string>
+    <string name="emptyTaskTypes">Todavía no existen tareas creadas, por favor accede al centro de administración y agrega una tarea</string>
 	<string name="dayOfWeekTitle">Días a repetir la tarea</string>
 	<string name="deleteTaskTitle">Tarea Repetible</string>
-	<string name="deleteTaskMessage">Esta tarea está marcada como "Reptible", por favor antes de eliminar la tarea desmarque los dias en que se repite.</string>
+	<string name="deleteTaskMessage">Esta tarea está marcada como "Reptible". Por favor, antes de eliminar la tarea desmarque los días en que se repite.</string>
 	<string name="organizarTListTitle">Tareas de hoy</string>
-	<string name="notNextTask">No hay Proxima Tarea, buenas noches!</string>
-	<string name="handPlayHelpMessage">Para comenzar debes apoyar los cinco dedos de la mano en la pantalla, sin apoyar la palma y con los dedos lo mas separados posible.</string>	
+	<string name="notNextTask">No hay Próxima Tarea, buenas noches!</string>
+	<string name="handPlayHelpMessage">Para comenzar debes apoyar los cinco dedos de la mano en la pantalla, sin apoyar la palma y con los dedos lo más separados posible.</string>	
 	<string name="handPlayHideHelp">Dejar de mostrar este mensaje</string>
 	<string name="handPlayShowHelp">Mostrar mensaje inicial</string>
-	<string name="handPlayHelpTitle">Como comenzar</string>
+	<string name="handPlayHelpTitle">Cómo comenzar</string>
 	<string name="handPlaySetLevel">Elegir Nivel</string>
 	<string name="handPlayLevel">Nivel</string>
 	<string name="handPlayUnsupportTitle">¡Lo sentimos!</string>
-	<string name="handPlayUnsupportMessage">Lo sentimos, esta actividad está diseñada para Tablets.</string>
+	<string name="handPlayUnsupportMessage">Lo sentimos, esta actividad está diseñada para tablets.</string>
     
     <string name="selectLevel">Seleccione un Nivel</string>
     <string name="selectColor">Seleccione el Color</string>
