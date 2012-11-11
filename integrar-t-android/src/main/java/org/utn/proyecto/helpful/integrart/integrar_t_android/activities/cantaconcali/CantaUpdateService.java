@@ -1,4 +1,4 @@
-package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar;
+package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.cantaconcali;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.ActivityResource;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
-import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.ComunicationService;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.ComunicationService.ExternalResourceType;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.ComunicationService.OnArriveResource;
@@ -21,8 +20,8 @@ import com.google.gson.Gson;
 import com.google.inject.Inject;
 
 @ContextSingleton
-public class OrganizarTUpdateService implements OnArriveNewResources, OnArriveResource{
-	private static final String ACTIVITY_NAME = "calendarActivity";
+public class CantaUpdateService implements OnArriveNewResources, OnArriveResource{
+	private static final String ACTIVITY_NAME = "cantaActivity";
 	private static final String GET_DATA_RESOURCE = "updateData";
 	
 	private final UpdateService updateService;
@@ -30,17 +29,16 @@ public class OrganizarTUpdateService implements OnArriveNewResources, OnArriveRe
 	private final FileSystemService fileService;
 	private final DataStorageService db;
 	private final User user;
-	private final EventBus bus;
 	private final Gson gson = new Gson();
 	
 	@Inject
-	public OrganizarTUpdateService(UpdateService updateService, ComunicationService comService, FileSystemService fileService, EventBus bus, User user, DataStorageService db){
+	public CantaUpdateService(UpdateService updateService, ComunicationService comService, FileSystemService fileService, User user, DataStorageService db){
 		this.updateService = updateService;
 		this.comService = comService;
 		this.fileService = fileService;
-		this.bus = bus;
 		this.user = user;
 		this.db = db;
+		if(!db.contain(getDataKey())) db.put(getDataKey(), new CantaData[0]);
 	}
 	
 	public void findUpdate(){
@@ -49,10 +47,6 @@ public class OrganizarTUpdateService implements OnArriveNewResources, OnArriveRe
 
 	@Override
 	public void onArriveNewResources(List<ActivityResource> resources) {
-		if(resources.isEmpty()){
-			bus.dispatch(new UpdateTaskTypesCompleteEvent());
-			return;
-		}
 		for(ActivityResource res : resources){
 			InputStream is = comService.findStream(ExternalResourceType.STATICS, res.getPath());
 			fileService.addResource(ACTIVITY_NAME, res.getResourceName(), res.getResourceType(), is); 
@@ -67,32 +61,31 @@ public class OrganizarTUpdateService implements OnArriveNewResources, OnArriveRe
 				new String[]{ACTIVITY_NAME, user.getUserName(), updateService.getDeviceId()}, 
 				this);
 	}
+	
+	public static String getDataKey(User user){
+		return user.getUserName() + "." + ACTIVITY_NAME + ".songs";
+	}
+	
+	private String getDataKey(){
+		return getDataKey(user);
+	}
 
 	@Override
 	public void onArrive(String json) {
-		TaskTypeData[] tasks = gson.fromJson(json, TaskTypeData[].class);
-		for(TaskTypeData task : tasks){
-			addTask(task);
+		CantaData[] songs = gson.fromJson(json, CantaData[].class);
+		for(CantaData song : songs){
+			addSong(song);
 		}
-		bus.dispatch(new UpdateTaskTypesCompleteEvent());
 	}
 	
-	private void addTask(TaskTypeData task){
-		if(!db.contain(getTasksKey())) db.put(getTasksKey(), new TaskTypeData[0]);
-		List<TaskTypeData> list = new ArrayList<TaskTypeData>();
-		TaskTypeData[] tasks = db.get(getTasksKey(), TaskTypeData[].class);
-		for(TaskTypeData data : tasks){
+	private void addSong(CantaData song){
+		if(!db.contain(getDataKey())) db.put(getDataKey(), new CantaData[0]);
+		List<CantaData> list = new ArrayList<CantaData>();
+		CantaData[] songs = db.get(getDataKey(), CantaData[].class);
+		for(CantaData data : songs){
 			list.add(data);
 		}
-		list.add(task);
-		db.put(getTasksKey(), list.toArray(new TaskTypeData[0]));
-	}
-	
-	private String getTasksKey(){
-		return getTaskTypesKey(user);
-	}
-	
-	public static String getTaskTypesKey(User user){
-		return user.getUserName() + "." + ACTIVITY_NAME + ".taskTypes";
+		list.add(song);
+		db.put(getDataKey(), list.toArray(new CantaData[0]));
 	}
 }

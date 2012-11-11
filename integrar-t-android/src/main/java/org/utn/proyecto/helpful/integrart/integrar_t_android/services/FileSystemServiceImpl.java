@@ -62,14 +62,11 @@ public class FileSystemServiceImpl implements FileSystemService {
 	@SuppressWarnings("unchecked")
 	protected <T> Resource<T> buildResourceByType(String activityName,
 		String packageName, Resource<?> resource){
-		switch (resource.getType()) {
-		case IMAGE:
+		if(resource.getType() == ResourceType.IMAGE)
 			return (Resource<T>)buildImageResource(activityName, packageName, (Resource<Drawable>)resource);
-		case SOUND:
+		if(resource.getType() == ResourceType.SOUND)
 			return (Resource<T>)buildSoundResource(activityName, packageName, (Resource<MediaPlayer>)resource);
-		default:
-			return null;
-		}
+		return null;
 	}
 	
 	private FileInputStream buildResourceInputStream(String activityName,
@@ -207,14 +204,14 @@ public class FileSystemServiceImpl implements FileSystemService {
 		db.addResource(userName, activityName, packageName, resource);		
 		String fullPath = getFullPath(activityName, packageName);
 		try {
-			FileOutputStream output = context.openFileOutput(fullPath + "." + resource.getName(),Context.MODE_PRIVATE);
+			FileOutputStream output = context.openFileOutput(fullPath + "." + resource.getName(),Context.MODE_WORLD_READABLE);
 			byte[] bytes = new byte[1000];
 			int end = 0;
 			do{
 				end = resource.getResource().read(bytes,0,1000);
 				output.write(bytes);
+				output.flush();
 			}while(end >= 0);
-			output.flush();
 			output.close();
 		} catch (Exception e) {
 			throw new RuntimeException(e);

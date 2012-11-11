@@ -1,23 +1,17 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.comosehace;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
-import org.utn.proyecto.helpful.integrart.integrar_t_android.R.string;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.Event;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventListener;
-
-import com.google.inject.Inject;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -28,9 +22,6 @@ public class ComoSeHaceActivity extends RoboActivity implements EventListener<Vo
     @InjectView(R.id.btn_csh_application)
     private Button applicationButton; 
     
-    @InjectView(R.id.btn_csh_setting)
-    private Button settingButton;
-    
     static public String VIDEO = "video";
     
     @Override
@@ -39,14 +30,7 @@ public class ComoSeHaceActivity extends RoboActivity implements EventListener<Vo
         super.onCreate(savedInstanceState);
 
         applicationButton.setOnClickListener(new ComoSeHaceEvents(this));
-        settingButton.setOnClickListener(new OnClickListener() {
-            
-            @Override
-            public void onClick(View v) {
-                // TODO instanciar configuracion general.
-                executeCSHPreferenceActivity();
-            }
-       });
+        
     }
     
     private void executeCSHPreferenceActivity() {
@@ -59,15 +43,25 @@ public class ComoSeHaceActivity extends RoboActivity implements EventListener<Vo
     public boolean onCreateOptionsMenu(Menu menu) {
         // TODO Auto-generated method stub
         
-        //getMenuInflater().inflate(R.menu.csh_activity_main_menu, menu);
+        getMenuInflater().inflate(R.menu.csh_activity_main_menu, menu);
         //SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
+        
+        switch (item.getItemId()) {
+        case R.id.csh_menuItem_settings:
+            executeCSHPreferenceActivity();
+            return true;
+        case R.id.csh_menuItem_exit:
+            this.finish();
+            return  true;
+        }
         return super.onMenuItemSelected(featureId, item);
     }
+    
     
     public void executeCustomActivity()
     {
@@ -86,7 +80,7 @@ public class ComoSeHaceActivity extends RoboActivity implements EventListener<Vo
         // TODO Auto-generated method stub
         
     }
-    
+
    
 
 }
