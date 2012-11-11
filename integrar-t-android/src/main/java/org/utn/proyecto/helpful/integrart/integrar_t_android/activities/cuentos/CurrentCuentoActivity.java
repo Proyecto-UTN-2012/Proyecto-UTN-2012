@@ -180,7 +180,7 @@ public class CurrentCuentoActivity extends RoboActivity {
 
 	@Override
 	protected void onDestroy() {
-		if (currentThread!= null && currentThread.isAlive() )
+		if (currentThread != null && currentThread.isAlive())
 			currentThread.end();
 		if (pageSound != null) {
 
@@ -335,6 +335,11 @@ public class CurrentCuentoActivity extends RoboActivity {
 				word = str.substring(index1, index2);
 				aida = new Date().getTime();
 				Log.d("word:", word);
+				String character = word.substring(word.length() - 1,
+						word.length() - 1);
+                if (character=="," || character==";" || character==".")
+                	time=getWait(word)*4;
+                
 				time = getWait(word);
 
 				try {
