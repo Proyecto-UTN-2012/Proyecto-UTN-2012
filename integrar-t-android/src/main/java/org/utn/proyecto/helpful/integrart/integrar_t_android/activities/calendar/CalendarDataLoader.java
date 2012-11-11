@@ -95,6 +95,7 @@ public class CalendarDataLoader {
 			if(type.getName().equals(data.getType())){
 				Task task = new Task(type, data.buildCalendar(), data.getSize());
 				task.setState(data.getState());
+				task.setInitTime(data.getInitTime());
 				return task;
 			}
 		}
@@ -115,6 +116,7 @@ public class CalendarDataLoader {
 					if(type.getName().equals(taskData.getType())){
 						Task task = new Task(type, taskData.buildCalendar(), taskData.getSize());
 						task.addRepeatDay(dayOfWeek);
+						task.setInitTime(taskData.getInitTime());
 						tasks.add(task);
 						break;
 					}
@@ -133,6 +135,7 @@ public class CalendarDataLoader {
 				for(TaskType type : taskTypes){
 					if(type.getName().equals(task.getType())){
 						Task _task = new Task(type, task.buildCalendar(), task.getSize());
+						_task.setInitTime(task.getInitTime());
 						_task.setState(task.getState());
 						for(int i=Calendar.SUNDAY;i<=Calendar.SATURDAY;i++){
 								List<Task> buffer = loadRepeatableTaskFromDayOfWeek(i);

@@ -1,11 +1,15 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.domain;
 
 public class User {
+	private final static String GIFT_KEY = ".gift";
+	
 	private String userName;
 	private String email;
 	private String accountType;
 	private String token;
 	private String device;
+	
+	private int gifts;
 	
 	public User(){}
 	
@@ -61,5 +65,17 @@ public class User {
 
 	public void setDevice(String device) {
 		this.device = device;
+	}
+	
+	public void addGifts(int value){
+		gifts+=value;
+	}
+	
+	public int getGifts(){
+		return gifts;
+	}
+	
+	public String getGiftKey(){
+		return this.userName + GIFT_KEY;
 	}
 }

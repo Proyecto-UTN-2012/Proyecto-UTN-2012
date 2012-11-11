@@ -1,10 +1,15 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.ActivityMetric;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.Metric;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.MetricsService;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
@@ -22,6 +27,11 @@ import com.google.inject.Inject;
 
 @ContentView(R.layout.show_task)
 public class ShowTaskActivity extends RoboActivity {
+	private static final String TASK_DURATION_METRIC = "duracion";
+	private static final String TASK_REAL_DURATION_METRIC = "duracion real";
+	private static final String TASK_END_DIFERENCE_METRIC = "diferencia";	
+	private static final String TASK_INIT_DIFERENCE_METRIC = "diferencia de inicio";	
+	
 	private Typeface font;
 	@InjectView(R.id.name)
 	private TextView nameText;
@@ -46,6 +56,12 @@ public class ShowTaskActivity extends RoboActivity {
 	
 	@Inject
 	private EventBus bus;
+	
+	@Inject
+	private MetricsService metrics;
+	
+	@Inject
+	private User user;
 	
 	private Task task;
 	
@@ -116,6 +132,9 @@ public class ShowTaskActivity extends RoboActivity {
 				@Override
 				public void onClick(View v) {
 					task.active();
+					task.setInitTime(new Date().getTime());
+					long estimatedInit = task.getData().buildCalendar().getTime().getTime();
+					metrics.sendMetric(new Metric(user, ActivityMetric.ORGANIZART, TASK_INIT_DIFERENCE_METRIC, task.getName(), (int)(task.getInitTime() - estimatedInit)));
 					updateTask();
 					update();
 				}
@@ -127,6 +146,7 @@ public class ShowTaskActivity extends RoboActivity {
 				@Override
 				public void onClick(View v) {
 					task.terminate();
+					sendFinalizeMetrics();
 					updateTask();
 					update();
 				}
@@ -135,6 +155,17 @@ public class ShowTaskActivity extends RoboActivity {
 		else{
 			actionButton.setVisibility(View.INVISIBLE);
 		}
+	}
+	
+	private void sendFinalizeMetrics() {
+		int duration = (int)(new Date().getTime() - task.getInitTime());
+		int estimateDuration = task.getSize()*60*1000;
+		Metric[] metrics = new Metric[]{
+				new Metric(user, ActivityMetric.ORGANIZART, TASK_DURATION_METRIC, task.getName(), estimateDuration),
+				new Metric(user, ActivityMetric.ORGANIZART, TASK_END_DIFERENCE_METRIC, task.getName(),duration - estimateDuration),
+				new Metric(user, ActivityMetric.ORGANIZART, TASK_REAL_DURATION_METRIC, task.getName(),duration)};
+		this.metrics.sendMetrics(metrics);
+		
 	}
 	
 	private void updateTask(){

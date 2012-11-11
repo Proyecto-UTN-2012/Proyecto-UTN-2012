@@ -3,7 +3,6 @@ package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.hablaco
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -12,12 +11,14 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.conocien
 import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.interfaces.VerifyCharacter;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
-
-import com.google.inject.Inject;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.utils.GiftCount;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.utils.GiftPopup;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
@@ -27,14 +28,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.widget.ImageView;
+
+import com.google.inject.Inject;
 
 @ContentView(R.layout.hcc_main)
 public class HablaConCaliActivity extends RoboActivity implements
 		OnCompletionListener, VerifyCharacter {
+	private final static String USER_KEY = "currentUser";
 
     @InjectView(R.id.caliHcc)
 	private ImageView cali;
@@ -62,7 +63,7 @@ public class HablaConCaliActivity extends RoboActivity implements
 
 	private int nrofrase = 0;
 
-	private List<Integer> frases = new ArrayList(Arrays.asList(
+	private List<Integer> frases = new ArrayList<Integer>(Arrays.asList(
 			R.raw.como_te_llamas, R.raw.queres_jugar_conmigo,
 			R.raw.cuantos_anios_tenes, R.raw.vos_sos_dios, R.raw.chau));
 
@@ -224,7 +225,17 @@ public class HablaConCaliActivity extends RoboActivity implements
 
 				listening = true;
 				contesto = false;
-				sigfrase();
+				user.addGifts(3);
+				Dialog giftDialog = new GiftPopup(this, user.getGifts(), GiftCount.TREE);
+				giftDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+					
+					@Override
+					public void onDismiss(DialogInterface dialog) {
+						sigfrase();
+					}
+				});
+				giftDialog.show();
+				db.put(USER_KEY, user);
 			} else {
 
 				try {

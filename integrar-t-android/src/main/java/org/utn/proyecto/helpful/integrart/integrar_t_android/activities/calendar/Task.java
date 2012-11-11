@@ -16,6 +16,7 @@ public class Task implements Comparable<Task>{
 	private int size;
 	private Set<Integer> repeatDays = new HashSet<Integer>();
 	private TaskState state;
+	private long initTime;
 	
 	public Task(TaskType type, Calendar date){
 		this(type, date, 5);
@@ -81,6 +82,14 @@ public class Task implements Comparable<Task>{
 		int myTime = this.hour*60 + this.minute + size;
 		int time = hour*60 + minute;
 		return myTime - time;
+	}
+	
+	public long getInitTime(){
+		return initTime;
+	}
+	
+	public void setInitTime(long time){
+		this.initTime = time;
 	}
 
 	public int getSize() {
@@ -271,6 +280,7 @@ public class Task implements Comparable<Task>{
 		private final int size;
 		private final boolean repeatable;
 		private final TaskState state;
+		private long initTime;
 		
 		private TaskData(Task task){
 			this.type = task.getName();
@@ -282,6 +292,11 @@ public class Task implements Comparable<Task>{
 			this.size = task.getSize();
 			this.repeatable = task.isRepeatable();
 			this.state = task.getState();
+			this.initTime = task.getInitTime();
+		}
+		
+		public long getInitTime(){
+			return initTime;
 		}
 
 		public int getSize() {

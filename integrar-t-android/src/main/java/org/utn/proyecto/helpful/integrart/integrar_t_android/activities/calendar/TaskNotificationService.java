@@ -1,14 +1,18 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.calendar;
 
-import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.ActivityMetric;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.Metric;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.MetricsService;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
 
 import roboguice.service.RoboIntentService;
@@ -27,6 +31,9 @@ public class TaskNotificationService extends RoboIntentService {
 	
 	@Inject
 	private EventBus bus;
+	
+	@Inject
+	private MetricsService metricsService;
 	
 	private User user;
 	private boolean end;
@@ -75,7 +82,7 @@ public class TaskNotificationService extends RoboIntentService {
 					throw new RuntimeException(e);
 				} 
 			}
-		}, 11000);
+		}, 10000);
 		Intent newIntent = new Intent(this, ShowTaskActivity.class);
 		newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		startActivity(newIntent);
@@ -94,11 +101,14 @@ public class TaskNotificationService extends RoboIntentService {
 			int minutes = date.get(Calendar.MINUTE);
 			int seconds = date.get(Calendar.SECOND);
 			int delay = (60-seconds)*1000 + (4 - minutes%5)*60000;
+			if(hour==23 && minutes >= 55){
+				processEndDay(tasks);
+			}
 			for(Task task : tasks){
 				int time = hour*60 + minutes;
 				int initTime = task.getHour()*60 + task.getMinute();
 				int endTime = task.getHour()*60 + task.getMinute() + task.getSize();
-				if(time == initTime || time == endTime){
+				if((time == initTime || time == endTime) && !task.isCompleted()){
 					processTask(task);
 					break;
 				}
@@ -112,6 +122,23 @@ public class TaskNotificationService extends RoboIntentService {
 				}
 			}
 		}
+	}
+
+
+	private void processEndDay(List<Task> tasks) {
+		int completedTasksCount = CollectionUtils.countMatches(tasks, new Predicate() {
+			@Override
+			public boolean evaluate(Object object) {
+				Task task = (Task)object;
+				return task.isCompleted();
+			}
+		});
+		int uncompletedTasksCount = tasks.size() - completedTasksCount;
+		metricsService.sendMetrics(new Metric[]{
+			new Metric(user, ActivityMetric.ORGANIZART, "Completadas", completedTasksCount),
+			new Metric(user, ActivityMetric.ORGANIZART, "No Completadas", uncompletedTasksCount)
+		});
+		
 	}
 
 }
