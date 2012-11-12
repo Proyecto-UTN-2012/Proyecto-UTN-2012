@@ -23,5 +23,10 @@
             android:entryValues="@array/csh_distances_values"
             >
         </ListPreference>
+        <EditTextPreference 
+            android:key="prueba"
+            android:title="Asocie los archivos de video"
+            android:dialogLayout="@layout/csh_menu_sel_archivos">
+        </EditTextPreference>
     </PreferenceCategory> 
 </PreferenceScreen>

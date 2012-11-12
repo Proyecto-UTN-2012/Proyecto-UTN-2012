@@ -129,6 +129,7 @@
         <activity android:name=".activities.dibujaconcali.DibujoActivity"
             android:theme="@android:style/Theme.Holo.Light" >
         </activity>
+        <activity android:name="FileExplorer"></activity>
         
     </application>
 </manifest>
