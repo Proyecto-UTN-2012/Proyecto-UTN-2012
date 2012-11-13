@@ -76,12 +76,12 @@ public class ComunicationService {
 		sendMessage(type, resource, new String[0]);
 	}
 	
-	public void sendMessage(ExternalResourceType type, String resource, final String json){
+	public void sendMessage(ExternalResourceType type, String resource, final String json, OnArriveEmpty handler ){
 		if(mode == OnLineMode.OFF) return;
 		final String url = buildUrl(type, resource, new String[0]);
 		try{		
 			final AndroidHttpClient client = AndroidHttpClient.newInstance("Integrar-T");
-			ExecutorService executor = new ComunicationThreadPoolExecutor(client);
+			ExecutorService executor = new ComunicationThreadPoolExecutor(client, handler);
 			executor.submit(new Callable<String>() {
 				@Override
 				public String call() throws Exception {
@@ -97,6 +97,10 @@ public class ComunicationService {
 			setOnLineMode(OnLineMode.OFF);
 			throw new ComunicationException(e);
 		}
+	}
+	
+	public void sendMessage(ExternalResourceType type, String resource, final String json){
+		sendMessage(type, resource, json, null);
 	}
 	
 	public void sendMessage(ExternalResourceType type, String resource, String[] attributes){
@@ -232,25 +236,43 @@ public class ComunicationService {
 		public void onArrive(String resource);
 	}
 	
+	public interface OnArriveEmpty{
+		public void onArrive();
+	}
+	
 	private class ComunicationThreadPoolExecutor extends ThreadPoolExecutor{
 		private final OnArriveResource handler;
+		private final OnArriveEmpty emptyHandler;
 		private final AndroidHttpClient client;
 		private Future<String> future;
 		
 		public ComunicationThreadPoolExecutor(AndroidHttpClient client){
-			this(client, null);
+			super(2,2,10, TimeUnit.SECONDS,new ArrayBlockingQueue<Runnable>(5));
+			this.client = client;
+			this.handler = null;
+			this.emptyHandler = null;
 		}
 		public ComunicationThreadPoolExecutor(AndroidHttpClient client, OnArriveResource handler){
 			super(2,2,10, TimeUnit.SECONDS,new ArrayBlockingQueue<Runnable>(5));
 			this.client = client;
 			this.handler = handler;
+			this.emptyHandler = null;
+		}
+
+		public ComunicationThreadPoolExecutor(AndroidHttpClient client, OnArriveEmpty handler){
+			super(2,2,10, TimeUnit.SECONDS,new ArrayBlockingQueue<Runnable>(5));
+			this.client = client;
+			this.handler = null;
+			this.emptyHandler = handler;
 		}
 		@Override
 		protected void afterExecute(Runnable r, Throwable t){
-			if(handler == null) return;
 			try {
 				client.close();
-				handler.onArrive(future.get());
+				if(handler != null)
+					handler.onArrive(future.get());
+				if(emptyHandler!=null)
+					emptyHandler.onArrive();
 			} catch (Exception e) {
 				throw new RuntimeException(e);
 			}

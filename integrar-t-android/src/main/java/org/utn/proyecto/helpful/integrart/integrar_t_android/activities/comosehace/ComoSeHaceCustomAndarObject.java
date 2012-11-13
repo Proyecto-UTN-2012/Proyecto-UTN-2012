@@ -5,6 +5,12 @@ import java.nio.FloatBuffer;
 import javax.microedition.khronos.opengles.GL10;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.ActivityMetric;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.Metric;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.MetricsService;
+
+import com.google.inject.Inject;
 
 import android.app.Activity;
 import android.app.Application;
@@ -18,6 +24,12 @@ import edu.dhbw.andar.util.GraphicsUtil;
 
 public class ComoSeHaceCustomAndarObject extends ARObject {
 
+    @Inject
+    private MetricsService metricsService;
+ 
+    @Inject
+    private User user;
+    
     private static final String VIDEO = "video";
 	private ComoSeHaceAndarActivity activity;
     private final static String CSH_PREFERENCE = "integrar-t-csh";
@@ -85,6 +97,8 @@ public class ComoSeHaceCustomAndarObject extends ARObject {
 	    {
 	        
     	    if (isVisible() && super.getPatternName().equals("patt.hiro")){
+                Metric metrica = new Metric(user, ActivityMetric.COMO_SE_HASE, activity.getResources().getString(R.string.metric_categoria_cantaconcali),activity.getResources().getString(R.string.metric_categoria_cantaconcali_no));
+                metricsService.sendMetric(metrica);
     	        //executeReproductor("android.resource://" + activity.getPackageName() +"/"+R.raw.assasin);
     	    }
     	    

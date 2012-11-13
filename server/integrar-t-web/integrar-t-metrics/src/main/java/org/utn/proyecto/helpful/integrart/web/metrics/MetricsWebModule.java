@@ -7,6 +7,7 @@ import java.util.Properties;
 import org.utn.proyecto.helpful.integrart.core.percistence.PersisterService;
 import org.utn.proyecto.helpful.integrart.web.metrics.providers.MongoDBProvider;
 import org.utn.proyecto.helpful.integrart.web.metrics.resources.ExcelExportResource;
+import org.utn.proyecto.helpful.integrart.web.metrics.resources.MetricsListResource;
 import org.utn.proyecto.helpful.integrart.web.metrics.resources.MetricsResource;
 import org.utn.proyecto.helpful.integrart.web.metrics.utils.ExcelDocumentHelper;
 
@@ -26,6 +27,7 @@ public class MetricsWebModule extends ServletModule {
 		
 		//Resources
 		this.bind(MetricsResource.class);
+		this.bind(MetricsListResource.class);
 		this.bind(ExcelExportResource.class);
 	}
 	
