@@ -337,11 +337,13 @@ public class CurrentCuentoActivity extends RoboActivity {
 				Log.d("word:", word);
 				String character = word.substring(word.length() - 1,
 						word.length() - 1);
-                if (character=="," || character==";" || character==".")
-                	time=getWait(word)*4;
                 
 				time = getWait(word);
-
+				
+				if (character=="," || character==";" || character=="." || character=="!" || character==":")
+                	time=time*4;
+                
+				
 				try {
 					// currentThread.sleep(time);
 					synchronized (this) {

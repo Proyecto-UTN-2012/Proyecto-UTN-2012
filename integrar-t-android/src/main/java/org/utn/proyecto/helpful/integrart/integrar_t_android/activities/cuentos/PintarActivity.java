@@ -105,7 +105,7 @@ public class PintarActivity extends RoboActivity implements
 		Bundle arguments = getIntent().getExtras();
 		int cuento = arguments.getInt("cuento");
 
-		dibujo.setBackgroundResource(R.drawable.paint);
+		dibujo.setBackgroundResource(R.drawable.pinocho_pintar);
 
 		dibujo.setDrawingCacheEnabled(true);
 		view = new MyView(this);
