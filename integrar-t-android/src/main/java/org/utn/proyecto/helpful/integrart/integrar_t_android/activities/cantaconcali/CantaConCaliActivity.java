@@ -95,7 +95,7 @@ VerifyCharacter, RecognitionListener  {
     voiceService = SpeechRecognizer.createSpeechRecognizer(this);   
     initVoiceSettings();
     understand = MediaPlayer.create(this, R.raw.understand);
-    stateManager = new FirstStateManager(this);
+    stateManager = new FirstStateManager(this, metricsService, user);
     caliAnimation = (AnimationDrawable) cali.getBackground();
     questionSound = MediaPlayer.create(this, R.raw.song);
     questionSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -241,13 +241,9 @@ VerifyCharacter, RecognitionListener  {
         }
         
         if("no".equals(text)){
-            Metric metrica = new Metric(user, ActivityMetric.CANTA_CON_CALI, getResources().getString(R.string.metric_categoria_cantaconcali),getResources().getString(R.string.metric_categoria_cantaconcali_no));
-            metricsService.sendMetric(metrica);
             stateManager.processNo();
         }
         else if("si".equals(text)){
-            Metric metrica = new Metric(user, ActivityMetric.CANTA_CON_CALI, getResources().getString(R.string.metric_categoria_cantaconcali),getResources().getString(R.string.metric_categoria_cantaconcali_si));
-            metricsService.sendMetric(metrica);         
             stateManager.processYes();
         }
         else{

@@ -121,6 +121,8 @@ public class DibujaConCaliActivity extends RoboActivity implements VerifyCharact
             public void onClick(View v) {
                 int[] dibujos = new int[] { R.drawable.perro, R.drawable.auto,
                         R.drawable.corazon, R.drawable.avion };
+                Metric metrica = new Metric(user, ActivityMetric.DIBUJA_CON_CALI, getResources().getString(R.string.metric_categoria_dibujaconcali),"azar");
+                metricsService.sendMetric(metrica);
                 startDibujo(dibujos[random.nextInt(4)]);
             }
         });

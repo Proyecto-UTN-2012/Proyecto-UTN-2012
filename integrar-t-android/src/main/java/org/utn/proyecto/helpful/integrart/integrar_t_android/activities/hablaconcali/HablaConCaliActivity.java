@@ -289,7 +289,7 @@ public class HablaConCaliActivity extends RoboActivity implements
 
             Log.d("si gritó", "gritó");
             
-            Metric metrica = new Metric(user, ActivityMetric.HABLA_CON_CALI, getResources().getString(R.string.metric_categoria_hablaconcali));
+            Metric metrica = new Metric(user, ActivityMetric.HABLA_CON_CALI, getString(R.string.metric_categoria_hablaconcali));
             metricsService.sendMetric(metrica);
         }
     }

@@ -134,7 +134,7 @@ public class DibujoActivity extends RoboActivity {
 
         if (index == 0 && started) {
             
-            Metric metrica = new Metric(user, ActivityMetric.DIBUJA_CON_CALI, getResources().getString(R.string.metric_categoria_dibujaconcali),drawName);
+            Metric metrica = new Metric(user, ActivityMetric.DIBUJA_CON_CALI, getString(R.string.metric_categoria_dibujaconcali),drawName);
             metricsService.sendMetric(metrica);
             
             finished();
@@ -215,7 +215,7 @@ public class DibujoActivity extends RoboActivity {
 
             @Override
             public void onClick(View v) {
-                Metric metrica = new Metric(user, ActivityMetric.DIBUJA_CON_CALI, getResources().getString(R.string.metric_categoria_dibujaconcali),"in"+drawName);
+                Metric metrica = new Metric(user, ActivityMetric.DIBUJA_CON_CALI, getString(R.string.metric_categoria_dibujaconcali_incompleto),drawName);
                 metricsService.sendMetric(metrica);
                 
                 view.setAlpha(1f);
