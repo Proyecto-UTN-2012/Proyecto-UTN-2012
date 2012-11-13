@@ -341,7 +341,7 @@ public class CurrentCuentoActivity extends RoboActivity {
 				time = getWait(word);
 				
 				if (character=="," || character==";" || character=="." || character=="!" || character==":")
-                	time=getWait(word)*4;
+                	time=time*4;
                 
 				
 				try {
