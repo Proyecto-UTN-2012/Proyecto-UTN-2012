@@ -25,7 +25,6 @@ import roboguice.inject.InjectView;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaRecorder;
@@ -191,7 +190,8 @@ public class HablaConCaliActivity extends RoboActivity implements
         super.onWindowFocusChanged(hasFocus);
 
         if (hasFocus)
-            cali.talk();
+            cali.greet();
+        	//cali.talk();
     }
 
     // Metodo que inicializa la escucha
@@ -268,6 +268,7 @@ public class HablaConCaliActivity extends RoboActivity implements
                     R.raw.chau);
 
             mp.start();
+            cali.greet();
 
             mp.setOnErrorListener(new MediaPlayer.OnErrorListener() {
 
@@ -289,7 +290,7 @@ public class HablaConCaliActivity extends RoboActivity implements
                         mp.stop();
                         mp.release();
                         mp = null;
-
+                        cali.stop();
                     }
                     finish();
                 }
@@ -318,7 +319,6 @@ public class HablaConCaliActivity extends RoboActivity implements
                 frases.get(nrofrase));
         frase.start();
 
-        cali.stop();
         cali.talk();
 //        caliAnimation.stop();
 //        caliAnimation.start();

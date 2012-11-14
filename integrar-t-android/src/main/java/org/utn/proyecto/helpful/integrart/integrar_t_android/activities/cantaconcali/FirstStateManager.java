@@ -5,6 +5,7 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.ActivityMetric;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.Metric;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.MetricsService;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.utils.CaliView;
 
 import android.media.MediaPlayer;
 
@@ -12,13 +13,15 @@ public class FirstStateManager implements StateManager {
 	private final CantaConCaliActivity activity;
 	private final MetricsService metrics;
 	private final MediaPlayer hello;
+	private final CaliView cali;
 	private final User user;
 	
 	
-	public FirstStateManager(final CantaConCaliActivity activity, MetricsService metrics, User user){
+	public FirstStateManager(final CantaConCaliActivity activity, MetricsService metrics, User user, CaliView caliView){
 		this.activity = activity;
 		this.metrics = metrics;
 		this.user = user;
+		this.cali = caliView;
 		this.hello = MediaPlayer.create(activity, R.raw.hola_canta_con_cali);
 		hello.setOnCompletionListener(new MediaPlayer.OnCompletionListener(){
 
@@ -26,6 +29,7 @@ public class FirstStateManager implements StateManager {
 			public void onCompletion(MediaPlayer mp) {
 				activity.startVoiceRecognitionActivity();
 				mp.stop();
+				cali.stop();
 				mp.release();
 			}
 			

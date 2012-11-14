@@ -7,16 +7,15 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.conociendoacali.ConociendoACaliActivity;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.interfaces.VerifyCharacter;
-import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.ActivityMetric;
-import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.Metric;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.MetricsService;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.utils.CaliHelper;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.utils.CaliView;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
@@ -29,7 +28,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -51,14 +49,16 @@ VerifyCharacter, RecognitionListener  {
     private DataStorageService db;
     
     @Inject
+    private CaliHelper caliHelper;
+    
+    @Inject
     private User user;
     
     @InjectView(R.id.container)
     private FrameLayout container;
     
     @InjectView(R.id.cali)
-    private ImageView cali;
-    private AnimationDrawable caliAnimation;
+    private CaliView cali;
     
     private MediaPlayer understand;
     
@@ -91,17 +91,18 @@ VerifyCharacter, RecognitionListener  {
         executeConociendoCali();
         return;
     }
+    cali.setHelper(caliHelper);
     updateService.findUpdate();
     voiceService = SpeechRecognizer.createSpeechRecognizer(this);   
     initVoiceSettings();
     understand = MediaPlayer.create(this, R.raw.understand);
-    stateManager = new FirstStateManager(this, metricsService, user);
-    caliAnimation = (AnimationDrawable) cali.getBackground();
+    stateManager = new FirstStateManager(this, metricsService, user, cali);
     questionSound = MediaPlayer.create(this, R.raw.song);
     questionSound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
         @Override
         public void onCompletion(MediaPlayer mp) {
             mp.stop();
+            cali.stop();
             mp.prepareAsync();
             startVoiceRecognitionActivity();
         }
@@ -112,6 +113,7 @@ VerifyCharacter, RecognitionListener  {
     protected void onDestroy(){
         super.onDestroy();
         understand.release();
+        cali.stop();
         questionSound.release();
         if(currentSong!=null){
             currentSong.getSonido().release();
@@ -305,6 +307,7 @@ VerifyCharacter, RecognitionListener  {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 mp.stop();
+                cali.stop();
                 mp.prepareAsync();
                 selectSong();
             }
@@ -322,12 +325,13 @@ VerifyCharacter, RecognitionListener  {
     
     public void end(){
         MediaPlayer sonidoCali = MediaPlayer.create(this, R.raw.despedida_canta_con_cali);
-        animateTalk();
+        animateHello();
+        soundView.setVisibility(View.INVISIBLE);
         sonidoCali.setOnCompletionListener(new OnCompletionListener() {
             
             @Override
             public void onCompletion(MediaPlayer mp) {
-                
+                cali.stop();
                 if (mp != null) {
                     mp.stop();
                     mp.release();
@@ -348,6 +352,7 @@ VerifyCharacter, RecognitionListener  {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 mp.stop();
+                cali.stop();
                 mp.prepareAsync();
                 startVoiceRecognitionActivity();
             }
@@ -356,17 +361,14 @@ VerifyCharacter, RecognitionListener  {
     }
     
     public void animateHello(){
-        caliAnimation.stop();
-        caliAnimation.start();
+    	cali.greet();
     }
     
     public void animateTalk(){
-        caliAnimation.stop();
-        caliAnimation.start();
+    	cali.talk();
     }
     
     public void animateDance(){
-        caliAnimation.stop();
-        caliAnimation.start();
+        cali.dance();
     }
 }

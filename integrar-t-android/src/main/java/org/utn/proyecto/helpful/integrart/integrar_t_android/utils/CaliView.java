@@ -34,10 +34,13 @@ public class CaliView extends ImageView {
 	public void setHelper(CaliHelper helper){
 		this.helper = helper;
 		this.setBackgroundResource(helper.getInitTalkingCaliResource());
+		currentAnimation = (AnimationDrawable) this.getBackground();
 	}
 	
 	public void talk(){
-		currentAnimation = (AnimationDrawable) this.getBackground();
+		this.setBackgroundResource(helper.getInitTalkingCaliResource());
+		currentAnimation = (AnimationDrawable) getBackground();
+		currentAnimation.setVisible(false, true);
 		currentAnimation.start();
 		synchronized (this) {
 			isStoped = false;			
@@ -51,7 +54,8 @@ public class CaliView extends ImageView {
 						
 						@Override
 						public void run() {
-							currentAnimation.stop();
+							//currentAnimation.stop();
+							setBackgroundDrawable(null);
 							setBackgroundResource(helper.getTalkingCaliResource());
 							currentAnimation = (AnimationDrawable) getBackground();
 							currentAnimation.start();							
@@ -62,12 +66,50 @@ public class CaliView extends ImageView {
 		}, 1500);
 	}
 	
+	public void dance(){
+		this.setBackgroundResource(helper.getDancingCaliResource());
+		currentAnimation = (AnimationDrawable) this.getBackground();
+		currentAnimation.setVisible(false, true);
+		currentAnimation.start();
+	}
+	
+	public void greet(){
+		this.setBackgroundResource(helper.getInitGreetingCaliResource());
+		currentAnimation = (AnimationDrawable) this.getBackground();
+		currentAnimation.setVisible(false, true);
+		currentAnimation.start();
+		synchronized (this) {
+			isStoped = false;			
+		}
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				if(!isStoped){
+					((Activity)getContext()).runOnUiThread(new Runnable() {
+						
+						@Override
+						public void run() {
+							//currentAnimation.stop();
+							setBackgroundDrawable(null);
+							setBackgroundResource(helper.getGreetingCaliResource());
+							currentAnimation = (AnimationDrawable) getBackground();
+							currentAnimation.start();							
+						}
+					});
+				}
+			}
+		}, 1000);
+	}
+	
 	public void stop(){
 		synchronized (this) {
 			isStoped = true;			
 		}
 		currentAnimation.stop();
-		setBackgroundResource(helper.getInitTalkingCaliResource());
+		this.setBackgroundDrawable(null);
+		this.setBackgroundResource(helper.getInitTalkingCaliResource());
+		currentAnimation = (AnimationDrawable) this.getBackground();
 	}
 	
 
