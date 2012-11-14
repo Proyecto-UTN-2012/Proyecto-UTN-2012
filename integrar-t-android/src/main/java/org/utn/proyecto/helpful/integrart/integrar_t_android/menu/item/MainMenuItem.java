@@ -19,6 +19,7 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.testacti
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.Event;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 
 public class MainMenuItem {
 
@@ -29,7 +30,15 @@ public class MainMenuItem {
         public String activityDescription;
         private Activity act;
         public Event<?> event;
+        //
+        
+        public Drawable bckground;
 
+        public Drawable getBckground(){
+        	return bckground;
+        }
+//
+        
         public Activity getActivity() {
             return act;
         }
@@ -51,11 +60,13 @@ public class MainMenuItem {
             this.content = content;
         }
         
-        public MenuItem(String id, String content, String description, Event<?> event) {
+        
+        public MenuItem(String id, String content, String description, Event<?> event, Drawable bckground) {
             this.id = id;
             this.content = content;
             this.activityDescription = description;
             this.event = event;
+            this.bckground=bckground;
         }
         
         @Override
@@ -76,7 +87,7 @@ public class MainMenuItem {
     public static void InitializeMenu(){
         
         if (ITEM_MAP.size() == 0){
-        addItem(new MenuItem("1", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_cac),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_cac), new LaunchConociendoACaliEvent(ACTIVITY_REFERENCE) ));
+        addItem(new MenuItem("1", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_cac),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_cac), new LaunchConociendoACaliEvent(ACTIVITY_REFERENCE),ACTIVITY_REFERENCE.getResources().getDrawable(R.drawable.menu_cac))  ));
         addItem(new MenuItem("2", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_hcc),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_hcc), new LaunchHablaConCaliEvent(ACTIVITY_REFERENCE) ));
         addItem(new MenuItem("3", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_dcc),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_dcc), new LaunchDibujaConCaliEvent(ACTIVITY_REFERENCE) ));
         addItem(new MenuItem("4", ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_ccc),ACTIVITY_REFERENCE.getResources().getString(R.string.mam_item_detail_ccc), new LaunchCantaConCaliEvent(ACTIVITY_REFERENCE) ));
