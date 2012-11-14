@@ -19,6 +19,8 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.ActivityMet
 import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.Metric;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.MetricsService;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.utils.GiftCount;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.utils.GiftPopup;
 
 import roboguice.activity.RoboFragmentActivity;
 import roboguice.inject.ContentView;
@@ -172,7 +174,6 @@ public class PictogramActivity extends RoboFragmentActivity implements EventList
 		bus.removeEventListener(ChangeLevelEvent.class, new ChangeLevelListener());
 		bus.removeEventListener(ChangeColorsEvent.class, new ChangeColorListener());
 	}
-	 
 
 	@Override
 	public void onEvent(Event<Void> event) {
@@ -206,7 +207,12 @@ public class PictogramActivity extends RoboFragmentActivity implements EventList
 	}
 	
 	private void talkNext(final Queue<Pictogram> queue){
-		if(queue.isEmpty()) return;
+		if(queue.isEmpty()){
+			user.addGifts(3);
+			db.put("currentUser", user);
+			new GiftPopup(this, user.getGifts(), GiftCount.TREE).show();
+			return;
+		}
 		Pictogram pictogram = queue.poll();
 		pictogram.getSound().setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 			@Override

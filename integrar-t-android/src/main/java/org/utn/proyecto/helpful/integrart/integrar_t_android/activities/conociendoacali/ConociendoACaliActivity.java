@@ -3,12 +3,15 @@ package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.conocie
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.utils.GiftCount;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.utils.GiftPopup;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -94,10 +97,15 @@ public class ConociendoACaliActivity extends RoboActivity {
             .setPositiveButton(R.string.cac_si, new DialogInterface.OnClickListener() {
                 
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
+                public void onClick(DialogInterface arg, int which) {
                     // TODO Auto-generated method stub
                     writeOnPreferenceCharacter(pos);
-                    finish();
+                    showGifts(GiftCount.TREE, new DialogInterface.OnDismissListener() {
+						@Override
+						public void onDismiss(DialogInterface dialog) {
+							finish();
+						}
+					});
                 }
             });
         builder.setTitle(R.string.cac_titulo);
@@ -105,13 +113,24 @@ public class ConociendoACaliActivity extends RoboActivity {
             
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // TODO Auto-generated method stub
-                
+                showGifts(GiftCount.ONE);
             }
         });
         
         dialog = builder.create();
         return dialog;
+    }
+    
+    private void showGifts(GiftCount value){
+    	showGifts(value, null);
+    }
+    
+    private void showGifts(GiftCount value, DialogInterface.OnDismissListener listener){
+        user.addGifts(value==GiftCount.TREE ? 3 : 1);
+        db.put("currentUser", user);
+        Dialog dialog = new GiftPopup(this, user.getGifts(),value);
+        if(listener!=null) dialog.setOnDismissListener(listener);
+        dialog.show();
     }
     
     public void setCarrusel(){

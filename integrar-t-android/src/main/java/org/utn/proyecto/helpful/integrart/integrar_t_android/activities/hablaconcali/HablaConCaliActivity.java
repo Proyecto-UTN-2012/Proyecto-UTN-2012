@@ -263,39 +263,47 @@ public class HablaConCaliActivity extends RoboActivity implements
         } else {
             
             //Procedimiento por gritar
-
-            MediaPlayer mp = MediaPlayer.create(getApplicationContext(),
-                    R.raw.chau);
-
-            mp.start();
-            cali.greet();
-
-            mp.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-
-                @Override
-                public boolean onError(MediaPlayer mp, int what, int extra) {
-                    Log.d("hola frase error", "hola error");
-                    mp.release();
-                    mp = null;
-                    return false;
-                }
-            });
-
-            mp.setOnCompletionListener(new OnCompletionListener() {
-
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-
-                    if (mp != null) {
-                        mp.stop();
-                        mp.release();
-                        mp = null;
-                        cali.stop();
-                    }
-                    finish();
-                }
-            });
-
+        	user.addGifts(1);
+        	db.put(USER_KEY, user);
+        	Dialog dialog = new GiftPopup(this, user.getGifts());
+        	dialog.show();
+        	dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+				@Override
+				public void onDismiss(DialogInterface dialog) {
+					MediaPlayer mp = MediaPlayer.create(getApplicationContext(),
+							R.raw.chau);
+					
+					mp.start();
+					cali.greet();
+					
+					mp.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+						
+						@Override
+						public boolean onError(MediaPlayer mp, int what, int extra) {
+							Log.d("hola frase error", "hola error");
+							mp.release();
+							mp = null;
+							return false;
+						}
+					});
+					
+					mp.setOnCompletionListener(new OnCompletionListener() {
+						
+						@Override
+						public void onCompletion(MediaPlayer mp) {
+							
+							if (mp != null) {
+								mp.stop();
+								mp.release();
+								mp = null;
+								cali.stop();
+							}
+							finish();
+						}
+					});
+					
+				}
+			});
             Log.d("si gritó", "gritó");
             
             Metric metrica = new Metric(user, ActivityMetric.HABLA_CON_CALI, getString(R.string.metric_categoria_hablaconcali));

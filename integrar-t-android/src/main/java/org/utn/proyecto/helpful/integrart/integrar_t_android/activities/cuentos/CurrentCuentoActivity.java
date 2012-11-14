@@ -6,14 +6,21 @@ import java.util.List;
 import java.util.concurrent.Semaphore;
 
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
-import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.hablaconcali.HablaConCaliActivity.Ear;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.utils.GiftCount;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.utils.GiftPopup;
 
+import com.google.inject.Inject;
+
+import roboguice.activity.RoboActivity;
+import roboguice.inject.ContentView;
+import roboguice.inject.InjectView;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -24,19 +31,11 @@ import android.text.TextPaint;
 import android.text.style.CharacterStyle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import roboguice.activity.RoboActivity;
-import roboguice.inject.ContentView;
-import roboguice.inject.InjectView;
 
 @ContentView(R.layout.c_main)
 public class CurrentCuentoActivity extends RoboActivity {
@@ -55,6 +54,12 @@ public class CurrentCuentoActivity extends RoboActivity {
 	private int time;
 
 	private boolean show = false;
+	
+	@Inject
+	private User user;
+	
+	@Inject
+	private DataStorageService db;
 
 	private CuentosAdapter cuentosAdapter;
 	private Editable span;
@@ -84,7 +89,7 @@ public class CurrentCuentoActivity extends RoboActivity {
 			paginas.add(pagina);
 			pagina = new Pagina(getString(R.string.pinocho_pag2),
 					getResources().getDrawable(R.drawable.pinocho_pg2),
-					MediaPlayer.create(this, R.raw.pinocho_pag2));
+					MediaPlayer.create(this, R.raw.pinocho_pag2), true);
 			paginas.add(pagina);
 			break;
 		}
@@ -95,7 +100,7 @@ public class CurrentCuentoActivity extends RoboActivity {
 			paginas.add(pagina);
 			pagina = new Pagina(getString(R.string.ricitos_pag2),
 					getResources().getDrawable(R.drawable.ricitos_pg2),
-					MediaPlayer.create(this, R.raw.ricitos_pag2));
+					MediaPlayer.create(this, R.raw.ricitos_pag2), true);
 			paginas.add(pagina);
 			break;
 
@@ -410,7 +415,11 @@ public class CurrentCuentoActivity extends RoboActivity {
 				public void run() {
 
 					texto.setText(str);
-
+					if(pagina.isLastPage()){
+						user.addGifts(3);
+						db.put("currentUser", user);
+						new GiftPopup(texto.getContext(), user.getGifts(), GiftCount.TREE).show();
+					}
 				}
 			});
 

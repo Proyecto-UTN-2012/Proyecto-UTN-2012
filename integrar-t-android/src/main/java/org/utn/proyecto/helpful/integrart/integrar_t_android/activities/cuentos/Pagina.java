@@ -8,6 +8,12 @@ public class Pagina {
 	private String text;
 	private Drawable image;
 	private MediaPlayer sound;
+	private boolean lastPage;
+
+	public Pagina(String text, Drawable image, MediaPlayer sound, boolean lastPage) {
+		this(text, image, sound);
+		this.lastPage = lastPage;
+	}
 
 	public Pagina(String text, Drawable image, MediaPlayer sound) {
 
@@ -29,7 +35,7 @@ public class Pagina {
 		return sound;
 	}
 
-	
-	
-	
+	public boolean isLastPage() {
+		return lastPage;
+	}
 }

@@ -10,6 +10,9 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.ActivityMetric;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.Metric;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.MetricsService;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.utils.GiftCount;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.utils.GiftPopup;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
@@ -62,6 +65,9 @@ public class ShowTaskActivity extends RoboActivity {
 	
 	@Inject
 	private User user;
+	
+	@Inject
+	private DataStorageService db;
 	
 	private Task task;
 	
@@ -131,12 +137,13 @@ public class ShowTaskActivity extends RoboActivity {
 			actionButton.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					task.active();
+					boolean res = task.active();
 					task.setInitTime(new Date().getTime());
 					long estimatedInit = task.getData().buildCalendar().getTime().getTime();
 					metrics.sendMetric(new Metric(user, ActivityMetric.ORGANIZART, TASK_INIT_DIFERENCE_METRIC, task.getName(), (int)(task.getInitTime() - estimatedInit)));
 					updateTask();
 					update();
+					showGifts(res);
 				}
 			});
 		}
@@ -145,16 +152,24 @@ public class ShowTaskActivity extends RoboActivity {
 			actionButton.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					task.terminate();
+					boolean res = task.terminate();
 					sendFinalizeMetrics();
 					updateTask();
 					update();
+					showGifts(res);
 				}
 			});
 		}
 		else{
 			actionButton.setVisibility(View.INVISIBLE);
 		}
+	}
+	
+
+	private void showGifts(boolean flag) {
+		user.addGifts(flag ? 3 : 1);
+		db.put("currentUser", user);
+		new GiftPopup(this, user.getGifts(), flag ? GiftCount.TREE : GiftCount.ONE).show();
 	}
 	
 	private void sendFinalizeMetrics() {

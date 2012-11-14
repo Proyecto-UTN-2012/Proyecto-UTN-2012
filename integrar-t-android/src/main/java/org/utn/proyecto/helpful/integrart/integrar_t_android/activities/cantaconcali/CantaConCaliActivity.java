@@ -11,10 +11,15 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.MetricsServ
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.utils.CaliHelper;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.utils.CaliView;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.utils.GiftCount;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.utils.GiftPopup;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
@@ -295,6 +300,7 @@ VerifyCharacter, RecognitionListener  {
     }
     
     public void playCurrentSong(){
+    	final Context that = this;
         soundView.setVisibility(View.INVISIBLE);
         MediaPlayer song = currentSong.getSonido();
         try {
@@ -309,7 +315,16 @@ VerifyCharacter, RecognitionListener  {
                 mp.stop();
                 cali.stop();
                 mp.prepareAsync();
-                selectSong();
+                user.addGifts(3);
+                db.put("currentUser", user);
+                Dialog dialog = new GiftPopup(that, user.getGifts(), GiftCount.TREE);
+                dialog.show();
+                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+					@Override
+					public void onDismiss(DialogInterface dialog) {
+						selectSong();						
+					}
+				});
             }
         });
         animateDance();
@@ -324,25 +339,36 @@ VerifyCharacter, RecognitionListener  {
     }
     
     public void end(){
-        MediaPlayer sonidoCali = MediaPlayer.create(this, R.raw.despedida_canta_con_cali);
-        animateHello();
-        soundView.setVisibility(View.INVISIBLE);
-        sonidoCali.setOnCompletionListener(new OnCompletionListener() {
-            
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                cali.stop();
-                if (mp != null) {
-                    mp.stop();
-                    mp.release();
-                    
-                }
-                
-                finish();   
-                
-            }
-        });
-        sonidoCali.start();
+    	final Context that = this;
+        user.addGifts(1);
+        db.put("currentUser", user);
+        Dialog dialog = new GiftPopup(this, user.getGifts());
+        dialog.show();
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+			@Override
+			public void onDismiss(DialogInterface dialog) {
+				MediaPlayer sonidoCali = MediaPlayer.create(that, R.raw.despedida_canta_con_cali);
+				animateHello();
+				soundView.setVisibility(View.INVISIBLE);
+				sonidoCali.setOnCompletionListener(new OnCompletionListener() {
+					
+					@Override
+					public void onCompletion(MediaPlayer mp) {
+						cali.stop();
+						if (mp != null) {
+							mp.stop();
+							mp.release();
+							
+						}
+						
+						finish();   
+						
+					}
+				});
+				sonidoCali.start();
+				
+			}
+		});
     }
 
     private void notUnderstand() {
