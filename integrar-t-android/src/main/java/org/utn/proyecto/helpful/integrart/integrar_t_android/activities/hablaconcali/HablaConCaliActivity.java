@@ -14,6 +14,8 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.ActivityMet
 import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.Metric;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.MetricsService;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.utils.CaliHelper;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.utils.CaliView;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.utils.GiftCount;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.utils.GiftPopup;
 
@@ -31,7 +33,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
-import android.widget.ImageView;
 
 import com.google.inject.Inject;
 
@@ -44,15 +45,18 @@ public class HablaConCaliActivity extends RoboActivity implements
     private MetricsService metricsService;
     
     @InjectView(R.id.caliHcc)
-    private ImageView cali;
+    private CaliView cali;
     
     @Inject
     private DataStorageService db;
     
     @Inject
     private User user;
+    
+    @Inject
+    private CaliHelper caliHelper;
 
-    private AnimationDrawable caliAnimation;
+//    private AnimationDrawable caliAnimation;
 
     private MediaRecorder mRecorder = null;
 
@@ -118,7 +122,8 @@ public class HablaConCaliActivity extends RoboActivity implements
             mRecorder = null;
         }
 
-        caliAnimation.stop();
+        cali.stop();
+//        caliAnimation.stop();
 
         super.onDestroy();
 
@@ -137,8 +142,9 @@ public class HablaConCaliActivity extends RoboActivity implements
         
         Log.d("Habla con aida", "ahora si estoy logiando el onCreate");
 
-        cali.setBackgroundResource(R.drawable.cali_hcc);
-        caliAnimation = (AnimationDrawable) cali.getBackground();
+        cali.setHelper(caliHelper);
+//        cali.setBackgroundResource(caliHelper.getInitTalkingCaliResource());
+//        caliAnimation = (AnimationDrawable) cali.getBackground();
 
         // final MediaPlayer frase = MediaPlayer.create(getApplicationContext(),
         // R.raw.hola);
@@ -169,6 +175,8 @@ public class HablaConCaliActivity extends RoboActivity implements
                     frase = null;
 
                 }
+                
+                cali.stop();
 
                 new Ear().execute();
                 // mp.release();
@@ -183,7 +191,7 @@ public class HablaConCaliActivity extends RoboActivity implements
         super.onWindowFocusChanged(hasFocus);
 
         if (hasFocus)
-            caliAnimation.start();
+            cali.talk();
     }
 
     // Metodo que inicializa la escucha
@@ -289,7 +297,7 @@ public class HablaConCaliActivity extends RoboActivity implements
 
             Log.d("si gritó", "gritó");
             
-            Metric metrica = new Metric(user, ActivityMetric.HABLA_CON_CALI, getResources().getString(R.string.metric_categoria_hablaconcali));
+            Metric metrica = new Metric(user, ActivityMetric.HABLA_CON_CALI, getString(R.string.metric_categoria_hablaconcali));
             metricsService.sendMetric(metrica);
         }
     }
@@ -310,8 +318,10 @@ public class HablaConCaliActivity extends RoboActivity implements
                 frases.get(nrofrase));
         frase.start();
 
-        caliAnimation.stop();
-        caliAnimation.start();
+        cali.stop();
+        cali.talk();
+//        caliAnimation.stop();
+//        caliAnimation.start();
 
         frases.remove(nrofrase);
         frase.setOnErrorListener(new MediaPlayer.OnErrorListener() {
@@ -332,6 +342,7 @@ public class HablaConCaliActivity extends RoboActivity implements
                 if (mp != null) {
                     mp.stop();
                     mp.release();
+                    cali.stop();
                     frase = null;
                 }
 

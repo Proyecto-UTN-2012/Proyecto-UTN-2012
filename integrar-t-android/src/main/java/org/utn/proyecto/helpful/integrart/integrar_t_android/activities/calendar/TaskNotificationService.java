@@ -18,6 +18,7 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorag
 import roboguice.service.RoboIntentService;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.text.format.DateFormat;
 
 import com.google.inject.Inject;
 
@@ -134,9 +135,11 @@ public class TaskNotificationService extends RoboIntentService {
 			}
 		});
 		int uncompletedTasksCount = tasks.size() - completedTasksCount;
+		Calendar date = Calendar.getInstance();
+		String dateString = DateFormat.format("dd/MM/yyyy", date).toString();
 		metricsService.sendMetrics(new Metric[]{
-			new Metric(user, ActivityMetric.ORGANIZART, "Completadas", completedTasksCount),
-			new Metric(user, ActivityMetric.ORGANIZART, "No Completadas", uncompletedTasksCount)
+			new Metric(user, ActivityMetric.ORGANIZART, "Completadas", dateString, completedTasksCount),
+			new Metric(user, ActivityMetric.ORGANIZART, "No Completadas", dateString, uncompletedTasksCount)
 		});
 		
 	}

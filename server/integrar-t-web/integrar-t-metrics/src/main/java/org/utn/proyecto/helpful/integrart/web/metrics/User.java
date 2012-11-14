@@ -12,6 +12,7 @@ public class User {
 	private String accountType;
 	transient private String token;
 	private String device;
+	private int gifts;
 	
 	public User(){}
 	
@@ -85,5 +86,13 @@ public class User {
 
 	public void setDevice(String device) {
 		this.device = device;
+	}
+
+	public int getGifts() {
+		return gifts;
+	}
+
+	public void setGifts(int gifts) {
+		this.gifts = gifts;
 	}
 }

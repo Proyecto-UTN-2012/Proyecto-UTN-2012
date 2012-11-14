@@ -21,7 +21,12 @@ import org.utn.proyecto.helpful.integrart.core.percistence.PersisterService;
 import org.utn.proyecto.helpful.integrart.web.metrics.ActivityMetric;
 import org.utn.proyecto.helpful.integrart.web.metrics.Metric;
 import org.utn.proyecto.helpful.integrart.web.metrics.strategies.ActivityReportStrategy;
+import org.utn.proyecto.helpful.integrart.web.metrics.strategies.CantaConCaliReportStrategy;
+import org.utn.proyecto.helpful.integrart.web.metrics.strategies.ComoLoUsoReportStrategy;
+import org.utn.proyecto.helpful.integrart.web.metrics.strategies.DibujaConCaliReportStrategy;
+import org.utn.proyecto.helpful.integrart.web.metrics.strategies.HablaConCaliReportStrategy;
 import org.utn.proyecto.helpful.integrart.web.metrics.strategies.HandPlayReportStrategy;
+import org.utn.proyecto.helpful.integrart.web.metrics.strategies.OrganizarTReportStrategy;
 import org.utn.proyecto.helpful.integrart.web.metrics.strategies.PictogramReportStrategy;
 
 import com.google.inject.Inject;
@@ -34,9 +39,19 @@ public class ExcelExportResource {
 	{
 		strategies.put("hcd", new PictogramReportStrategy());
 		strategies.put("jcm", new HandPlayReportStrategy());
+		strategies.put("org", new OrganizarTReportStrategy());
+		strategies.put("ccc", new CantaConCaliReportStrategy());
+		strategies.put("clu", new ComoLoUsoReportStrategy());
+		strategies.put("dcc", new DibujaConCaliReportStrategy());
+		strategies.put("hcc", new HablaConCaliReportStrategy());
 		
 		types.put("hcd", ActivityMetric.HABLA_CON_DIBUJO);
 		types.put("jcm", ActivityMetric.JUGANDO_CON_LA_MANO);
+		types.put("org", ActivityMetric.ORGANIZART);
+		types.put("ccc", ActivityMetric.CANTA_CON_CALI);
+		types.put("clu", ActivityMetric.COMO_SE_HASE);
+		types.put("dcc", ActivityMetric.DIBUJA_CON_CALI);
+		types.put("hcc", ActivityMetric.HABLA_CON_CALI);
 	}
 	
 	@Inject

@@ -97,7 +97,7 @@ public class ComoSeHaceCustomAndarObject extends ARObject {
 	    {
 	        
     	    if (isVisible() && super.getPatternName().equals("patt.hiro")){
-                Metric metrica = new Metric(user, ActivityMetric.COMO_SE_HASE, activity.getResources().getString(R.string.metric_categoria_cantaconcali),activity.getResources().getString(R.string.metric_categoria_cantaconcali_no));
+                Metric metrica = new Metric(user, ActivityMetric.COMO_SE_HASE, "puerta");
                 metricsService.sendMetric(metrica);
     	        //executeReproductor("android.resource://" + activity.getPackageName() +"/"+R.raw.assasin);
     	    }

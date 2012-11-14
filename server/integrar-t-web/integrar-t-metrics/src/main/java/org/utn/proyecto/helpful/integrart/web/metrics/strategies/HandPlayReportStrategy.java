@@ -10,7 +10,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.utn.proyecto.helpful.integrart.web.metrics.Metric;
 import org.utn.proyecto.helpful.integrart.web.metrics.utils.ExcelDocumentHelper;
 
-public class HandPlayReportStrategy implements ActivityReportStrategy {
+public class HandPlayReportStrategy extends ActivityReportStrategy {
 
 	public Workbook build(List<Metric> metrics) {
 		Workbook excel = ExcelDocumentHelper.createDocument();

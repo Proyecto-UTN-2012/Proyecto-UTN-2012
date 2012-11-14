@@ -2,10 +2,12 @@
 <resources>
     <string name="metric_categoria_hablaconcali">habla_con_cali</string>
     <string name="metric_categoria_dibujaconcali">dibuja_con_cali</string>
-    <string name="metric_categoria_dibujaconcali_avion">completo_avion</string>
-    <string name="metric_categoria_dibujaconcali_corazon">completo_corazon</string>
-    <string name="metric_categoria_dibujaconcali_perro">completo_perro</string>
-    <string name="metric_categoria_dibujaconcali_auto">completo_auto</string>
+    <string name="metric_categoria_dibujaconcali_completo">completo</string>
+    <string name="metric_categoria_dibujaconcali_incompleto">incompleto</string>
+    <string name="metric_categoria_dibujaconcali_avion">avion</string>
+    <string name="metric_categoria_dibujaconcali_corazon">corazon</string>
+    <string name="metric_categoria_dibujaconcali_perro">perro</string>
+    <string name="metric_categoria_dibujaconcali_auto">auto</string>
     <string name="metric_categoria_cantaconcali">canta_con_cali</string>
     <string name="metric_categoria_comolouso">como_lo_uso</string>
     <string name="metric_categoria_cantaconcali_si">canta_con_cali_si</string>
