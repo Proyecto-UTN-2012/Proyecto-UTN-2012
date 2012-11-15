@@ -8,7 +8,6 @@ import roboguice.inject.InjectView;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
-import android.net.Uri;
 import android.os.Bundle;
 import android.widget.MediaController;
 import android.widget.VideoView;
@@ -51,19 +50,21 @@ public class ComoSeHaceReproductor extends RoboActivity {
     }
     
     protected void runVideo(String path){
-        video.setVideoURI(Uri.parse(path));
-        MediaController media = new MediaController(this);
-        video.setMediaController(media);
-        video.requestFocus();
-        video.start();
-        
-        video.setOnCompletionListener(new OnCompletionListener() {
+        if (!path.isEmpty()){
+            video.setVideoPath(path); //(Uri.parse(path));
+            MediaController media = new MediaController(this);
+            video.setMediaController(media);
+            video.requestFocus();
+            video.start();
             
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                finish();
-            }
-        });
+            video.setOnCompletionListener(new OnCompletionListener() {
+                
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    finish();
+                }
+            });
+        }
     }
 
     

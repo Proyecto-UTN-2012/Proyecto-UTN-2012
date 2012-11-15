@@ -1,5 +1,6 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.comosehace;
 
+import org.utn.proyecto.helpful.integrart.integrar_t_android.FileExplorer;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.Event;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventListener;
@@ -55,6 +56,9 @@ public class ComoSeHaceActivity extends RoboActivity implements EventListener<Vo
         case R.id.csh_menuItem_settings:
             executeCSHPreferenceActivity();
             return true;
+        case R.id.csh_menuItem_video:
+            executeVideoMenu();
+            return true;
         case R.id.csh_menuItem_exit:
             this.finish();
             return  true;
@@ -62,6 +66,10 @@ public class ComoSeHaceActivity extends RoboActivity implements EventListener<Vo
         return super.onMenuItemSelected(featureId, item);
     }
     
+    public void executeVideoMenu(){
+        Intent intent = new Intent(this,SelectVideoFileActivity.class);
+        this.startActivity(intent);
+    }
     
     public void executeCustomActivity()
     {

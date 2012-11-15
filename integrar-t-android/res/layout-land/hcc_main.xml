@@ -6,13 +6,12 @@
     android:gravity="bottom"
     android:orientation="vertical" >
 
- <ImageView
+ <org.utn.proyecto.helpful.integrart.integrar_t_android.utils.CaliView
      android:id="@+id/caliHcc"
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
      android:layout_marginBottom="20sp"
      android:layout_marginLeft="150sp"
-     android:background="@drawable/cali_hcc"
      android:visibility="visible" />
 
 </LinearLayout>

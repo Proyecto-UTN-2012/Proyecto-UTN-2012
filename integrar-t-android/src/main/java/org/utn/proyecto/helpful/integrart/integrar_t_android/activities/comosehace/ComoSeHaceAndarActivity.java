@@ -23,10 +23,8 @@ public class ComoSeHaceAndarActivity extends AndARActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
             ContextMenuInfo menuInfo) {
-        // TODO Auto-generated method stub
-	    
-//	    MenuInflater inflater = getMenuInflater();
-//	      inflater.inflate(R.menu.csh_activity_main_menu, menu);
+        
+        
 
          AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
          long itemID = info.position;
