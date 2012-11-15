@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="true" >
+
+    <item
+        android:drawable="@drawable/cali_sr1"
+        android:duration="250"/>
+    <item
+        android:drawable="@drawable/cali_sr2"
+        android:duration="250"/>
+    <item
+        android:drawable="@drawable/cali_sr3"
+        android:duration="250"/>
+    <item
+        android:drawable="@drawable/cali_sr4"
+        android:duration="250"/>
+    
+
+</animation-list>

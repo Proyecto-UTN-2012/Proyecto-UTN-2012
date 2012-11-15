@@ -2,24 +2,22 @@ package org.utn.proyecto.helpful.integrart.integrar_t_android.activities.cuentos
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.collections.BufferUtils;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.R;
-import org.utn.proyecto.helpful.integrart.integrar_t_android.R.drawable;
-import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.hablaconcali.HablaConCaliActivity.Ear;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
-
-import com.google.inject.Inject;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.utils.GiftCount;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.utils.GiftPopup;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.Bitmap.Config;
@@ -28,7 +26,6 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
@@ -41,6 +38,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+
+import com.google.inject.Inject;
 
 @ContentView(R.layout.pintar)
 public class PintarActivity extends RoboActivity implements
@@ -304,13 +303,31 @@ public class PintarActivity extends RoboActivity implements
 
 			
 		});
+		user.addGifts(3);
+		db.put("currentUser", user);
+		new GiftPopup(this, user.getGifts(), GiftCount.TREE).show();
 	}
 
-	private void showMessage(String str) {
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle(R.string.drawingTitle);
-		builder.setMessage(getString(R.string.drawingMessage)+ str);
-		builder.create().show();
+	private void showMessage(final String str) {
+		final Context that = this;
+		user.addGifts(1);
+		db.put("currentUser", user);
+		Dialog dialog = new GiftPopup(this, user.getGifts());
+		dialog.show();
+		dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+			@Override
+			public void onDismiss(DialogInterface dialog) {
+				final AlertDialog.Builder builder = new AlertDialog.Builder(that);
+				builder.setTitle(R.string.drawingTitle);
+				builder.setMessage(getString(R.string.drawingMessage)+ str);
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						builder.create().show();
+					}
+				});
+			}
+		});
 
 	}
 

@@ -8,6 +8,8 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.ActivityMet
 import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.Metric;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.MetricsService;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.utils.GiftCount;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.utils.GiftPopup;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
@@ -24,8 +26,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -222,9 +222,12 @@ public class HandPlayActivity extends RoboActivity implements OnTouchListener{
 		clean();
 		long endTime = new Date().getTime();
 		successSound.start();
-		Animation anim = AnimationUtils.loadAnimation(this, R.anim.success_animarion);
-		ok.startAnimation(anim);
-		ok.setVisibility(View.VISIBLE);
+		user.addGifts(3);
+		db.put("currentUser", user);
+		new GiftPopup(this, user.getGifts(), GiftCount.TREE).show();
+//		Animation anim = AnimationUtils.loadAnimation(this, R.anim.success_animarion);
+//		ok.startAnimation(anim);
+//		ok.setVisibility(View.VISIBLE);
 		metricService.sendMetric(new Metric(user, ActivityMetric.JUGANDO_CON_LA_MANO, METRIC_CATEGORY, "level " + level, (int)(endTime - initTime)));
 		initTime = endTime;
 	}

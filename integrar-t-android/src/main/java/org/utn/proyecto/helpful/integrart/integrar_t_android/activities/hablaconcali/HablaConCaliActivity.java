@@ -25,7 +25,6 @@ import roboguice.inject.InjectView;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaRecorder;
@@ -191,7 +190,8 @@ public class HablaConCaliActivity extends RoboActivity implements
         super.onWindowFocusChanged(hasFocus);
 
         if (hasFocus)
-            cali.talk();
+            cali.greet();
+        	//cali.talk();
     }
 
     // Metodo que inicializa la escucha
@@ -263,38 +263,47 @@ public class HablaConCaliActivity extends RoboActivity implements
         } else {
             
             //Procedimiento por gritar
-
-            MediaPlayer mp = MediaPlayer.create(getApplicationContext(),
-                    R.raw.chau);
-
-            mp.start();
-
-            mp.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-
-                @Override
-                public boolean onError(MediaPlayer mp, int what, int extra) {
-                    Log.d("hola frase error", "hola error");
-                    mp.release();
-                    mp = null;
-                    return false;
-                }
-            });
-
-            mp.setOnCompletionListener(new OnCompletionListener() {
-
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-
-                    if (mp != null) {
-                        mp.stop();
-                        mp.release();
-                        mp = null;
-
-                    }
-                    finish();
-                }
-            });
-
+        	user.addGifts(1);
+        	db.put(USER_KEY, user);
+        	Dialog dialog = new GiftPopup(this, user.getGifts());
+        	dialog.show();
+        	dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+				@Override
+				public void onDismiss(DialogInterface dialog) {
+					MediaPlayer mp = MediaPlayer.create(getApplicationContext(),
+							R.raw.chau);
+					
+					mp.start();
+					cali.greet();
+					
+					mp.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+						
+						@Override
+						public boolean onError(MediaPlayer mp, int what, int extra) {
+							Log.d("hola frase error", "hola error");
+							mp.release();
+							mp = null;
+							return false;
+						}
+					});
+					
+					mp.setOnCompletionListener(new OnCompletionListener() {
+						
+						@Override
+						public void onCompletion(MediaPlayer mp) {
+							
+							if (mp != null) {
+								mp.stop();
+								mp.release();
+								mp = null;
+								cali.stop();
+							}
+							finish();
+						}
+					});
+					
+				}
+			});
             Log.d("si gritó", "gritó");
             
             Metric metrica = new Metric(user, ActivityMetric.HABLA_CON_CALI, getString(R.string.metric_categoria_hablaconcali));
@@ -318,7 +327,6 @@ public class HablaConCaliActivity extends RoboActivity implements
                 frases.get(nrofrase));
         frase.start();
 
-        cali.stop();
         cali.talk();
 //        caliAnimation.stop();
 //        caliAnimation.start();

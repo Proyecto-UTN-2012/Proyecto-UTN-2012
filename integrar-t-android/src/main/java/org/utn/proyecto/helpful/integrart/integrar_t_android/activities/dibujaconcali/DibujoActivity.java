@@ -10,14 +10,16 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.ActivityMetric;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.Metric;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.MetricsService;
-
-import com.google.inject.Inject;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.utils.GiftCount;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.utils.GiftPopup;
 
 import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -26,10 +28,8 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -40,6 +40,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+
+import com.google.inject.Inject;
 
 @ContentView(R.layout.dcc_dibujo)
 public class DibujoActivity extends RoboActivity {
@@ -55,6 +57,9 @@ public class DibujoActivity extends RoboActivity {
 
     @InjectView(R.id.frame)
     private FrameLayout frame;
+    
+    @Inject
+    private DataStorageService db;
 
 
     private boolean started;
@@ -146,6 +151,9 @@ public class DibujoActivity extends RoboActivity {
     }
 
     private void finished() {
+    	user.addGifts(3);
+    	db.put("currentUser", user);
+    	new GiftPopup(this, user.getGifts(), GiftCount.TREE).show();
         view.setAlpha(1f);
         onLights.get(0).setVisibility(View.INVISIBLE);
         offLights.get(0).setVisibility(View.VISIBLE);
@@ -217,7 +225,9 @@ public class DibujoActivity extends RoboActivity {
             public void onClick(View v) {
                 Metric metrica = new Metric(user, ActivityMetric.DIBUJA_CON_CALI, getString(R.string.metric_categoria_dibujaconcali_incompleto),drawName);
                 metricsService.sendMetric(metrica);
-                
+                user.addGifts(1);
+                db.put("currentUser", user);
+                new GiftPopup(v.getContext(), user.getGifts()).show();
                 view.setAlpha(1f);
             }
         });
