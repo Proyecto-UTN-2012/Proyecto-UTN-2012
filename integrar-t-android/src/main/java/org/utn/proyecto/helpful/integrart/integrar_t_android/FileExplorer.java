@@ -175,7 +175,7 @@ public class FileExplorer extends RoboActivity {
         switch (id) {
         case DIALOG_LOAD_FILE:
             final Context context = this;
-            builder.setTitle("Choose your file");
+            builder.setTitle("Elige el archivo.");
             builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     chosenFile = fileList[which].file;
