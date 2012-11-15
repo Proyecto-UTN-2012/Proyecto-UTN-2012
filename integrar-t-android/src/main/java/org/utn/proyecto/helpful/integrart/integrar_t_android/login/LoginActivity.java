@@ -5,6 +5,7 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.Event;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventListener;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.events.LaunchMenuEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.ComunicationService;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.ComunicationService.ExternalResourceType;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
@@ -93,6 +94,7 @@ public class LoginActivity extends RoboActivity implements EventListener<User>{
 		checkFirstUser(user);
 		//TODO checkNewUser(user);
 		setCurrentUser(user);
+		bus.dispatch(new LaunchMenuEvent(this));
 		this.finish();
 	}
 	

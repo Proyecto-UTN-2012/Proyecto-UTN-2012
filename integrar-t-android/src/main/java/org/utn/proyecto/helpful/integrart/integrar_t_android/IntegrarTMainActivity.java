@@ -98,7 +98,7 @@ public class IntegrarTMainActivity extends RoboActivity{
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					showLogin();		
-					bus.dispatch(new LaunchMenuEvent(context));
+					//bus.dispatch(new LaunchMenuEvent(context));
 					finish();
 				}
 			}, new DialogInterface.OnClickListener() {
