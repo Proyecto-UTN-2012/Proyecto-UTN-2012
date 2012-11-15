@@ -5,11 +5,11 @@
     >
     <!--  android:orientation="horizontal" -->
 
-    <Button
+   <!--  <Button
         android:id="@+id/mainInitButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|center_horizontal"
-        android:text="@string/init" />
+        android:text="@string/init" /> -->
 
 </FrameLayout>

@@ -15,10 +15,12 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"/>
-
-    <FrameLayout android:id="@+id/item_detail_container"
+
+    <FrameLayout
+        android:id="@+id/item_detail_container"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="3" />
+        android:layout_weight="3"
+        android:background="@drawable/logo" />
 
 </LinearLayout>
