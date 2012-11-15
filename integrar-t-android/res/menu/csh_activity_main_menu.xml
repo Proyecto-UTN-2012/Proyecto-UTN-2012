@@ -1,8 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <group android:id="@+id/csh_videoGroup" android:enabled="true" android:visible="true" android:menuCategory="system">
-        <item android:id="@+id/csh_menuItem_settings" android:showAsAction="ifRoom" android:orderInCategory="4" android:enabled="true" android:visible="true" android:title="Configuración"></item>
-        <item android:id="@+id/csh_menuItem_exit" android:titleCondensed="Salir" android:showAsAction="ifRoom" android:orderInCategory="5" android:enabled="true" android:visible="true" android:title="Salir"></item>
+        <item android:id="@+id/csh_menuItem_settings" 
+            android:showAsAction="ifRoom" 
+            android:orderInCategory="3" 
+            android:enabled="true" 
+            android:visible="true" 
+            android:title="Configuración"></item>
+        
+        <item android:id="@+id/csh_menuItem_video"
+            android:showAsAction="ifRoom"
+            android:orderInCategory="4"
+            android:enabled="true"
+            android:visible="true"
+            android:title="Seleccionar Video"
+            ></item>
+        
+        <item android:id="@+id/csh_menuItem_exit" 
+            android:titleCondensed="Salir" 
+            android:showAsAction="ifRoom" 
+            android:orderInCategory="5" 
+            android:enabled="true" 
+            android:visible="true" 
+            android:title="Salir"></item>
     </group>    
 </menu>
 
