@@ -9,6 +9,7 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.ActivityMetric;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.Metric;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.MetricsService;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageServiceImpl;
 
 import com.google.inject.Inject;
 
@@ -23,12 +24,6 @@ import edu.dhbw.andar.pub.SimpleBox;
 import edu.dhbw.andar.util.GraphicsUtil;
 
 public class ComoSeHaceCustomAndarObject extends ARObject {
-
-    @Inject
-    private MetricsService metricsService;
- 
-    @Inject
-    private User user;
     
     private static final String VIDEO = "video";
 	private ComoSeHaceAndarActivity activity;
@@ -95,11 +90,12 @@ public class ComoSeHaceCustomAndarObject extends ARObject {
 	    
 	    if (markerIsClose(matrix))
 	    {
+	        Application app = activity.getApplication();
+	        DataStorageServiceImpl db = new DataStorageServiceImpl(app);
 	        
     	    if (isVisible() && super.getPatternName().equals("patt.hiro")){
-                Metric metrica = new Metric(user, ActivityMetric.COMO_SE_HASE, "puerta");
-                metricsService.sendMetric(metrica);
-    	        //executeReproductor("android.resource://" + activity.getPackageName() +"/"+R.raw.assasin);
+    	        User user = db.get("currentUser",User.class);
+    	        executeReproductor( db.get(user.getUserName() + "."+activity.getResources().getString(R.string.csh_sharepreference_value),String.class) );
     	    }
     	    
     	    if (isVisible() && super.getPatternName().equals("android.patt")){

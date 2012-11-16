@@ -1,7 +1,5 @@
 package org.utn.proyecto.helpful.integrart.integrar_t_android;
 
-import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.cuentos.LaunchCuentosEvent;
-import org.utn.proyecto.helpful.integrart.integrar_t_android.activities.hablaconcali.LaunchHablaConCaliEvent;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
 import org.utn.proyecto.helpful.integrart.integrar_t_android.events.LaunchMenuEvent;
@@ -15,6 +13,7 @@ import roboguice.inject.ContentView;
 import roboguice.inject.InjectResource;
 import roboguice.inject.InjectView;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,8 +43,8 @@ public class IntegrarTMainActivity extends RoboActivity{
 	@$Nullable
 	private User user;
 	
-	@InjectView(R.id.mainInitButton)
-	private Button mainButton;
+//	@InjectView(R.id.mainInitButton)
+//	private Button mainButton;
 	
 	@InjectResource(R.string.registerUserMessage)
 	private String registerMessage;
@@ -68,13 +67,13 @@ public class IntegrarTMainActivity extends RoboActivity{
 		Log.i(TAG, "onCreate");
         OnLineMode mode = comunicationService.evaluateComunication();
         Toast.makeText(this, "OnLine mode: " + mode.name(), Toast.LENGTH_LONG).show();
-        mainButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-	            bus.dispatch(new LaunchMenuEvent(v.getContext()));
-			//	bus.dispatch(new LaunchCuentosEvent(v.getContext()));
-			}
-		});
+//        mainButton.setOnClickListener(new OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//	            bus.dispatch(new LaunchMenuEvent(v.getContext()));
+//			//	bus.dispatch(new LaunchCuentosEvent(v.getContext()));
+//			}
+//		});
        // bus.dispatch(new LaunchMenuEvent(this));
     }
     
@@ -93,11 +92,14 @@ public class IntegrarTMainActivity extends RoboActivity{
 	 * 
 	 */
 	private void validateLogin(){
+		final Context context = this;
 		if(!dbService.contain("currentUser")){
 			showRegisterMessage(new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					showLogin();					
+					showLogin();		
+					//bus.dispatch(new LaunchMenuEvent(context));
+					finish();
 				}
 			}, new DialogInterface.OnClickListener() {
 				@Override
@@ -105,7 +107,11 @@ public class IntegrarTMainActivity extends RoboActivity{
 					android.os.Process.killProcess(android.os.Process.myPid());
 				}
 			});
-		}			
+		}
+		else{
+			bus.dispatch(new LaunchMenuEvent(context));
+			finish();
+		}
 	}
 	
 	private void showLogin(){

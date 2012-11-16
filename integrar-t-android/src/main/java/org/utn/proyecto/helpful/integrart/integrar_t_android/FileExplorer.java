@@ -4,11 +4,23 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 
+import org.utn.proyecto.helpful.integrart.integrar_t_android.domain.User;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.events.EventBus;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.events.FileExplorerEvent;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.events.LaunchMenuEvent;
+import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
+
+import roboguice.activity.RoboActivity;
+
+import com.google.inject.Inject;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -18,7 +30,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
-public class FileExplorer extends Activity {
+public class FileExplorer extends RoboActivity {
 
     // Stores names of traversed directories
     ArrayList<String> str = new ArrayList<String>();
@@ -34,12 +46,26 @@ public class FileExplorer extends Activity {
     private static final int DIALOG_LOAD_FILE = 1000;
 
     ListAdapter adapter;
-
+    
+    String sharePreferenceValue;
+    
+    @Inject
+    private EventBus bus;
+    
+    @Inject
+    private DataStorageService db;
+    
+    @Inject
+    private User user;
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
+        Bundle arguments = getIntent().getExtras();
+        sharePreferenceValue = arguments.getString(getResources().getString(R.string.csh_key));
+        
         loadFileList();
 
         showDialog(DIALOG_LOAD_FILE);
@@ -148,7 +174,8 @@ public class FileExplorer extends Activity {
 
         switch (id) {
         case DIALOG_LOAD_FILE:
-            builder.setTitle("Choose your file");
+            final Context context = this;
+            builder.setTitle("Elige el archivo.");
             builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     chosenFile = fileList[which].file;
@@ -196,8 +223,10 @@ public class FileExplorer extends Activity {
                     else {
                         // Perform action with file picked
                         
-                        //TODO write in the shared preference acording the key passed on the dialog creation
-                        
+                        //TODO write in the shared preference according the key passed on the dialog creation
+                        db.put(user.getUserName() + "."+sharePreferenceValue, path + "/" + chosenFile );
+                        bus.dispatch(new FileExplorerEvent());
+                        finish();
                     }
 
                 }

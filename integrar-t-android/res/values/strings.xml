@@ -56,4 +56,8 @@
     <string name="dcc_no_esta_cali_mensaje">No seleccionaste a Cali. Ahora te redirigiremos cuando aprietes "Ir a seleccionar a Cali".</string>
     <string name="dcc_no_esta_cali_si">Ir a seleccionar a Cali</string>
     <string name="dcc_no_esta_cali_no">Salir</string>
+    
+    <string name="csh_key">comosehacevideo1</string>
+    <string name="csh_sharepreference_value">csh_video_01</string>
+    
 </resources>
