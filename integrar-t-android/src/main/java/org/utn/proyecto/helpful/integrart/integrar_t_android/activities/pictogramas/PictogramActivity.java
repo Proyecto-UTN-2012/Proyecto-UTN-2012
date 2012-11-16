@@ -210,7 +210,7 @@ public class PictogramActivity extends RoboFragmentActivity implements EventList
 		if(queue.isEmpty()){
 			user.addGifts(3);
 			db.put("currentUser", user);
-			new GiftPopup(this, user.getGifts(), GiftCount.TREE).show();
+			new GiftPopup(this, user.getGifts(), GiftCount.THREE).show();
 			return;
 		}
 		Pictogram pictogram = queue.poll();

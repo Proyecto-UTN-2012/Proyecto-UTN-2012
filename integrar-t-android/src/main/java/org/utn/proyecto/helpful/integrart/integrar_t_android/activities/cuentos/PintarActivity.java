@@ -305,7 +305,7 @@ public class PintarActivity extends RoboActivity implements
 		});
 		user.addGifts(3);
 		db.put("currentUser", user);
-		new GiftPopup(this, user.getGifts(), GiftCount.TREE).show();
+		new GiftPopup(this, user.getGifts(), GiftCount.THREE).show();
 	}
 
 	private void showMessage(final String str) {

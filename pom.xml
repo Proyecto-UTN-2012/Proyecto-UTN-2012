@@ -84,17 +84,17 @@
 				<settings.context>/integrar-t-settings</settings.context>
 				<metrics.context>/integrar-t-metrics</metrics.context>
 				
-				<settings.port>8080</settings.port>
-				<metrics.port>8080</metrics.port>			
+				<settings.port>80</settings.port>
+				<metrics.port>80</metrics.port>			
 				
 				<static.path>/integrar-t</static.path>
 				
 				<db.host>localhost</db.host>
 				<db.port>27017</db.port>
 				
-				<integrar-t.settings.url>http://192.168.1.101:8080/integrar-t-settings</integrar-t.settings.url>
-				<integrar-t.metrics.url>http://192.168.1.101:8080/integrar-t-metrics</integrar-t.metrics.url>
-				<integrar-t.static.url>http://192.168.1.101:8080/integrar-t-static</integrar-t.static.url>
+				<integrar-t.settings.url>http://192.168.0.108:80/integrar-t-settings</integrar-t.settings.url>
+				<integrar-t.metrics.url>http://192.168.0.108:80/integrar-t-metrics</integrar-t.metrics.url>
+				<integrar-t.static.url>http://192.168.0.108:80/static</integrar-t.static.url>
 			</properties>
 		</profile>
 	</profiles>

@@ -153,7 +153,7 @@ public class DibujoActivity extends RoboActivity {
     private void finished() {
     	user.addGifts(3);
     	db.put("currentUser", user);
-    	new GiftPopup(this, user.getGifts(), GiftCount.TREE).show();
+    	new GiftPopup(this, user.getGifts(), GiftCount.THREE).show();
         view.setAlpha(1f);
         onLights.get(0).setVisibility(View.INVISIBLE);
         offLights.get(0).setVisibility(View.VISIBLE);

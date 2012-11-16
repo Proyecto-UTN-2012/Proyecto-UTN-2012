@@ -240,7 +240,7 @@ public class HablaConCaliActivity extends RoboActivity implements
 				listening = true;
 				contesto = false;
 				user.addGifts(3);
-				Dialog giftDialog = new GiftPopup(this, user.getGifts(), GiftCount.TREE);
+				Dialog giftDialog = new GiftPopup(this, user.getGifts(), GiftCount.THREE);
 				giftDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
 					
 					@Override
