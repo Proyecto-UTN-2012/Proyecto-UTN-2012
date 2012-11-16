@@ -242,6 +242,7 @@ VerifyCharacter, RecognitionListener  {
         }
         
         String text = list.get(0);
+        Log.d("Canta con Cali", text);
         if("chau".equals(text) || "chaau".equals(text) || "chao".equals(text) || "chaao".equals(text)){
             end();
             return;
@@ -250,7 +251,9 @@ VerifyCharacter, RecognitionListener  {
         if("no".equals(text)){
             stateManager.processNo();
         }
-        else if("si".equals(text)){
+        else if("si".equals(text) || "sii".equals(text) || "siii".equals(text) || 
+        		"ssi".equals(text) || "ssii".equals(text) || "se".equals(text) || "see".equals(text)
+        		|| "seee".equals(text)){
             stateManager.processYes();
         }
         else{

@@ -191,7 +191,7 @@ public class FileSystemServiceImpl implements FileSystemService {
 		String activityPackageName = getFullPath(activityName);
 		String fullPackageName = getFullPath(activityName, packageName);
 		File activityDir = context.getDir(activityPackageName, Context.MODE_PRIVATE);
-		File fullDir = context.getDir(fullPackageName, Context.MODE_WORLD_READABLE);
+		File fullDir = context.getDir(fullPackageName, Context.MODE_PRIVATE);
 		if(activityDir == null || fullDir == null){
 			throw new CanNotCreatePackageException("The package can´t be crated");
 		}
@@ -204,14 +204,14 @@ public class FileSystemServiceImpl implements FileSystemService {
 		db.addResource(userName, activityName, packageName, resource);		
 		String fullPath = getFullPath(activityName, packageName);
 		try {
-			FileOutputStream output = context.openFileOutput(fullPath + "." + resource.getName(),Context.MODE_WORLD_READABLE);
+			FileOutputStream output = context.openFileOutput(fullPath + "." + resource.getName(),Context.MODE_PRIVATE);
 			byte[] bytes = new byte[1000];
 			int end = 0;
 			do{
 				end = resource.getResource().read(bytes,0,1000);
 				output.write(bytes);
-				output.flush();
 			}while(end >= 0);
+			output.flush();
 			output.close();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
