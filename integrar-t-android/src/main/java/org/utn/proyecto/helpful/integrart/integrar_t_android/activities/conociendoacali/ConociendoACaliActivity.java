@@ -100,7 +100,7 @@ public class ConociendoACaliActivity extends RoboActivity {
                 public void onClick(DialogInterface arg, int which) {
                     // TODO Auto-generated method stub
                     writeOnPreferenceCharacter(pos);
-                    showGifts(GiftCount.TREE, new DialogInterface.OnDismissListener() {
+                    showGifts(GiftCount.THREE, new DialogInterface.OnDismissListener() {
 						@Override
 						public void onDismiss(DialogInterface dialog) {
 							finish();
@@ -126,7 +126,7 @@ public class ConociendoACaliActivity extends RoboActivity {
     }
     
     private void showGifts(GiftCount value, DialogInterface.OnDismissListener listener){
-        user.addGifts(value==GiftCount.TREE ? 3 : 1);
+        user.addGifts(value==GiftCount.THREE ? 3 : 1);
         db.put("currentUser", user);
         Dialog dialog = new GiftPopup(this, user.getGifts(),value);
         if(listener!=null) dialog.setOnDismissListener(listener);

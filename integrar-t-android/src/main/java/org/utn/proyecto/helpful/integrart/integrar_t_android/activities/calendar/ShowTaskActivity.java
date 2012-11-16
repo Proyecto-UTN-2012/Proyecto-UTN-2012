@@ -169,7 +169,7 @@ public class ShowTaskActivity extends RoboActivity {
 	private void showGifts(boolean flag) {
 		user.addGifts(flag ? 3 : 1);
 		db.put("currentUser", user);
-		new GiftPopup(this, user.getGifts(), flag ? GiftCount.TREE : GiftCount.ONE).show();
+		new GiftPopup(this, user.getGifts(), flag ? GiftCount.THREE : GiftCount.ONE).show();
 	}
 	
 	private void sendFinalizeMetrics() {

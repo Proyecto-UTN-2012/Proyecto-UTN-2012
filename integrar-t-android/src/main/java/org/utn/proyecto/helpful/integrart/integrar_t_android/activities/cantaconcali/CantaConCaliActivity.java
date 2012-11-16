@@ -317,7 +317,7 @@ VerifyCharacter, RecognitionListener  {
                 mp.prepareAsync();
                 user.addGifts(3);
                 db.put("currentUser", user);
-                Dialog dialog = new GiftPopup(that, user.getGifts(), GiftCount.TREE);
+                Dialog dialog = new GiftPopup(that, user.getGifts(), GiftCount.THREE);
                 dialog.show();
                 dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
 					@Override

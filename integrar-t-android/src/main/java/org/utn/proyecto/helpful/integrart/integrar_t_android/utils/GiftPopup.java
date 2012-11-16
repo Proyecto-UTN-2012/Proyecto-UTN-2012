@@ -31,7 +31,7 @@ public class GiftPopup extends Dialog {
 	
 	{
 		animations.put(GiftCount.ONE, new SingleAnimation());
-		animations.put(GiftCount.TREE, new ComplexAnimation());
+		animations.put(GiftCount.THREE, new ComplexAnimation());
 	}
 	
 	public GiftPopup(Context context, int totalValue) {

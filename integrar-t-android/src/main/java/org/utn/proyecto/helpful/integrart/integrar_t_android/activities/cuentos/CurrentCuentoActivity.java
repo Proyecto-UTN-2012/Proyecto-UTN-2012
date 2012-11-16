@@ -418,7 +418,7 @@ public class CurrentCuentoActivity extends RoboActivity {
 					if(pagina.isLastPage()){
 						user.addGifts(3);
 						db.put("currentUser", user);
-						new GiftPopup(texto.getContext(), user.getGifts(), GiftCount.TREE).show();
+						new GiftPopup(texto.getContext(), user.getGifts(), GiftCount.THREE).show();
 					}
 				}
 			});

@@ -29,6 +29,24 @@
 				<configuration>
 					<attachClasses>true</attachClasses>
 					<classesClassifier>classes</classesClassifier>
+					<webResources>
+						<resource>
+							<directory>src/main/webapp/js</directory>
+							<filtering>true</filtering>
+							<targetPath>js</targetPath>
+							<includes>
+								<include>Login.js</include>
+							</includes>
+						</resource>
+						<resource>
+							<directory>${project.basedir}/src/main/webapp/js</directory>
+							<filtering>false</filtering>
+							<targetPath>js</targetPath>
+							<excludes>
+								<exclude>Login.js</exclude>
+							</excludes>
+						</resource>
+					</webResources>
 				</configuration>
 			</plugin>
 			<plugin>

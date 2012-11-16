@@ -224,7 +224,7 @@ public class HandPlayActivity extends RoboActivity implements OnTouchListener{
 		successSound.start();
 		user.addGifts(3);
 		db.put("currentUser", user);
-		new GiftPopup(this, user.getGifts(), GiftCount.TREE).show();
+		new GiftPopup(this, user.getGifts(), GiftCount.THREE).show();
 //		Animation anim = AnimationUtils.loadAnimation(this, R.anim.success_animarion);
 //		ok.startAnimation(anim);
 //		ok.setVisibility(View.VISIBLE);
