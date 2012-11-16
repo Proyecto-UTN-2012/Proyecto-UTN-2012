@@ -4,7 +4,6 @@
     style="?android:attr/textAppearanceLarge"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/logo"
     android:orientation="vertical"
     android:padding="25dp"
     tools:context=".menu.ItemDetailFragment" >
