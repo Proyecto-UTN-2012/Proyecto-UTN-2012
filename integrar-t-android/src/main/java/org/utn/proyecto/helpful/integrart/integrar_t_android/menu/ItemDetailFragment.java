@@ -37,7 +37,7 @@ public class ItemDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.mam_fragment_item_detail, container, false);
-        rootView.setBackgroundDrawable(mItem.bckground);
+       rootView.setBackgroundDrawable(mItem.bckground);
         if (mItem != null) {
            // ((TextView) rootView.findViewById(R.id.tv_activity_description)).setText(mItem.getActivityDescription());
         }
