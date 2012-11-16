@@ -91,10 +91,11 @@
 				
 				<db.host>localhost</db.host>
 				<db.port>27017</db.port>
-				
-				<integrar-t.settings.url>http://192.168.0.108:80/integrar-t-settings</integrar-t.settings.url>
-				<integrar-t.metrics.url>http://192.168.0.108:80/integrar-t-metrics</integrar-t.metrics.url>
-				<integrar-t.static.url>http://192.168.0.108:80/static</integrar-t.static.url>
+				<local.settings.url>http://localhost/integrar-t-settings</local.settings.url>
+				<local.metrics.url>http://localhost/integrar-t-metrics</local.metrics.url>
+				<integrar-t.settings.url>http://192.168.1.117:80/integrar-t-settings</integrar-t.settings.url>
+				<integrar-t.metrics.url>http://192.168.1.117:80/integrar-t-metrics</integrar-t.metrics.url>
+				<integrar-t.static.url>http://192.168.1.117:80/static</integrar-t.static.url>
 			</properties>
 		</profile>
 	</profiles>

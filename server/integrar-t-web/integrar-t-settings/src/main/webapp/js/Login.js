@@ -3,8 +3,8 @@ var auth = new OAuth({
 	  context:window,
 	  scope:"https://www.googleapis.com/auth/userinfo.email",
 	  clientId:"1068131665254.apps.googleusercontent.com",
-	 // redirectUri:"${integrar-t.settings.url}",
-	  redirectUri:"http://localhost:8080/integrar-t-settings/",
+	  //redirectUri:"${local.settings.url}",
+	  redirectUri:"http://localhost:8080/integrar-t-settings",
 	  authorizationEndpoint:"https://accounts.google.com/o/oauth2/auth"
 	});
 

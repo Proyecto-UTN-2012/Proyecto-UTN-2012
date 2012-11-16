@@ -42,11 +42,19 @@ public class Task implements Comparable<Task>{
 	}
 	
 	public Drawable getLargeImage(){
-		return type.getLargeImage();
+		if(type.getLargeImage()!=null)
+			return type.getLargeImage();
+		if(type.getSmallImage()!=null)
+			return type.getSmallImage();
+		return type.getPictogram();
 	}
 	
 	public Drawable getSmallImage(){
-		return type.getSmallImage();
+		if(type.getSmallImage()!=null)
+			return type.getSmallImage();
+		if(type.getPictogram()!=null)
+			return type.getPictogram();
+		return type.getLargeImage();
 	}
 	
 	public boolean initAtHour(int hour){

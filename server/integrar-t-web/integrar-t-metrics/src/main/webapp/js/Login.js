@@ -4,8 +4,8 @@ var auth = new OAuth({
 	  context:window,
 	  scope:"https://www.googleapis.com/auth/userinfo.profile",
 	  clientId:"964953094604.apps.googleusercontent.com",
-	  redirectUri:"${integrar-t.metrics.url}",
-	  //redirectUri:"http://localhost:8081/integrar-t-metrics/",
+	  //redirectUri:"${local.metrics.url}",
+	  redirectUri:"http://localhost:8081/integrar-t-metrics",
 	  authorizationEndpoint:"https://accounts.google.com/o/oauth2/auth"
 	});
 

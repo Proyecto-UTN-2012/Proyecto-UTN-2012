@@ -62,8 +62,8 @@ public class CalendarDataLoader {
 		TaskTypeData[] taskData = db.get(OrganizarTUpdateService.getTaskTypesKey(user), TaskTypeData[].class);
 		for(TaskTypeData data : taskData){
 			String name = data.getName().replaceAll(" ", "_");
-			Drawable pictogram = (Drawable) fileService.getResource(ACTIVITY_NAME, name + "_pictogram.png").getResource();
 			Drawable large = (Drawable) fileService.getResource(ACTIVITY_NAME, name + "_large.png").getResource();
+			Drawable pictogram = (Drawable) fileService.getResource(ACTIVITY_NAME, name + "_pictogram.png").getResource();
 			Drawable small = (Drawable) fileService.getResource(ACTIVITY_NAME, name + "_small.png").getResource();
 			taskTypes.add(new TaskType(data.getName(), pictogram, large, small));
 		}
