@@ -101,6 +101,7 @@ public class LoginActivity extends RoboActivity implements EventListener<User>{
 	private void checkFirstUser(User user) {
 		String serialId = Secure.getString(getContentResolver(), Secure.ANDROID_ID);
 		if(dbService.contain("users")) return;
+		dbService.put(user.getUserName()+ ".cac_personaje_seleccionado", R.drawable.cali1);
 		users = new User[0];
 		dbService.put("users", users);
 		user.setDevice(serialId);
