@@ -55,6 +55,7 @@ public class CantaUpdateService implements OnArriveNewResources, OnArriveResourc
 	}
 	
 	private void findData(){
+		if(comService.isOffLine()) return;
 		comService.findResource(
 				ExternalResourceType.SETTINGS, 
 				GET_DATA_RESOURCE, 

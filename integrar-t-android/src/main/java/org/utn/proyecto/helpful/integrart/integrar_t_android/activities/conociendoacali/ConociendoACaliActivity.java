@@ -11,7 +11,6 @@ import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,6 +23,7 @@ import android.widget.ImageView;
 
 import com.google.inject.Inject;
 
+@SuppressWarnings("deprecation")
 @ContentView(R.layout.cac_selecciondepersonaje)
 public class ConociendoACaliActivity extends RoboActivity {
 
@@ -36,7 +36,8 @@ public class ConociendoACaliActivity extends RoboActivity {
     @InjectView(R.id.cac_picture)
     private ImageView imagen;
     
-    @InjectView(R.id.cac_gallery)
+    @SuppressWarnings("deprecation")
+	@InjectView(R.id.cac_gallery)
     private Gallery galeria;
     
     private PictureAdapter adaptadorDeImagen;

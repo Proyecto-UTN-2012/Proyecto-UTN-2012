@@ -17,7 +17,6 @@
         android:text="@string/organizarTListTitle"
         android:textAppearance="@style/ButtonText"
         android:textSize="35sp" />
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

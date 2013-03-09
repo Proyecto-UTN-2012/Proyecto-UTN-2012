@@ -9,7 +9,7 @@
   	<artifactId>integrar-t-android</artifactId>
   	<version>0.0.1-SNAPSHOT</version>
   	<packaging>apk</packaging>
-  	<name>integrar-t-android</name>
+  	<name>integrarTAndroid</name>
   	<dependencies>
 		<!-- Testing -->
 		<dependency>

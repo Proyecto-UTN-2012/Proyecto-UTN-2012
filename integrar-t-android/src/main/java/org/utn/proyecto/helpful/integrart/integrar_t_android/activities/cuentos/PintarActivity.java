@@ -408,6 +408,7 @@ public class PintarActivity extends RoboActivity implements
 		@Override
 		public void onDraw(Canvas canvas) {
 			super.onDraw(canvas);
+			if(canvas==null) return;
 			if (bitmap == null && view.getWidth() > 0)
 				bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(),
 						Config.ARGB_8888);
@@ -415,7 +416,7 @@ public class PintarActivity extends RoboActivity implements
 			Canvas buffer = null;
 			if (bitmap != null)
 				buffer = new Canvas(bitmap);
-
+			
 			for (MyPaint path : paths) {
 				buffer.drawColor(0);
 				canvas.drawPath(path.getPath(), path.getPaint());
