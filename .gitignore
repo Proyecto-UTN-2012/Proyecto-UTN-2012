@@ -9,7 +9,6 @@ Servers
 test-output
 META-INF
 bin
-libs
 build
 statics
 project.properties
