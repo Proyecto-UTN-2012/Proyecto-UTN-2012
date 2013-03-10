@@ -205,13 +205,11 @@ public class FileSystemServiceImpl implements FileSystemService {
 		String fullPath = getFullPath(activityName, packageName);
 		try {
 			FileOutputStream output = context.openFileOutput(fullPath + "." + resource.getName(),Context.MODE_PRIVATE);
-			byte[] bytes = new byte[1000];
+			InputStream io = resource.getResource();
+			byte[] bytes = new byte[1024];
 			int end = 0;
-			do{
-				end = resource.getResource().read(bytes,0,1000);
-				output.write(bytes);
-			}while(end >= 0);
-			output.flush();
+			while((end = io.read(bytes)) != -1 )
+				output.write(bytes, 0, end);
 			output.close();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
