@@ -16,14 +16,22 @@ import org.utn.proyecto.helpful.integrart.integrar_t_android.metrics.MetricsServ
 import org.utn.proyecto.helpful.integrart.integrar_t_android.services.DataStorageService;
 
 import roboguice.service.RoboIntentService;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.text.format.DateFormat;
+import android.util.Log;
 
 import com.google.inject.Inject;
 
 public class TaskNotificationService extends RoboIntentService {
-	public static final String TASK_NOTIFICATION_STARTED = ".taskNotificationsStartedv6";
+	private static final String TAG = "TaskNotificationService";
+	// Use a layout id for a unique identifier
+    private static final int MOOD_NOTIFICATIONS = 1300043;
 	
 	@Inject
 	private DataStorageService db;
@@ -36,38 +44,49 @@ public class TaskNotificationService extends RoboIntentService {
 	@Inject
 	private MetricsService metricsService;
 	
+	@Inject
 	private User user;
+	
 	private boolean end;
 	private boolean running;
 	
 	private MediaPlayer alarm;
 	
+	private NotificationManager manager;
+	
 	
 	public TaskNotificationService(){
-		super("TaskNotificationService");
+		super(TAG);
 	}
 	
 	
 	public void onCreate(){
 		super.onCreate();
-		this.user = db.get("currentUser", User.class);
+		if(this.running) return;
+		manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+		Intent intent = new Intent(this, TaskNotificationService.class);
+		PendingIntent pintent = PendingIntent.getService(this, 0, intent, 0);
+		AlarmManager alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+		alarm.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(), 30*1000, pintent);
+		Log.i(TAG, "OnCreate Service");
 	}
 	
 	@Override
 	public boolean stopService(Intent service){
+		Log.i(TAG, "Stop Service");
 		this.end = true;
-		db.delete(user.getUserName() + TASK_NOTIFICATION_STARTED);
 		return super.stopService(service);
 	}
 	
 	@Override
 	public void onDestroy(){
+		Log.i(TAG, "Destroy Service");
 		this.end = true;
-		db.delete(user.getUserName() + TASK_NOTIFICATION_STARTED);
 		super.onDestroy();
 	}
 	
 	private void processTask(Task task){
+		Log.i(TAG, "Process Task" + task.toString());
 		loader.saveCurrentTask(task);
 		if(alarm==null)	alarm = MediaPlayer.create(this, R.raw.hangout_ringtone);
 		alarm.setLooping(false);
@@ -80,21 +99,38 @@ public class TaskNotificationService extends RoboIntentService {
 				try {
 					alarm.prepare();
 				} catch (Exception e) {
+					Log.i(TAG, "Alarm Error");
 					throw new RuntimeException(e);
 				} 
 			}
 		}, 10000);
-		Intent newIntent = new Intent(this, ShowTaskActivity.class);
-		newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		startActivity(newIntent);
+
+		Intent intent = new Intent(this, ShowTaskActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
+				intent, 0);
+		
+//		Notification notification = new Notification(R.drawable.icon_trans_icon, null, System.currentTimeMillis());
+		Notification.Builder builder = new Notification.Builder(this)
+			.setContentTitle(getString(R.string.newTaskMessage))
+			.setContentText(task.getName())
+			.setSmallIcon(R.drawable.icon_trans_icon)
+			.setContentIntent(pendingIntent)
+			.setAutoCancel(true);
+//		notification.setLatestEventInfo(this, getString(R.string.newTaskMessage),
+//                task.getName(), pendingIntent);
+		Notification note = builder.build();
+		note.ledARGB = 0xffff6000;
+		note.flags = Notification.FLAG_AUTO_CANCEL /*| Notification.FLAG_ONGOING_EVENT*/ | Notification.FLAG_SHOW_LIGHTS;
+		manager.notify(MOOD_NOTIFICATIONS, note);
+//		startForeground(1335667, note);
 	}
 
 	@Override
 	protected void onHandleIntent(Intent intent) {
 		if(running) return;
 		running = true;
-		//if(db.contain(user.getUserName() + TASK_NOTIFICATION_STARTED)) return;
-		db.put(user.getUserName() + TASK_NOTIFICATION_STARTED, true);
+		Log.i(TAG, "Start Service");
 		while(!end){
 			Calendar date = Calendar.getInstance();
 			List<Task> tasks = loader.loadTodayTasks(date);
@@ -119,14 +155,17 @@ public class TaskNotificationService extends RoboIntentService {
 				try{
 					wait(delay);						
 				}catch(Exception e){
+					Log.i(TAG, "Synchronize Error");
 					throw new RuntimeException(e);
 				}
 			}
 		}
+		Log.i(TAG, "End Service");
 	}
 
 
 	private void processEndDay(List<Task> tasks) {
+		Log.i(TAG, "Process end day");
 		int completedTasksCount = CollectionUtils.countMatches(tasks, new Predicate() {
 			@Override
 			public boolean evaluate(Object object) {

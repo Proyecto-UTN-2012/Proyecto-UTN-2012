@@ -17,6 +17,7 @@
 	<string name="deleteTaskTitle">Tarea Repetible</string>
 	<string name="deleteTaskMessage">Esta tarea está marcada como "Reptible". Por favor, antes de eliminar la tarea desmarque los días en que se repite.</string>
 	<string name="organizarTListTitle">Tareas de hoy</string>
+	<string name="newTaskMessage">Acción Pendiente</string>
 	<string name="notNextTask">No hay Próxima Tarea, buenas noches!</string>
 	<string name="handPlayHelpMessage">Para comenzar debes apoyar los cinco dedos de la mano en la pantalla, sin apoyar la palma y con los dedos lo más separados posible.</string>	
 	<string name="handPlayHideHelp">Dejar de mostrar este mensaje</string>
